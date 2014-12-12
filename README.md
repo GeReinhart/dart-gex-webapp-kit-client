@@ -1,10 +1,21 @@
-# gex_common_ui_elements
+# Lib gex-common-ui-elements
 
-A starter template for a polymer.dart web app.
+## Aim
 
-## Creating new elements
+Provide a set of common WebComponent to be able to build Responsive web applications. 
 
-The `polymer` package includes a utility to generate new elements. From
-within this project, run:
+## Stack
 
-`pub run polymer:new_element <name>`
+- Polymer.dart
+
+## Development guide lines
+- Write reusable code
+- TDD 
+- Continuous integration (using [drone.io][1])
+
+## Used by 
+- [app-connecting-dartisans][2]
+
+
+[1]: http://www.drone.io
+[2]: https://github.com/GeReinhart/app-connecting-dartisans
