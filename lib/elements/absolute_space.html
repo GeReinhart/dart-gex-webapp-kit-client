@@ -1,0 +1,21 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+<polymer-element name="gex-absolute-space" attributes ="backgroundColor">
+  <template>
+    <style>
+      :host {
+          z-index: 0 ;
+          position: absolute;
+          overflow-x: hidden;
+          overflow-y: hidden;
+          margin: 0px; 
+          padding: 0px; 
+          width: 100%;
+          height: 100%;
+          }
+    </style>
+    <content></content>
+  </template>
+  <script type="application/dart" src="absolute_space.dart"></script>
+</polymer-element>
