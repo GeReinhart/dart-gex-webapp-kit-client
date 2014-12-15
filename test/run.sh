@@ -1,8 +1,8 @@
 #!/bin/bash
 
-
 function analyze-sources {
-        echo "analyze-sources"
+        echo "##################################"
+        echo "## analyze-sources"
 	results=$(dartanalyzer lib/*.dart 2>&1)
 	echo "$results"
 	if [[ "$results" != *"No issues found"* ]]
@@ -12,7 +12,8 @@ function analyze-sources {
 }
 
 function install-content_shell {
-	echo "install content_shell if not already present"
+        echo "##################################"
+	echo "## install content_shell if not already present"
 	which content_shell
 	if [[ $? -ne 0 ]]; then
 	  $DART_SDK/../chromium/download_contentshell.sh
@@ -24,7 +25,9 @@ function install-content_shell {
 }
 
 function launch-test  {
-	echo "launch test on $1"
+        url=http://localhost:8080/$1
+        echo "##################################"
+	echo "## launch test on $url"
 	# Start pub serve
 	pub serve test &
 	pub_pid=$!
@@ -33,7 +36,7 @@ function launch-test  {
 	sleep 15
 
 	# Run a set of Dart Unit tests
-	results=$(content_shell --dump-render-tree http://localhost:8080/$1)
+	results=$(content_shell --dump-render-tree $url)
 	echo -e "$results"
 
 	kill $pub_pid
