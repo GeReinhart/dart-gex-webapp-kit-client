@@ -36,7 +36,7 @@ function launch-test  {
 	sleep 15
 
 	# Run a set of Dart Unit tests
-	results=$(content_shell --dump-render-tree $url)
+	results=$(xvfb-run -s '-screen 0 1024x768x24' content_shell --dump-render-tree $url)
 	echo -e "$results"
 
 	kill $pub_pid
