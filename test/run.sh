@@ -1,46 +1,65 @@
 #!/bin/bash
 
-# Static type analysis
-results=$(dartanalyzer lib/*.dart 2>&1)
-echo "$results"
-if [[ "$results" != *"No issues found"* ]]
-then
-    exit 1
-fi
-echo "Looks good!"
-echo
 
-# Install content_shell if not already present
-which content_shell
-if [[ $? -ne 0 ]]; then
-  $DART_SDK/../chromium/download_contentshell.sh
-  unzip content_shell-linux-x64-release.zip
+function analyze-sources {
+        echo "analyze-sources"
+	results=$(dartanalyzer lib/*.dart 2>&1)
+	echo "$results"
+	if [[ "$results" != *"No issues found"* ]]
+	then
+	    exit 1
+	fi
+}
 
-  cs_path=$(ls -d drt-*)
-  PATH=$cs_path:$PATH
-fi
+function install-content_shell {
+	echo "install content_shell if not already present"
+	which content_shell
+	if [[ $? -ne 0 ]]; then
+	  $DART_SDK/../chromium/download_contentshell.sh
+	  unzip content_shell-linux-x64-release.zip
 
-# Start pub serve
-pub serve &
-pub_pid=$!
+	  cs_path=$(ls -d drt-*)
+	  PATH=$cs_path:$PATH
+	fi
+}
 
-# Wait for server to build elements and spin up...
-sleep 15
+function launch-test  {
+	echo "launch test on $1"
+	# Start pub serve
+	pub serve test &
+	pub_pid=$!
 
-# Run a set of Dart Unit tests
-results=$(content_shell --dump-render-tree http://localhost:8081)
-echo -e "$results"
+	# Wait for server to build elements and spin up...
+	sleep 15
 
-kill $pub_pid
+	# Run a set of Dart Unit tests
+	results=$(content_shell --dump-render-tree http://localhost:8080/$1)
+	echo -e "$results"
 
-# check to see if DumpRenderTree tests
-# failed, since it always returns 0
-if [[ "$results" == *"Some tests failed"* ]]
-then
-    exit 1
-fi
+	kill $pub_pid
 
-if [[ "$results" == *"Exception: "* ]]
-then
-    exit 1
-fi
+	# check to see if DumpRenderTree tests
+	# failed, since it always returns 0
+	if [[ "$results" == *"Some tests failed"* ]]
+	then
+	    exit 1
+	fi
+
+	if [[ "$results" == *"Exception: "* ]]
+	then
+	    exit 1
+	fi
+}
+
+
+analyze-sources
+install-content_shell
+launch-test test_extensible_button.html
+
+
+
+
+
+
+
+
