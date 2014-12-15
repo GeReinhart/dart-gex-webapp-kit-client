@@ -1,5 +1,7 @@
 # Lib gex-common-ui-elements
 
+[![Build Status](https://drone.io/github.com/GeReinhart/dart-gex-common-ui-elements/status.png)](https://drone.io/github.com/GeReinhart/dart-gex-common-ui-elements/latest)
+
 ## Aim
 
 Provide a set of common WebComponent to be able to build Responsive web applications. 
