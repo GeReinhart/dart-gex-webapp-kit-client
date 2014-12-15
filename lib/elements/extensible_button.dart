@@ -33,18 +33,19 @@ class ExtensibleButton  extends Positionable {
    
   }
   
-  void moveTo(SquarePosition position) {
+  void moveTo(Position position) {
     super.moveTo(position);
     if (position.width < 100 ){
       _labelSpan.style.display = "none" ;
     }
     String squareSize = "${position.smallerSection * .76}px";
-    String margin = "${position.smallerSection * (1-.76)/2 }px";
+    String smallMargin = "${position.smallerSection * (1-.76)/2 }px";
+    String largeMargin = "${position.smallerSection * (1-.76)/2  + ( position.largerSection - position.smallerSection)/2 }px";
     _imageElement.style
         ..width  = squareSize   
         ..height = squareSize
-        ..top = margin
-        ..left = margin;
+        ..top = position.top < position.width ? smallMargin : largeMargin
+        ..left = position.top > position.width ? smallMargin : largeMargin;
   }
   
   bool get isButtonLabelVisible => _labelSpan.style.display != "none" ;

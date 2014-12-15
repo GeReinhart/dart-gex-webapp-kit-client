@@ -22,13 +22,13 @@ abstract class Positionable extends PolymerElement with Identifiable{
   
   @published String id;
   
-  SquarePosition position = new SquarePosition.empty();
+  Position position = new Position.empty();
   
   Positionable.created() : super.created() {
     log.fine("Positionable object created with name: ${id}");
   }
   
-  void moveTo(SquarePosition position) {
+  void moveTo(Position position) {
     log.fine("Moving ${id} to ${position}");
     this.position = position;
     _moveToTargetPosition();
@@ -48,17 +48,18 @@ abstract class Positionable extends PolymerElement with Identifiable{
 }
 
 
-class SquarePosition {
+class Position {
   num left ;
   num top ;
   num width ;
   num height ;
   num zIndex;
   
-  SquarePosition.empty();
-  SquarePosition(this.left,this.top,this.width,this.height,this.zIndex);
+  Position.empty();
+  Position(this.left,this.top,this.width,this.height,this.zIndex);
   
   num get smallerSection => width>height?height:width;
+  num get largerSection => width<height?height:width;
   
   @override
   String toString() => "SquarePosition: left:${left}, top:${top}, width:${width}, height:${height}, zIndex:${zIndex}";

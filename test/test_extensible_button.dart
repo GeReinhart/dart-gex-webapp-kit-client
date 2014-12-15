@@ -32,8 +32,8 @@ main() {
 
     group('text: ', (){
       setUp((){
-        smallButton.moveTo( new SquarePosition(200, 100, 50, 50, 101));
-        largeButton.moveTo( new SquarePosition(300, 100, 200, 200, 101));
+        smallButton.moveTo( new Position(200, 100, 50, 50, 101));
+        largeButton.moveTo( new Position(300, 100, 200, 200, 101));
       });
 
       test('small button shouldn''t show the text', (){
@@ -48,9 +48,9 @@ main() {
 
     group('image: ', (){
       setUp((){
-        smallButton.moveTo( new SquarePosition(200, 100, 50, 50, 101));
-        largeButton.moveTo( new SquarePosition(300, 100, 200, 200, 101));
-        noImageButton.moveTo( new SquarePosition(600, 100, 200, 200, 101));
+        smallButton.moveTo( new Position(200, 100, 50, 50, 101));
+        largeButton.moveTo( new Position(300, 100, 250, 150, 101));
+        noImageButton.moveTo( new Position(600, 100, 200, 200, 101));
       });
 
       test('image should be visible', (){
@@ -61,7 +61,9 @@ main() {
       test('image should be center and proportial to the size of the button', (){
         
         ImageElement smallImageElement = smallButton.imageElement ;
-        SquarePosition smallButtonPosition = smallButton.position ;
+        ImageElement largeImageElement = largeButton.imageElement ;
+        Position smallButtonPosition = smallButton.position ;
+        Position largeButtonPosition = largeButton.position ;
         
         expect( smallImageElement.src  , endsWith("/images/button/dart-logo.png"));
         expect( extractInt(smallImageElement.style.width)  , lessThan(smallButtonPosition.width * .80));
@@ -69,6 +71,12 @@ main() {
         expect(smallImageElement.style.height  , equals(smallImageElement.style.width));
         expect( extractInt(smallImageElement.style.top)  , greaterThan(smallButtonPosition.height * .05));
         expect( extractInt(smallImageElement.style.left)  , greaterThan(smallButtonPosition.width * .05));
+        
+        expect( extractInt(largeImageElement.style.width)  , lessThan(largeButtonPosition.width * .80));
+        expect( extractInt(largeImageElement.style.height)  , lessThan(largeButtonPosition.height * .80));
+        expect(largeImageElement.style.height  , equals(largeImageElement.style.width));
+        expect( extractInt(largeImageElement.style.top)  , greaterThan(largeButtonPosition.height * .05));
+        expect( extractInt(largeImageElement.style.left)  , greaterThan(largeButtonPosition.width * .25));
         
       });
       
