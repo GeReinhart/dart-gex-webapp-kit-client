@@ -34,8 +34,8 @@ class MainApp extends PolymerElement {
     searchButton = $["searchButton"] as ExtensibleButton ;
     registerAsDartisanButton = $["registerAsDartisanButton"] as ExtensibleButton ;
         
-    searchButton.moveTo( new SquarePosition(10, 10, 100, 50, 101));
-    registerAsDartisanButton.moveTo( new SquarePosition(115, 10, 100, 50, 101));
+    searchButton.moveTo( new SquarePosition(200, 100, 120, 75, 101));
+    registerAsDartisanButton.moveTo( new SquarePosition(400, 50, 120, 75, 101));
   }
   
   void setUpEventsOnElements(){
