@@ -48,7 +48,7 @@ main() {
       });
 
       test('large button should show the text', (){
-        expect( largeButton.isButtonLabelVisible  , isFalse); 
+        expect( largeButton.isButtonLabelVisible  , isTrue); 
       });
       
     });
