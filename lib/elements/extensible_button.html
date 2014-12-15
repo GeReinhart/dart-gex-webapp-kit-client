@@ -1,15 +1,15 @@
 <!-- import polymer-element's definition -->
 <link rel="import" href="../../../packages/polymer/polymer.html">
 
-<polymer-element name="gex-extensible-button" attributes ="id name backgroundColor">
+<polymer-element name="gex-extensible-button" attributes ="id label backgroundColor">
   <template>
     <style>
       :host {
           text-align:center;
-       }    
+       }
     </style>
-    <img src="/images/button/search54.png" style="position: absolute; height:50px; width:50px;  left:35px ; top:12px;   z-index: 101;" />
-    <span style="z-index: 102; position: absolute;  width:100%;  left:0px ; bottom:3px; " >{{name}}</span>
+    <img  id="image" src="/images/button/dart-logo.png" style="position: absolute; height:50px; width:50px;  left:35px ; top:12px;   z-index: 101;" />
+    <span id="label" style="z-index: 102; position: absolute;  width:100%;  left:0px ; bottom:3px; " >{{label}}</span>
     
   </template>
   <script type="application/dart" src="extensible_button.dart"></script>

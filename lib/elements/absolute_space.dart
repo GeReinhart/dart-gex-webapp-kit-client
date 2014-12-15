@@ -1,12 +1,14 @@
+library gex_common_ui_elements.absolute_space;
+
 import 'package:polymer/polymer.dart';
 
 
 @CustomTag('gex-absolute-space')
-class CodelabElement extends PolymerElement {
+class AbsoluteSpace extends PolymerElement {
   
   @published String backgroundColor = "black";
   
-  CodelabElement.created() : super.created() ;
+  AbsoluteSpace.created() : super.created() ;
   
   void ready() {
     super.ready();

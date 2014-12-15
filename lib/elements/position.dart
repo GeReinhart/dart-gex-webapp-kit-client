@@ -1,4 +1,4 @@
-library gex_common_ui_elements.models;
+library gex_common_ui_elements.position;
 
 import "dart:html";
 import 'package:polymer/polymer.dart';

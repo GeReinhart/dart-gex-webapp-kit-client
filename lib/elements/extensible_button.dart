@@ -1,3 +1,5 @@
+library gex_common_ui_elements.extensible_button;
+
 import "dart:html";
 import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
@@ -7,15 +9,14 @@ import "position.dart";
  * It launch an event on the click on the button.
  */
 @CustomTag('gex-extensible-button')
-
 class ExtensibleButton  extends Positionable {
 
   final Logger log = new Logger('ExtensibleButton');
-  @published String name;
+  @published String label;
   @published String backgroundColor;
   
   ExtensibleButton.created() : super.created() {
-    log.info("ExtensibleButton created with name: ${name}");
+    log.info("ExtensibleButton created with label: ${label}");
   }
 
   void ready() {
@@ -23,6 +24,19 @@ class ExtensibleButton  extends Positionable {
     this.style.backgroundColor = backgroundColor; 
   }
   
+  void moveTo(SquarePosition position) {
+    super.moveTo(position);
+    if (position.width < 100 ){
+      _labelSpan.style.display = "none" ;
+    }
+  }
+  
+  bool get isButtonLabelVisible => _labelSpan.style.display != "none" ;
+  bool get isImageVisible => _imageElement.style.display != "none" ;
+  
+  SpanElement get _labelSpan => $["label"] as SpanElement;
+  ImageElement get _imageElement => $["image"] as ImageElement;
+    
   
   /*
    * Optional lifecycle methods - uncomment if needed.
