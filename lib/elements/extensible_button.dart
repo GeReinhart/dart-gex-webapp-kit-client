@@ -12,7 +12,8 @@ import "position.dart";
 class ExtensibleButton  extends Positionable {
 
   final Logger log = new Logger('ExtensibleButton');
-  @published String label;
+  @published String label = "";
+  @published String image = "";
   @published String backgroundColor;
   
   ExtensibleButton.created() : super.created() {
@@ -21,7 +22,15 @@ class ExtensibleButton  extends Positionable {
 
   void ready() {
     super.ready();
-    this.style.backgroundColor = backgroundColor; 
+    this.style.backgroundColor = backgroundColor;
+    if( image.isNotEmpty ){
+      _imageElement.style.display = "inline" ;
+      _imageElement.src = image ;
+    }else{
+      _imageElement.style.display = "none" ;
+    }
+    
+   
   }
   
   void moveTo(SquarePosition position) {
@@ -29,13 +38,21 @@ class ExtensibleButton  extends Positionable {
     if (position.width < 100 ){
       _labelSpan.style.display = "none" ;
     }
+    String squareSize = "${position.smallerSection * .76}px";
+    String margin = "${position.smallerSection * (1-.76)/2 }px";
+    _imageElement.style
+        ..width  = squareSize   
+        ..height = squareSize
+        ..top = margin
+        ..left = margin;
   }
   
   bool get isButtonLabelVisible => _labelSpan.style.display != "none" ;
-  bool get isImageVisible => _imageElement.style.display != "none" ;
+  bool get isImageVisible => _imageElement.style.display != "none" && _imageElement.src.isNotEmpty ;
   
   SpanElement get _labelSpan => $["label"] as SpanElement;
   ImageElement get _imageElement => $["image"] as ImageElement;
+  ImageElement get imageElement => _imageElement.clone(true);
     
   
   /*

@@ -58,6 +58,8 @@ class SquarePosition {
   SquarePosition.empty();
   SquarePosition(this.left,this.top,this.width,this.height,this.zIndex);
   
+  num get smallerSection => width>height?height:width;
+  
   @override
   String toString() => "SquarePosition: left:${left}, top:${top}, width:${width}, height:${height}, zIndex:${zIndex}";
   
