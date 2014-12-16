@@ -1,0 +1,1 @@
+web: ./dart-sdk/bin/pub serve web --port $PORT
