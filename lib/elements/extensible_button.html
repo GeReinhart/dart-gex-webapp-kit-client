@@ -1,5 +1,7 @@
 <!-- import polymer-element's definition -->
 <link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../packages/paper_elements/paper_shadow.html">
+<link rel="stylesheet" href="../../packages/paper_elements/src/paper-shadow/paper-shadow.css">
 
 <polymer-element name="gex-extensible-button" attributes ="id label image backgroundColor">
   <template>
@@ -9,9 +11,10 @@
           
        }
     </style>
-    <img  id="image" style="z-index: 101; position: absolute;" />
-    <span id="label" style="z-index: 102; position: absolute;  width:100%;  left:0px ; bottom:3px; " >{{label}}</span>
-    
+    <paper-shadow id="shadow" class="card" z="2">
+      <img  id="image" style="z-index: 101; position: absolute;" />
+      <span id="label" style="z-index: 102; position: absolute;  width:100%;  left:0px ; bottom:3px; " >{{label}}</span>
+    </paper-shadow>
   </template>
   <script type="application/dart" src="extensible_button.dart"></script>
 </polymer-element>

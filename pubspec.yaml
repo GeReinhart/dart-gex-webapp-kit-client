@@ -17,3 +17,4 @@ transformers:
     entry_points:
       - web/index.html
       - test/test_extensible_button.html
+      
