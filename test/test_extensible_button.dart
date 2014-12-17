@@ -48,9 +48,9 @@ main() {
 
     group('image: ', (){
       setUp((){
-        smallButton.moveTo( new Position(200, 100, 50, 50, 101));
-        largeButton.moveTo( new Position(300, 100, 250, 150, 101));
-        noImageButton.moveTo( new Position(600, 100, 200, 200, 101));
+        smallButton.moveTo( new Position(200, 100, 50, 50, 100));
+        largeButton.moveTo( new Position(300, 100, 250, 150, 100));
+        noImageButton.moveTo( new Position(600, 100, 200, 200, 100));
       });
 
       test('image should be visible', (){
@@ -79,6 +79,10 @@ main() {
         expect( extractInt(largeImageElement.style.left)  , greaterThan(largeButtonPosition.width * .25));
         
       });
+      
+      test('zIndex', (){
+        expect( smallButton.style.zIndex  , equals("${smallButton.position.zIndex}"));
+      });      
       
     });
     

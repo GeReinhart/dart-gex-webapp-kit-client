@@ -39,11 +39,11 @@ class MainApp extends PolymerElement {
     registerAsCompagnyButton = $["registerAsCompagnyButton"] as ExtensibleButton ; 
     loginButton = $["loginButton"] as ExtensibleButton ; 
     
-    menuButton.moveTo( new Position(0, 0, 120, 120, 101));
-    searchButton.moveTo( new Position(120, 0, 120, 120, 101));
-    registerAsDartisanButton.moveTo( new Position(240, 0, 120, 120, 101));
-    registerAsCompagnyButton.moveTo( new Position(360, 0, 120, 120, 101));
-    loginButton.moveTo( new Position(480, 0, 120, 120, 101));
+    menuButton.moveTo( new Position(0, 0, 150, 120, 101));
+    searchButton.moveTo( new Position(150, 0, 150, 120, 101));
+    registerAsDartisanButton.moveTo( new Position(300, 0, 150, 120, 101));
+    registerAsCompagnyButton.moveTo( new Position(450, 0, 150, 120, 101));
+    loginButton.moveTo( new Position(600, 0, 150, 120, 101));
   }
   
   void setUpEventsOnElements(){

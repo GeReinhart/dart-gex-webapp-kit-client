@@ -6,11 +6,8 @@ import 'package:logging/logging.dart';
 
 
 class Identifiable{
-  
   String id;
-  
 }
-
 
 /**
  * Be able to move the element in an absolute space.
@@ -43,7 +40,6 @@ abstract class Positionable extends PolymerElement with Identifiable{
         ..height = "${position.height}px" 
         ..zIndex = position.zIndex.toString() ;
   }
-  
   
 }
 
