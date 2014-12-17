@@ -4,6 +4,7 @@ import "dart:html";
 import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 import 'package:paper_elements/paper_shadow.dart';
+import 'package:paper_elements/paper_button.dart';
 import "position.dart";
 /**
  * An gex-extensible-button, change it's display according to the space it can to take.
@@ -34,11 +35,11 @@ class ExtensibleButton  extends Positionable {
     _shadow.animated= true;
     this.onMouseDown.listen((_)=>_onMouseDown());
     this.onMouseUp.listen((_)=>_onMouseUp() );
-   
   }
   
   void _clickOnButton() {
     log.fine("Click on ${id}");
+    _button.click();
   }
   void _onMouseDown() {
     log.fine("onMouseDown on ${id}");
@@ -56,14 +57,24 @@ class ExtensibleButton  extends Positionable {
     if (position.width < 100 ){
       _labelSpan.style.display = "none" ;
     }
-    String squareSize = "${position.smallerSection * .76}px";
-    String smallMargin = "${position.smallerSection * (1-.76)/2 }px";
-    String largeMargin = "${position.smallerSection * (1-.76)/2  + ( position.largerSection - position.smallerSection)/2 }px";
+    String squareSize = "${position.smallerSection * .50}px";
+    String smallMargin = "${position.smallerSection * (1-.50)/2 }px";
+    String largeMargin = "${position.smallerSection * (1-.50)/2  + ( position.largerSection - position.smallerSection)/2 }px";
     _imageElement.style
         ..width  = squareSize   
         ..height = squareSize
         ..top = position.top < position.width ? smallMargin : largeMargin
         ..left = position.top > position.width ? smallMargin : largeMargin;
+        
+    _button.style
+       ..zIndex = "103" 
+       ..width= "${position.width}px"
+       ..height= "${position.height}px";
+       Element div =  $["button"].shadowRoot.querySelector('div') ;
+       div.style
+          ..width= "${position.width}px"
+          ..height= "${position.height}px";
+       
   }
   
   bool get isButtonLabelVisible => _labelSpan.style.display != "none" ;
@@ -73,7 +84,7 @@ class ExtensibleButton  extends Positionable {
   ImageElement get _imageElement => $["image"] as ImageElement;
   ImageElement get imageElement => _imageElement.clone(true);
   PaperShadow get _shadow => $["shadow"] as PaperShadow;
-    
+  PaperButton get _button => $["button"] as PaperButton;    
   
   /*
    * Optional lifecycle methods - uncomment if needed.
@@ -104,3 +115,5 @@ class ExtensibleButton  extends Positionable {
   
 
 }
+
+

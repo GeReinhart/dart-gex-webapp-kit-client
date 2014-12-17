@@ -12,10 +12,12 @@ import 'package:gex_common_ui_elements/elements/position.dart';
 class MainApp extends PolymerElement {
   
   final Logger log = new Logger('MainApp');
-  
+
+  ExtensibleButton menuButton ;
   ExtensibleButton searchButton ;
   ExtensibleButton registerAsDartisanButton ;
-  
+  ExtensibleButton registerAsCompagnyButton;
+  ExtensibleButton loginButton;
   
   MainApp.created() : super.created(){
    setUpLogger();
@@ -31,11 +33,17 @@ class MainApp extends PolymerElement {
   
   ready() {
     super.ready();
+    menuButton = $["menuButton"] as ExtensibleButton ;
     searchButton = $["searchButton"] as ExtensibleButton ;
     registerAsDartisanButton = $["registerAsDartisanButton"] as ExtensibleButton ;
-        
-    searchButton.moveTo( new Position(200, 100, 120, 75, 101));
-    registerAsDartisanButton.moveTo( new Position(400, 50, 120, 75, 101));
+    registerAsCompagnyButton = $["registerAsCompagnyButton"] as ExtensibleButton ; 
+    loginButton = $["loginButton"] as ExtensibleButton ; 
+    
+    menuButton.moveTo( new Position(0, 0, 120, 120, 101));
+    searchButton.moveTo( new Position(120, 0, 120, 120, 101));
+    registerAsDartisanButton.moveTo( new Position(240, 0, 120, 120, 101));
+    registerAsCompagnyButton.moveTo( new Position(360, 0, 120, 120, 101));
+    loginButton.moveTo( new Position(480, 0, 120, 120, 101));
   }
   
   void setUpEventsOnElements(){
