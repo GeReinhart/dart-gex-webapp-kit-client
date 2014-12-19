@@ -1,11 +1,13 @@
 library gex_common_ui_elements.test_extensible_button;
 
 import 'package:unittest/unittest.dart';
+import 'package:mockito/mockito.dart';
 import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
 import 'package:gex_common_ui_elements/common_ui_elements.dart' ;
-
+import 'package:gex_common_ui_elements/elements/absolute_space.dart' ;
+import 'package:gex_common_ui_elements/elements/extensible_button.dart' ;
 
 
 main() {
@@ -85,12 +87,39 @@ main() {
       });      
       
     });
+
+    group('action: ', (){
+      
+      ActionDescriptor action = new ActionDescriptor();
+      TargetAction targetAction = new TargetAction();
+      action.launchAction = targetAction.targetAction;
+      
+      setUp((){
+        smallButton.moveTo( new Position(200, 100, 50, 50, 101));
+        smallButton.targetAction( action ) ;        
+        
+      });
+
+      test('click launch the action', (){
+        smallButton.click();
+        verify( targetAction.mock.targetAction(null)).called(1);
+      });
+
+    });
     
   });
 
   pollForDone(testCases);
 }
 
+class TargetAction{
+  TargetActionMock mock = new TargetActionMock();
+  void targetAction(Parameters params){
+    mock.targetAction(params);
+  }
+}
+
+class TargetActionMock extends Mock implements TargetAction{}
 
 num extractInt(String sizeInPx){
   if (sizeInPx.isEmpty || !sizeInPx.endsWith("px")){

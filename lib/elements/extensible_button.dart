@@ -1,18 +1,20 @@
 library gex_common_ui_elements.extensible_button;
 
 import "dart:html";
-import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
+
+import 'package:gex_common_ui_elements/common_ui_elements.dart';
+
+import 'package:polymer/polymer.dart';
 import 'package:paper_elements/paper_shadow.dart';
 import 'package:paper_elements/paper_button.dart';
-import "position.dart";
 
 /**
  * An gex-extensible-button, change it's display according to the space it can to take.
  * It launch an event on the click on the button.
  */
 @CustomTag('gex-extensible-button')
-class ExtensibleButton  extends Positionable {
+class ExtensibleButton  extends Positionable with Actionable {
 
   final Logger log = new Logger('ExtensibleButton');
   final num MIN_SIZE_WITH_TEXT = 150 ;  
@@ -35,9 +37,13 @@ class ExtensibleButton  extends Positionable {
     }else{
       _imageElement.style.display = "none" ;
     }
-    this.onClick.listen((_)=>_button.click());
+    this.onClick.listen((_)=>_click());
     this.onMouseDown.listen((_)=>_shadow.z= 1);
     this.onMouseUp.listen(  (_)=>_shadow.z= 2);
+  }
+  
+  void _click(){
+    launchAction(null);
   }
   
   void moveTo(Position position) {
@@ -73,6 +79,7 @@ class ExtensibleButton  extends Positionable {
   ImageElement get imageElement => _imageElement.clone(true);
   PaperShadow get _shadow => $["shadow"] as PaperShadow;
   PaperButton get _button => $["button"] as PaperButton;    
+  
 }
 
 

@@ -1,8 +1,6 @@
-library gex_common_ui_elements.position;
+part of gex_common_ui_elements;
 
-import "dart:html";
-import 'package:polymer/polymer.dart';
-import 'package:logging/logging.dart';
+
 
 
 class Identifiable{

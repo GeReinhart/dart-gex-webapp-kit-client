@@ -4,8 +4,8 @@
 import 'dart:html';
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
-import 'package:gex_common_ui_elements/elements/extensible_button.dart';
-import 'package:gex_common_ui_elements/elements/position.dart';
+import 'package:gex_common_ui_elements/common_ui_elements.dart' ;
+import 'package:gex_common_ui_elements/elements/extensible_button.dart' ;
 
 /// A Polymer `<main-app>` element.
 @CustomTag('main-app')

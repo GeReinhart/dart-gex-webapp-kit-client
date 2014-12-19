@@ -1,6 +1,11 @@
 
 library gex_common_ui_elements;
 
-export 'elements/absolute_space.dart';
-export 'elements/extensible_button.dart';
-export 'elements/position.dart';
+import 'package:polymer/polymer.dart';
+import "dart:html";
+import 'package:logging/logging.dart';
+
+
+part 'actions.dart';
+part 'position.dart';
+
