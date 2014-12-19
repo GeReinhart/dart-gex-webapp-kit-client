@@ -5,7 +5,7 @@ import 'dart:html';
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
 import 'package:gex_common_ui_elements/common_ui_elements.dart' ;
-import 'package:gex_common_ui_elements/elements/absolute_space.dart' ;
+import 'package:gex_common_ui_elements/elements/space.dart' ;
 import 'package:gex_common_ui_elements/elements/button.dart' ;
 
 /// A Polymer `<main-app>` element.
@@ -14,7 +14,7 @@ class MainApp extends PolymerElement {
   
   final Logger log = new Logger('MainApp');
 
-  AbsoluteSpace space ;
+  Space space ;
   Button menuButton ;
   Button searchButton ;
   Button registerAsDartisanButton ;
@@ -38,7 +38,7 @@ class MainApp extends PolymerElement {
     searchButton = $["searchButton"] as Button ;
     registerAsDartisanButton = $["registerAsDartisanButton"] as Button ;
     loginButton = $["loginButton"] as Button ; 
-    space = $["space"] as AbsoluteSpace ;
+    space = $["space"] as Space ;
     
     menuButton.moveTo( new Position(0, 0, 150, 120, 101));
     searchButton.moveTo( new Position(150, 0, 150, 120, 101));
