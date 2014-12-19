@@ -5,6 +5,7 @@ import 'dart:html';
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
 import 'package:gex_common_ui_elements/common_ui_elements.dart' ;
+import 'package:gex_common_ui_elements/elements/absolute_space.dart' ;
 import 'package:gex_common_ui_elements/elements/extensible_button.dart' ;
 
 /// A Polymer `<main-app>` element.
@@ -13,10 +14,10 @@ class MainApp extends PolymerElement {
   
   final Logger log = new Logger('MainApp');
 
+  AbsoluteSpace space ;
   ExtensibleButton menuButton ;
   ExtensibleButton searchButton ;
   ExtensibleButton registerAsDartisanButton ;
-  ExtensibleButton registerAsCompagnyButton;
   ExtensibleButton loginButton;
   
   MainApp.created() : super.created(){
@@ -36,51 +37,35 @@ class MainApp extends PolymerElement {
     menuButton = $["menuButton"] as ExtensibleButton ;
     searchButton = $["searchButton"] as ExtensibleButton ;
     registerAsDartisanButton = $["registerAsDartisanButton"] as ExtensibleButton ;
-    registerAsCompagnyButton = $["registerAsCompagnyButton"] as ExtensibleButton ; 
     loginButton = $["loginButton"] as ExtensibleButton ; 
+    space = $["space"] as AbsoluteSpace ;
     
     menuButton.moveTo( new Position(0, 0, 150, 120, 101));
     searchButton.moveTo( new Position(150, 0, 150, 120, 101));
     registerAsDartisanButton.moveTo( new Position(300, 0, 150, 120, 101));
-    registerAsCompagnyButton.moveTo( new Position(450, 0, 150, 120, 101));
     loginButton.moveTo( new Position(600, 0, 150, 120, 101));
+    
+    setUpEventsOnElements();
   }
   
   void setUpEventsOnElements(){
- /*   SpanElement changeExtensibleButton = ( $["changeExtensibleButton"] as SpanElement );
-    changeExtensibleButton.onClick.listen((_){
-        ExtensibleButton searchButton = ( $["searchButton"] as ExtensibleButton );
-        
-        //searchButton.moveTo( new SquarePosition(1,2,3,4,5)  );
-    }); */
+    menuButton.targetAction( new ActionDescriptor()..launchAction =  menu );
+    searchButton.targetAction( new ActionDescriptor()..launchAction =  search );
+    registerAsDartisanButton.targetAction( new ActionDescriptor()..launchAction =  register );
+    loginButton.targetAction( new ActionDescriptor()..launchAction =  login );
+  }
+
+  menu(Parameters params){
+    space.style.backgroundColor ="white" ;
+  }
+  search(Parameters params){
+    space.style.backgroundColor ="red" ;
+  }
+  register(Parameters params){
+    space.style.backgroundColor ="blue" ;
+  }
+  login(Parameters params){
+    space.style.backgroundColor ="yellow" ;
   }
   
-  void inputChanged(String oldValue, String newValue) {
-    
-    log.fine("MainApp inputChanged : ${oldValue} => ${newValue}");
-  }
-
-  // Optional lifecycle methods - uncomment if needed.
-
-//  /// Called when an instance of main-app is inserted into the DOM.
-//  attached() {
-//    super.attached();
-//  }
-
-//  /// Called when an instance of main-app is removed from the DOM.
-//  detached() {
-//    super.detached();
-//  }
-
-//  /// Called when an attribute (such as a class) of an instance of
-//  /// main-app is added, changed, or removed.
-//  attributeChanged(String name, String oldValue, String newValue) {
-//    super.attributeChanges(name, oldValue, newValue);
-//  }
-
-//  /// Called when main-app has been fully prepared (Shadow DOM created,
-//  /// property observers set up, event listeners attached).
-//  ready() {
-//    super.ready();
-//  }
 }
