@@ -90,9 +90,8 @@ main() {
 
     group('action: ', (){
       
-      ActionDescriptor action = new ActionDescriptor();
       TargetAction targetAction = new TargetAction();
-      action.launchAction = targetAction.targetAction;
+      ActionDescriptor action = new ActionDescriptor("","",targetAction.targetAction);
       
       setUp((){
         smallButton.moveTo( new Position(200, 100, 50, 50, 101));

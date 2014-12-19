@@ -46,6 +46,14 @@ class Button  extends Positionable with Actionable {
     launchAction(null);
   }
   
+  Button cloneAndMove( Position position ){
+    Button clone = this.clone(true) as Button ;
+    clone.targetAction(this.action);
+    clone..moveTo(position);
+    return clone;
+  }
+  
+  
   void moveTo(Position position) {
     super.moveTo(position);
     if (position.width < MIN_SIZE_WITH_TEXT ){
@@ -58,8 +66,8 @@ class Button  extends Positionable with Actionable {
     _imageElement.style
         ..width  = squareSize   
         ..height = squareSize
-        ..top  = position.top < position.width ? smallMargin : largeMargin
-        ..left = position.top > position.width ? smallMargin : largeMargin;
+        ..top  = position.height < position.width ? smallMargin : largeMargin
+        ..left = position.height > position.width ? smallMargin : largeMargin;
         
     try {
        Element internalButton = _button.shadowRoot.querySelector('div') ;

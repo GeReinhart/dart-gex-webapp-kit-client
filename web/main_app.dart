@@ -46,26 +46,44 @@ class MainApp extends PolymerElement {
     loginButton.moveTo( new Position(600, 0, 150, 120, 101));
     
     setUpEventsOnElements();
+    cloneAndMoveButtons();
+  }
+  
+  void cloneAndMoveButtons() {
+    cloneAndMove(menuButton,new Position(0, 300, 150, 120, 101),menu);
+    cloneAndMove(searchButton,new Position(150, 300, 150, 120, 101),search);
+    cloneAndMove(registerAsDartisanButton,new Position(300, 300, 150, 120, 101),register);
+    cloneAndMove(loginButton,new Position(600, 300, 150, 120, 101),login);
+    
+    cloneAndMove(menuButton,new Position(0, 500, 50, 50, 101),menu);
+    cloneAndMove(searchButton,new Position(150, 500, 50, 50, 101),search);
+    cloneAndMove(registerAsDartisanButton,new Position(500, 300, 50, 50, 101),register);
+    cloneAndMove(loginButton,new Position(600, 500, 50, 50, 101),login);
+    
+  }
+  
+  void cloneAndMove(Button button,Position position, LaunchAction action){
+    space.append(button.cloneAndMove(position));
   }
   
   void setUpEventsOnElements(){
-    menuButton.targetAction( new ActionDescriptor()..launchAction =  menu );
-    searchButton.targetAction( new ActionDescriptor()..launchAction =  search );
-    registerAsDartisanButton.targetAction( new ActionDescriptor()..launchAction =  register );
-    loginButton.targetAction( new ActionDescriptor()..launchAction =  login );
+    menuButton.targetAction( new ActionDescriptor("","",menu) );
+    searchButton.targetAction( new ActionDescriptor("","",search ) );
+    registerAsDartisanButton.targetAction( new ActionDescriptor("","",register ) );
+    loginButton.targetAction( new ActionDescriptor("","",login ) );
   }
 
   menu(Parameters params){
     space.style.backgroundColor ="white" ;
   }
   search(Parameters params){
-    space.style.backgroundColor ="red" ;
+    space.style.backgroundColor ="#00D2B8" ;
   }
   register(Parameters params){
-    space.style.backgroundColor ="blue" ;
+    space.style.backgroundColor ="#778899" ;
   }
   login(Parameters params){
-    space.style.backgroundColor ="yellow" ;
+    space.style.backgroundColor ="#FFFFE0" ;
   }
   
 }

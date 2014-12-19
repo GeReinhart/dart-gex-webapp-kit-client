@@ -23,6 +23,13 @@ class ActionDescriptor{
   String description;
   LaunchAction launchAction;
   
+  ActionDescriptor(this.name,this.description,this.launchAction);
+  
+  ActionDescriptor clone(){
+    return new ActionDescriptor(name,description,launchAction);
+  }
+  
+  
 }
 
 
@@ -39,4 +46,6 @@ class Actionable{
       _action.launchAction(params);
     }
   }
+  
+  ActionDescriptor get action => _action.clone();
 }
