@@ -10,8 +10,8 @@ import 'package:paper_elements/paper_shadow.dart';
 import 'package:paper_elements/paper_button.dart';
 
 /**
- * An gex-extensible-button, change it's display according to the space it can to take.
- * It launch an event on the click on the button.
+ * An gex-extensible-button, change it's display according to the space it can take.
+ * It execute the action on the click on the button.
  */
 @CustomTag('gex-button')
 class Button  extends Positionable with Actionable {
