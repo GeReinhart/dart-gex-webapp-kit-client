@@ -68,14 +68,14 @@ main() {
         Position largeButtonPosition = largeButton.position ;
         
         expect( smallImageElement.src  , endsWith("/images/button/dart-logo.png"));
-        expect( extractInt(smallImageElement.style.width)  , lessThan(smallButtonPosition.width * .80));
-        expect( extractInt(smallImageElement.style.height)  , lessThan(smallButtonPosition.height * .80));
+        expect( extractInt(smallImageElement.style.width)  , lessThan(smallButtonPosition.width * .86));
+        expect( extractInt(smallImageElement.style.height)  , lessThan(smallButtonPosition.height * .86));
         expect(smallImageElement.style.height  , equals(smallImageElement.style.width));
         expect( extractInt(smallImageElement.style.top)  , greaterThan(smallButtonPosition.height * .05));
         expect( extractInt(smallImageElement.style.left)  , greaterThan(smallButtonPosition.width * .05));
         
-        expect( extractInt(largeImageElement.style.width)  , lessThan(largeButtonPosition.width * .80));
-        expect( extractInt(largeImageElement.style.height)  , lessThan(largeButtonPosition.height * .80));
+        expect( extractInt(largeImageElement.style.width)  , lessThan(largeButtonPosition.width * .86));
+        expect( extractInt(largeImageElement.style.height)  , lessThan(largeButtonPosition.height * .86));
         expect(largeImageElement.style.height  , equals(largeImageElement.style.width));
         expect( extractInt(largeImageElement.style.top)  , greaterThan(largeButtonPosition.height * .05));
         expect( extractInt(largeImageElement.style.left)  , greaterThan(largeButtonPosition.width * .25));

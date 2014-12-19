@@ -18,7 +18,8 @@ class Button  extends Positionable with Actionable {
 
   final Logger log = new Logger('Button');
   final num MIN_SIZE_WITH_TEXT = 150 ;  
-  final num PART_USED_BY_IMAGE = .45 ;
+  final num HEIGHT_TEXT = 35 ;
+  final num PART_USED_BY_IMAGE = .85 ;
 
   @published String label = "";
   @published String image = "";
@@ -56,12 +57,18 @@ class Button  extends Positionable with Actionable {
   
   void moveTo(Position position) {
     super.moveTo(position);
-    if (position.width < MIN_SIZE_WITH_TEXT ){
+    num heightForImage  ;
+    num heightForText = 0 ;
+    if (position.width < MIN_SIZE_WITH_TEXT || label.isEmpty ){
       _labelSpan.style.display = "none" ;
+      heightForImage = position.smallerSection ;
+    }else{
+      heightForImage = position.smallerSection - HEIGHT_TEXT ;
+      heightForText = HEIGHT_TEXT;
     }
-    String squareSize  = "${position.smallerSection * PART_USED_BY_IMAGE}px";
-    String smallMargin = "${position.smallerSection * (1-PART_USED_BY_IMAGE)/2 }px";
-    String largeMargin = "${position.smallerSection * (1-PART_USED_BY_IMAGE)/2  + ( position.largerSection - position.smallerSection)/2 }px";
+    String squareSize  = "${heightForImage * PART_USED_BY_IMAGE}px";
+    String smallMargin = "${heightForImage * (1-PART_USED_BY_IMAGE)/2 }px";
+    String largeMargin = "${heightForImage * (1-PART_USED_BY_IMAGE)/2  + ( position.largerSection - position.smallerSection+heightForText)/2 }px";
     
     _imageElement.style
         ..width  = squareSize   
