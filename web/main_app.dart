@@ -6,7 +6,7 @@ import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
 import 'package:gex_common_ui_elements/common_ui_elements.dart' ;
 import 'package:gex_common_ui_elements/elements/absolute_space.dart' ;
-import 'package:gex_common_ui_elements/elements/extensible_button.dart' ;
+import 'package:gex_common_ui_elements/elements/button.dart' ;
 
 /// A Polymer `<main-app>` element.
 @CustomTag('main-app')
@@ -15,10 +15,10 @@ class MainApp extends PolymerElement {
   final Logger log = new Logger('MainApp');
 
   AbsoluteSpace space ;
-  ExtensibleButton menuButton ;
-  ExtensibleButton searchButton ;
-  ExtensibleButton registerAsDartisanButton ;
-  ExtensibleButton loginButton;
+  Button menuButton ;
+  Button searchButton ;
+  Button registerAsDartisanButton ;
+  Button loginButton;
   
   MainApp.created() : super.created(){
    setUpLogger();
@@ -34,10 +34,10 @@ class MainApp extends PolymerElement {
   
   ready() {
     super.ready();
-    menuButton = $["menuButton"] as ExtensibleButton ;
-    searchButton = $["searchButton"] as ExtensibleButton ;
-    registerAsDartisanButton = $["registerAsDartisanButton"] as ExtensibleButton ;
-    loginButton = $["loginButton"] as ExtensibleButton ; 
+    menuButton = $["menuButton"] as Button ;
+    searchButton = $["searchButton"] as Button ;
+    registerAsDartisanButton = $["registerAsDartisanButton"] as Button ;
+    loginButton = $["loginButton"] as Button ; 
     space = $["space"] as AbsoluteSpace ;
     
     menuButton.moveTo( new Position(0, 0, 150, 120, 101));

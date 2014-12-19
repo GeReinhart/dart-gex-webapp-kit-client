@@ -17,5 +17,5 @@ transformers:
 - polymer:
     entry_points:
       - web/index.html
-      - test/test_extensible_button.html
+      - test/test_button.html
       

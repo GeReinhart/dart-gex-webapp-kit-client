@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <!-- Load component(s) -->
+  <link rel="import" href="packages/gex_common_ui_elements/elements/absolute_space.html">
+  <link rel="import" href="packages/gex_common_ui_elements/elements/button.html">
+
+  <!-- The actual tests -->
+  <script type="application/dart" src="test_button.dart"></script>
+  <script src="packages/unittest/test_controller.js"></script>
+</head>
+<body unresolved>
+
+    <gex-absolute-space id="absoluteSpace"  backgroundColor="#55DDCA">
+       <gex-button id="smallButton"   label="Small button"    image="/images/button/dart-logo.png"  backgroundColor="#00A4E4" ></gex-button>
+       <gex-button id="largeButton"   label="Large button"    image="/images/button/dart-logo.png"  backgroundColor="#00A4E4" ></gex-button>
+       <gex-button id="noImageButton" label="No image button"                                       backgroundColor="#00A4E4" ></gex-button>
+
+    </gex-absolute-space>
+
+</body>
+</html>

@@ -57,7 +57,7 @@ function launch-test  {
 
 analyze-sources
 install-content_shell
-launch-test test_extensible_button.html
+launch-test test_button.html
 
 
 

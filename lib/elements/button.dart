@@ -13,10 +13,10 @@ import 'package:paper_elements/paper_button.dart';
  * An gex-extensible-button, change it's display according to the space it can to take.
  * It launch an event on the click on the button.
  */
-@CustomTag('gex-extensible-button')
-class ExtensibleButton  extends Positionable with Actionable {
+@CustomTag('gex-button')
+class Button  extends Positionable with Actionable {
 
-  final Logger log = new Logger('ExtensibleButton');
+  final Logger log = new Logger('Button');
   final num MIN_SIZE_WITH_TEXT = 150 ;  
   final num PART_USED_BY_IMAGE = .45 ;
 
@@ -24,8 +24,8 @@ class ExtensibleButton  extends Positionable with Actionable {
   @published String image = "";
   @published String backgroundColor;
   
-  ExtensibleButton.created() : super.created() {
-    log.fine("ExtensibleButton ${id} created with label: ${label}");
+  Button.created() : super.created() {
+    log.fine("Button ${id} created with label: ${label}");
   }
 
   void ready() {

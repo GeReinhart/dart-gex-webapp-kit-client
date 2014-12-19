@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:polymer/polymer.dart';
 import 'package:gex_common_ui_elements/common_ui_elements.dart' ;
 import 'package:gex_common_ui_elements/elements/absolute_space.dart' ;
-import 'package:gex_common_ui_elements/elements/extensible_button.dart' ;
+import 'package:gex_common_ui_elements/elements/button.dart' ;
 
 
 main() {
@@ -15,11 +15,11 @@ main() {
 
   AbsoluteSpace absoluteSpace ;
   
-  ExtensibleButton smallButton ;
-  ExtensibleButton largeButton ;
-  ExtensibleButton noImageButton ;    
+  Button smallButton ;
+  Button largeButton ;
+  Button noImageButton ;    
   
-  group("ExtensibleButton", (){
+  group("Button", (){
     setUp((){
       absoluteSpace = querySelector("#absoluteSpace");
       smallButton = querySelector("#smallButton");
