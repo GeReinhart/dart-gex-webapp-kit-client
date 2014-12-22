@@ -14,6 +14,7 @@ class Toolbar extends Positionable {
   
   @published String backgroundColor = "black";
   
+  Position initialPostion ;
   Position postion ;
   Orientation orientation ;
   List<ActionDescriptor> actions ;
@@ -28,17 +29,45 @@ class Toolbar extends Positionable {
   
   
   void init(Position position, Orientation orientation, List<ActionDescriptor> actions) {
-    this.postion = position;
+    this.initialPostion = position;
     this.orientation = orientation;
     this.actions = actions ;
     _buttons = new List<Button>();
+    this.postion = position.clone() ;
     for (var i = 0; i < actions.length; i++) {
       Button button = new Element.tag('gex-button') as Button;
-      button.moveTo(position.clone()..left = position.left + i * position.width  ) ;
-      button.targetAction(actions[i]);
       this.append(button);
       _buttons.add(button);
+      
+      ActionDescriptor  action = actions[i];
+      button.label = action.name ;
+      
+      num left = position.left;
+      if ( Orientation.est ==  orientation ){
+        left = position.left + i * position.width ;
+        this.postion.width = left + position.width ;
+      }
+      if ( Orientation.west ==  orientation ){
+        left = position.left - i * position.width ;
+        this.postion.left =  left - position.width ;
+      }
+      
+      num top = position.top;
+      if ( Orientation.south ==  orientation ){
+        top = position.top + i * position.height ;
+        this.postion.height = top + position.height ;
+      }
+      if ( Orientation.north ==  orientation ){
+        top = position.top - i * position.height ;
+        this.postion.top = top;
+      }      
+      Position currentPostion = position.clone() ;
+      currentPostion..left = left
+                    ..top = top ;
+      button.moveTo(currentPostion) ;
+      button.targetAction(action);
     }
+    moveTo(this.postion);
   }
   
   List<Button> get buttons{

@@ -14,10 +14,13 @@ main() {
   initPolymer();
 
   Space absoluteSpace ;
-  Toolbar toolbar ;
+  Toolbar toolbarEst ;
+  Toolbar toolbarWest ;
+  Toolbar toolbarNorth ;
+  Toolbar toolbarSouth ;
   
-  Position toolbarPostion = new Position(400, 400, 50, 50, 101);
-  Orientation toolbarOrientation = Orientation.est ;
+  Position toolbarPostion = new Position(1000, 1000, 50, 40, 101);
+
   List<ActionDescriptor> toolbarAction ;
   TargetAction action1 = new TargetAction();
   TargetAction action2 = new TargetAction();
@@ -27,14 +30,20 @@ main() {
   group("Toolbar", (){
     setUp((){
       absoluteSpace = querySelector("#absoluteSpace");
-      toolbar = querySelector("#toolbar");
+      toolbarEst = querySelector("#toolbarEst");
+      toolbarWest = querySelector("#toolbarWest");
+      toolbarNorth = querySelector("#toolbarNorth");
+      toolbarSouth = querySelector("#toolbarSouth");
       
       toolbarAction = new List<ActionDescriptor>();
       toolbarAction.add(new ActionDescriptor("one", "one",  action1.targetAction)) ;
       toolbarAction.add(new ActionDescriptor("two", "two",  action2.targetAction)) ;
       toolbarAction.add(new ActionDescriptor("three", "three",  action3.targetAction)) ;
       
-      toolbar.init(toolbarPostion,toolbarOrientation,toolbarAction );
+      toolbarEst.init(toolbarPostion,Orientation.est,toolbarAction );
+      toolbarWest.init(toolbarPostion,Orientation.west,toolbarAction );
+      toolbarNorth.init(toolbarPostion,Orientation.north,toolbarAction );
+      toolbarSouth.init(toolbarPostion,Orientation.south,toolbarAction );      
     });
 
     tearDown((){
@@ -45,7 +54,7 @@ main() {
 
       test('actions', (){
         
-        List<Button> buttons = toolbar.buttons ;
+        List<Button> buttons = toolbarEst.buttons ;
         
         expect( buttons.length , equals(3));
         expect( buttons[0].action.launchAction  , equals(action1.targetAction));
@@ -56,7 +65,7 @@ main() {
       
       test('orientation est', (){
         
-        List<Button> buttons = toolbar.buttons ;
+        List<Button> buttons = toolbarEst.buttons ;
         
         expect( buttons.length , equals(3));
         expect( buttons[0].style.height  , equals("${toolbarPostion.height}px"));
@@ -74,6 +83,65 @@ main() {
         
       });       
       
+      test('orientation west', (){
+        
+        List<Button> buttons = toolbarWest.buttons ;
+        
+        expect( buttons.length , equals(3));
+        expect( buttons[0].style.height  , equals("${toolbarPostion.height}px"));
+        expect( buttons[1].style.height  , equals("${toolbarPostion.height}px"));
+        expect( buttons[2].style.height  , equals("${toolbarPostion.height}px"));
+        expect( buttons[0].style.width  , equals("${toolbarPostion.width}px"));
+        expect( buttons[1].style.width  , equals("${toolbarPostion.width}px"));
+        expect( buttons[2].style.width  , equals("${toolbarPostion.width}px"));
+        expect( buttons[0].style.top  , equals("${toolbarPostion.top}px"));
+        expect( buttons[1].style.top  , equals("${toolbarPostion.top}px"));
+        expect( buttons[2].style.top  , equals("${toolbarPostion.top}px"));
+        expect( buttons[0].style.left  , equals("${toolbarPostion.left}px"));
+        expect( buttons[1].style.left  , equals("${toolbarPostion.left - toolbarPostion.width }px"));
+        expect( buttons[2].style.left  , equals("${toolbarPostion.left - 2*toolbarPostion.width}px"));        
+        
+      });       
+      
+      test('orientation north', (){
+        
+        List<Button> buttons = toolbarNorth.buttons ;
+        
+        expect( buttons.length , equals(3));
+        expect( buttons[0].style.height  , equals("${toolbarPostion.height}px"));
+        expect( buttons[1].style.height  , equals("${toolbarPostion.height}px"));
+        expect( buttons[2].style.height  , equals("${toolbarPostion.height}px"));
+        expect( buttons[0].style.width  , equals("${toolbarPostion.width}px"));
+        expect( buttons[1].style.width  , equals("${toolbarPostion.width}px"));
+        expect( buttons[2].style.width  , equals("${toolbarPostion.width}px"));
+        expect( buttons[0].style.top  , equals("${toolbarPostion.top}px"));
+        expect( buttons[1].style.top  , equals("${toolbarPostion.top - toolbarPostion.height}px"));
+        expect( buttons[2].style.top  , equals("${toolbarPostion.top - 2*toolbarPostion.height}px"));
+        expect( buttons[0].style.left  , equals("${toolbarPostion.left}px"));
+        expect( buttons[1].style.left  , equals("${toolbarPostion.left}px"));
+        expect( buttons[2].style.left  , equals("${toolbarPostion.left}px"));        
+        
+      });      
+      
+      test('orientation south', (){
+        
+        List<Button> buttons = toolbarNorth.buttons ;
+        
+        expect( buttons.length , equals(3));
+        expect( buttons[0].style.height  , equals("${toolbarPostion.height}px"));
+        expect( buttons[1].style.height  , equals("${toolbarPostion.height}px"));
+        expect( buttons[2].style.height  , equals("${toolbarPostion.height}px"));
+        expect( buttons[0].style.width  , equals("${toolbarPostion.width}px"));
+        expect( buttons[1].style.width  , equals("${toolbarPostion.width}px"));
+        expect( buttons[2].style.width  , equals("${toolbarPostion.width}px"));
+        expect( buttons[0].style.top  , equals("${toolbarPostion.top}px"));
+        expect( buttons[1].style.top  , equals("${toolbarPostion.top + toolbarPostion.height}px"));
+        expect( buttons[2].style.top  , equals("${toolbarPostion.top + 2*toolbarPostion.height}px"));
+        expect( buttons[0].style.left  , equals("${toolbarPostion.left}px"));
+        expect( buttons[1].style.left  , equals("${toolbarPostion.left}px"));
+        expect( buttons[2].style.left  , equals("${toolbarPostion.left}px"));        
+        
+      });       
     });
 
     

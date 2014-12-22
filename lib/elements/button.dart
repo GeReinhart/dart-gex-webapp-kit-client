@@ -65,7 +65,7 @@ class Button  extends Positionable with Actionable {
     super.moveTo(position);
     num heightForImage  ;
     num heightForText = 0 ;
-    if (position.width < MIN_SIZE_WITH_TEXT || label.isEmpty ){
+    if ( image.isNotEmpty &&  ( position.width < MIN_SIZE_WITH_TEXT || label.isEmpty  ) ){
       _labelSpan.style.display = "none" ;
       heightForImage = position.smallerSection ;
     }else{

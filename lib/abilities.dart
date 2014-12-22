@@ -65,3 +65,33 @@ class Position {
   String toString() => "SquarePosition: left:${left}, top:${top}, width:${width}, height:${height}, zIndex:${zIndex}";
   
 }
+
+
+class Showable {
+  
+  String initialDisplay = null ;
+  
+  bool isShowed(){
+    assert( this is PolymerElement );
+    return  (this as  PolymerElement).style.display != "none";
+  }
+  
+  bool isHidden(){
+    return ! isShowed();
+  }
+  
+  void show(){
+    assert( this is PolymerElement );
+    (this as  PolymerElement).style.display = initialDisplay ;
+  }
+  
+  void hide(){
+    assert( this is PolymerElement );
+    PolymerElement element = this as PolymerElement ;
+    if (initialDisplay == null){
+      element.style.display = initialDisplay ;
+    }
+    (this as  PolymerElement).style.display = "none" ;
+  }
+  
+}
