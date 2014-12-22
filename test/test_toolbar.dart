@@ -33,6 +33,8 @@ main() {
       toolbarAction.add(new ActionDescriptor("one", "one",  action1.targetAction)) ;
       toolbarAction.add(new ActionDescriptor("two", "two",  action2.targetAction)) ;
       toolbarAction.add(new ActionDescriptor("three", "three",  action3.targetAction)) ;
+      
+      toolbar.init(toolbarPostion,toolbarOrientation,toolbarAction );
     });
 
     tearDown((){
@@ -40,10 +42,6 @@ main() {
     });
 
     group('buttons: ', (){
-      setUp((){
-        toolbar.init(toolbarPostion,toolbarOrientation,toolbarAction );
-   
-      });
 
       test('actions', (){
         
@@ -56,6 +54,25 @@ main() {
 
       });  
       
+      test('orientation est', (){
+        
+        List<Button> buttons = toolbar.buttons ;
+        
+        expect( buttons.length , equals(3));
+        expect( buttons[0].style.height  , equals("${toolbarPostion.height}px"));
+        expect( buttons[1].style.height  , equals("${toolbarPostion.height}px"));
+        expect( buttons[2].style.height  , equals("${toolbarPostion.height}px"));
+        expect( buttons[0].style.width  , equals("${toolbarPostion.width}px"));
+        expect( buttons[1].style.width  , equals("${toolbarPostion.width}px"));
+        expect( buttons[2].style.width  , equals("${toolbarPostion.width}px"));
+        expect( buttons[0].style.top  , equals("${toolbarPostion.top}px"));
+        expect( buttons[1].style.top  , equals("${toolbarPostion.top}px"));
+        expect( buttons[2].style.top  , equals("${toolbarPostion.top}px"));
+        expect( buttons[0].style.left  , equals("${toolbarPostion.left}px"));
+        expect( buttons[1].style.left  , equals("${toolbarPostion.left + toolbarPostion.width }px"));
+        expect( buttons[2].style.left  , equals("${toolbarPostion.left + 2*toolbarPostion.width}px"));        
+        
+      });       
       
     });
 

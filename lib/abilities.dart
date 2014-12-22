@@ -54,6 +54,10 @@ class Position {
   Position.empty();
   Position(this.left,this.top,this.width,this.height,this.zIndex);
   
+  Position clone(){
+    return new Position(this.left,this.top,this.width,this.height,this.zIndex); 
+  }
+  
   num get smallerSection => width>height?height:width;
   num get largerSection => width<height?height:width;
   
