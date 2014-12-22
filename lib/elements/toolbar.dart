@@ -36,37 +36,39 @@ class Toolbar extends Positionable {
     this.postion = position.clone() ;
     for (var i = 0; i < actions.length; i++) {
       Button button = new Element.tag('gex-button') as Button;
-      this.append(button);
-      _buttons.add(button);
       
       ActionDescriptor  action = actions[i];
       button.label = action.name ;
       
-      num left = position.left;
+      num left = 0;
       if ( Orientation.est ==  orientation ){
-        left = position.left + i * position.width ;
+        left =  i * position.width ;
         this.postion.width = left + position.width ;
       }
       if ( Orientation.west ==  orientation ){
-        left = position.left - i * position.width ;
+        left =  - i * position.width ;
         this.postion.left =  left - position.width ;
       }
       
-      num top = position.top;
+      num top = 0;
       if ( Orientation.south ==  orientation ){
-        top = position.top + i * position.height ;
-        this.postion.height = top + position.height ;
+        top =  i * position.height ;
+        this.postion.height = (i+1) * position.height ;
       }
       if ( Orientation.north ==  orientation ){
-        top = position.top - i * position.height ;
-        this.postion.top = top;
+        top =  - i * position.height ;
+        this.postion.height = (i+1) * position.height;
       }      
       Position currentPostion = position.clone() ;
       currentPostion..left = left
                     ..top = top ;
+      
       button.moveTo(currentPostion) ;
       button.targetAction(action);
+      this.append(button);
+      _buttons.add(button);
     }
+    
     moveTo(this.postion);
   }
   
