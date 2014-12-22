@@ -3,7 +3,7 @@
 function analyze-sources {
         echo "##################################"
         echo "## analyze-sources"
-	results=$(dartanalyzer lib/*.dart 2>&1)
+	results=$(dartanalyzer --enable-enum lib/*.dart 2>&1)
 	echo "$results"
 	if [[ "$results" != *"No issues found"* ]]
 	then
@@ -58,6 +58,7 @@ function launch-test  {
 analyze-sources
 install-content_shell
 launch-test test_button.html
+launch-test test_toolbar.html
 
 
 

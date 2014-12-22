@@ -46,10 +46,16 @@ class Button  extends Positionable with Actionable {
   void _click(){
     launchAction(null);
   }
+
+  @override
+  Button clone(bool deep ){
+    Button clone = super.clone(deep) as Button ;
+    clone.targetAction(this.action);
+    return clone;
+  }
   
   Button cloneAndMove( Position position ){
-    Button clone = this.clone(true) as Button ;
-    clone.targetAction(this.action);
+    Button clone = this.clone(true) ;
     clone..moveTo(position);
     return clone;
   }

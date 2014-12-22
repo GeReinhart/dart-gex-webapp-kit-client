@@ -7,6 +7,8 @@ class Identifiable{
   String id;
 }
 
+enum Orientation { north, est, south, west }
+
 /**
  * Be able to move the element in an absolute space.
  * Should have a main element as root div. 
