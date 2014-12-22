@@ -20,5 +20,7 @@ transformers:
       - test/test_button.html
       - test/test_toolbar.html      
 - $dart2js:
-    commandLineOptions: [--enable-enums]      
+    commandLineOptions:
+      - --enable-enum
+      
       
