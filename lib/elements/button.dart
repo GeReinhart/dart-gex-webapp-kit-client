@@ -29,8 +29,8 @@ class Button  extends Positionable with Actionable {
     log.fine("Button ${id} created with label: ${label}");
   }
 
-  void ready() {
-    super.ready();
+  void attached() {
+    super.attached();
     this.style.backgroundColor = backgroundColor;
     if( image.isNotEmpty ){
       _imageElement.style.display = "inline" ;
@@ -49,15 +49,16 @@ class Button  extends Positionable with Actionable {
 
   @override
   Button clone(bool deep ){
-    Button clone = super.clone(deep) as Button ;
-    clone.targetAction(this.action);
-    return clone;
+    Button clone = (new Element.tag('gex-button')
+           ..attributes['label'] = label
+           ..attributes['image'] = image
+           ..attributes['backgroundColor'] = backgroundColor )   as Button;
+    return clone..targetAction(this.action);
   }
   
   Button cloneAndMove( Position position ){
-    Button clone = this.clone(true) ;
-    clone..moveTo(position);
-    return clone;
+    Button clone = this.clone(true);
+    return clone..moveTo(position);
   }
   
   

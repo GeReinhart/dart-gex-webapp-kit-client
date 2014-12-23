@@ -1,0 +1,21 @@
+<!--
+  Copyright (c) 2014, Gérald Reinhart. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+
+<link rel="import" href="../../packages/gex_common_ui_elements/elements/space.html">
+<link rel="import" href="../../packages/gex_common_ui_elements/elements/toolbar.html">
+
+
+<polymer-element name="gex-show-room-toolbar">
+  <template>
+    <gex-space id="toolbarSpace" style="left=0px; top=0px;  witdh=100% ; height=100% ; zIndex=100 " backgroundColor="#00D2B8">
+           <gex-toolbar id="estToolbar"  backgroundColor="#FFFFE0" ></gex-toolbar>
+           <gex-toolbar id="northToolbar" backgroundColor="#778899" ></gex-toolbar>
+   </gex-space>
+  </template>
+  <script type="application/dart" src="show_room_toolbar.dart"></script>
+</polymer-element>

@@ -18,12 +18,12 @@ class Toolbar extends Positionable {
   Position postion ;
   Orientation orientation ;
   List<ActionDescriptor> actions ;
-  List<Button> _buttons ;
+  List<Button> buttons ;
   
   Toolbar.created() : super.created() ;
   
-  void ready() {
-    super.ready();
+  void attached() {
+    super.attached();
     this.style.backgroundColor = backgroundColor; 
   }
   
@@ -32,7 +32,7 @@ class Toolbar extends Positionable {
     this.initialPostion = position;
     this.orientation = orientation;
     this.actions = actions ;
-    _buttons = new List<Button>();
+    buttons = new List<Button>();
     this.postion = position.clone() ;
     for (var i = 0; i < actions.length; i++) {
       Button button = new Element.tag('gex-button') as Button;
@@ -66,16 +66,10 @@ class Toolbar extends Positionable {
       button.moveTo(currentPostion) ;
       button.targetAction(action);
       this.append(button);
-      _buttons.add(button);
+      buttons.add(button);
     }
     
     moveTo(this.postion);
-  }
-  
-  List<Button> get buttons{
-    List<Button> buttons = new List<Button>();
-    _buttons.forEach((b)=> buttons.add(b.clone(true)));
-    return buttons ;
   }
   
 }
