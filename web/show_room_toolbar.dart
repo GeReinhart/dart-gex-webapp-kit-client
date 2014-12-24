@@ -50,7 +50,7 @@ class ShowRoomToolbar extends Positionable with Showable {
   void _initialPositionsForElements() {
     
     List<ActionDescriptor> actions = new List<ActionDescriptor>();
-    actions.add(new ActionDescriptor("Action 1","",action1));
+    actions.add(new ActionDescriptor("Action 1","",action1)..image ="/images/button/dart-logo.png");
     actions.add(new ActionDescriptor("Action 2","",action2));
     actions.add(new ActionDescriptor("Action 3","",action3));
     actions.add(new ActionDescriptor("Action 4","",action4));

@@ -19,6 +19,7 @@ class Parameters{
 
 class ActionDescriptor{
   
+  String image;
   String name;
   String description;
   LaunchAction launchAction;

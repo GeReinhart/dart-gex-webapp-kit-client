@@ -39,6 +39,9 @@ class Toolbar extends Positionable {
       
       ActionDescriptor  action = actions[i];
       button.label = action.name ;
+      if (action.image != null){
+        button.image = action.image;
+      }
       
       num left = 0;
       if ( Orientation.est ==  orientation ){
