@@ -17,7 +17,9 @@ class ShowRoomToolbar extends Positionable with Showable {
   Space toolbarSpace ;
   Toolbar estToolbar;
   Toolbar southToolbar;
- 
+  Toolbar westToolbar;
+  Toolbar northToolbar;
+  
   ShowRoomToolbar.created() : super.created(){
   }
   
@@ -25,13 +27,21 @@ class ShowRoomToolbar extends Positionable with Showable {
     super.ready();
     _setAttributes();
     _setUpEventsOnElements();
-    _initialPositionsForElements();
   }
+  
+  @override
+  void moveTo(Position position) {
+      super.moveTo(position);
+      _initialPositionsForElements();
+  }
+    
   
   void _setAttributes(){
     toolbarSpace = $["toolbarSpace"] as Space ;
     estToolbar = $["estToolbar"] as Toolbar ;
     southToolbar = $["southToolbar"] as Toolbar ;    
+    westToolbar = $["westToolbar"] as Toolbar ;
+    northToolbar = $["northToolbar"] as Toolbar ;     
   }
 
   void _setUpEventsOnElements(){
@@ -45,6 +55,9 @@ class ShowRoomToolbar extends Positionable with Showable {
     actions.add(new ActionDescriptor("Action 3","",action3));
     actions.add(new ActionDescriptor("Action 4","",action4));
     estToolbar.init(new Position(0, 0, 100, 100, 102), Orientation.est,actions ) ;
+    southToolbar.init(new Position( position.width - 100   , 0, 100, 30, 102), Orientation.south,actions ) ;
+    westToolbar.init(new Position( position.width - 100 , position.height - 50 , 100, 50, 102), Orientation.west,actions ) ; 
+    northToolbar.init(new Position( 0 , position.height - 50 , 100, 50, 103), Orientation.north,actions ) ; 
   }
   
 
@@ -58,7 +71,7 @@ class ShowRoomToolbar extends Positionable with Showable {
     toolbarSpace.style.backgroundColor ="#778899" ;
   }
   action4(Parameters params){
-    toolbarSpace.style.backgroundColor ="#FFFFE0" ;
+    toolbarSpace.style.backgroundColor ="#0082C8" ;
   }
   
   

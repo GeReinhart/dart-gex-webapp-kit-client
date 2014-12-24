@@ -58,12 +58,12 @@ class ShowRoom extends PolymerElement {
   
   void _initialPositionsForElements(){
     space.moveTo( new Position(0, 0, window.innerWidth, window.innerHeight, 100));
-    showRoomButton.moveTo( new Position(70, 70, window.innerWidth-70, window.innerHeight-70, 101));
-    showRoomToolbar.moveTo( new Position(70, 70, window.innerWidth-70, window.innerHeight-70, 101));
+    showRoomButton.moveTo( new Position(70, 70, window.innerWidth-140, window.innerHeight-140, 101));
+    showRoomToolbar.moveTo( new Position(70, 70, window.innerWidth-140, window.innerHeight-140, 101));
     buttonSpaceButton.moveTo( new Position(0, 0, 100, 30, 101));
     buttonSpaceToolbar.moveTo( new Position(100, 0, 100, 30, 101));
-    showRoomButton.show();
-    showRoomToolbar.hide() ;
+    showRoomButton.hide();
+    showRoomToolbar.show() ;
   }
 
   

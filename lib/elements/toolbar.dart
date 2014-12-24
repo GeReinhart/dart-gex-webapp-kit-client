@@ -14,7 +14,7 @@ class Toolbar extends Positionable {
   
   @published String backgroundColor = "black";
   
-  Position initialPostion ;
+  Position mainButtonPosition ;
   Position postion ;
   Orientation orientation ;
   List<ActionDescriptor> actions ;
@@ -29,7 +29,7 @@ class Toolbar extends Positionable {
   
   
   void init(Position position, Orientation orientation, List<ActionDescriptor> actions) {
-    this.initialPostion = position;
+    this.mainButtonPosition = position;
     this.orientation = orientation;
     this.actions = actions ;
     buttons = new List<Button>();
@@ -43,21 +43,17 @@ class Toolbar extends Positionable {
       num left = 0;
       if ( Orientation.est ==  orientation ){
         left =  i * position.width ;
-        this.postion.width = left + position.width ;
       }
       if ( Orientation.west ==  orientation ){
-        left =  - i * position.width ;
-        this.postion.left =  left - position.width ;
+        left =  (actions.length - i -1 ) * position.width ;
       }
       
       num top = 0;
       if ( Orientation.south ==  orientation ){
         top =  i * position.height ;
-        this.postion.height = (i+1) * position.height ;
       }
       if ( Orientation.north ==  orientation ){
-        top =  - i * position.height ;
-        this.postion.height = (i+1) * position.height;
+        top =  (actions.length - i -1 )* position.height ;
       }      
       Position currentPostion = position.clone() ;
       currentPostion..left = left
@@ -68,6 +64,21 @@ class Toolbar extends Positionable {
       this.append(button);
       buttons.add(button);
     }
+    
+    num buttonCount = actions.length  ;
+    if ( Orientation.est ==  orientation ){
+      this.postion.width = buttonCount * position.width ;
+    }
+    if ( Orientation.west ==  orientation ){
+      this.postion.left =  position.left - (buttonCount-1)* position.width ;
+    }
+    if ( Orientation.south ==  orientation ){
+      this.postion.height =  buttonCount * position.height ;
+    }
+    if ( Orientation.north ==  orientation ){
+      this.postion.top =  position.top - (buttonCount-1)* position.height ;
+      this.postion.height =  buttonCount * position.height ;
+    }    
     
     moveTo(this.postion);
   }

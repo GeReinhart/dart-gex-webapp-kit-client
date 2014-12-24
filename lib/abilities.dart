@@ -19,7 +19,8 @@ abstract class Positionable extends PolymerElement with Identifiable{
   
   @published String id;
   
-  Position position = new Position.empty();
+  @observable
+  final Position position = toObservable(new Position.empty());
   
   Positionable.created() : super.created() {
     log.fine("Positionable object created with name: ${id}");
@@ -27,7 +28,7 @@ abstract class Positionable extends PolymerElement with Identifiable{
   
   void moveTo(Position position) {
     log.fine("Moving ${id} to ${position}");
-    this.position = position;
+    this.position.merge( position );
     _moveToTargetPosition();
   }
   
@@ -64,6 +65,14 @@ class Position {
   @override
   String toString() => "SquarePosition: left:${left}, top:${top}, width:${width}, height:${height}, zIndex:${zIndex}";
   
+  
+  void merge(Position position) {
+    this.left = position.left;
+    this.top = position.top;
+    this.width = position.width;
+    this.height = position.height;
+    this.zIndex = position.zIndex;
+  }
 }
 
 

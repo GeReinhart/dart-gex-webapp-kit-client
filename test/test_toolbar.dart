@@ -97,9 +97,9 @@ main() {
         expect( buttons[0].style.top  , equals("0px"));
         expect( buttons[1].style.top  , equals("0px"));
         expect( buttons[2].style.top  , equals("0px"));
-        expect( buttons[0].style.left  , equals("0px"));
-        expect( buttons[1].style.left  , equals("${- toolbarPostion.width }px"));
-        expect( buttons[2].style.left  , equals("${- 2*toolbarPostion.width}px"));        
+        expect( buttons[0].style.left  , equals("${ 2*toolbarPostion.width}px"));
+        expect( buttons[1].style.left  , equals("${ toolbarPostion.width }px"));
+        expect( buttons[2].style.left  , equals("0px"));        
         
       });       
       
@@ -114,9 +114,9 @@ main() {
         expect( buttons[0].style.width  , equals("${toolbarPostion.width}px"));
         expect( buttons[1].style.width  , equals("${toolbarPostion.width}px"));
         expect( buttons[2].style.width  , equals("${toolbarPostion.width}px"));
-        expect( buttons[0].style.top  , equals("0px"));
-        expect( buttons[1].style.top  , equals("${- toolbarPostion.height}px"));
-        expect( buttons[2].style.top  , equals("${- 2*toolbarPostion.height}px"));
+        expect( buttons[0].style.top  , equals("${ 2*toolbarPostion.height}px"));
+        expect( buttons[1].style.top  , equals("${ toolbarPostion.height}px"));
+        expect( buttons[2].style.top  , equals("0px"));
         expect( buttons[0].style.left  , equals("0px"));
         expect( buttons[1].style.left  , equals("0px"));
         expect( buttons[2].style.left  , equals("0px"));        
@@ -136,7 +136,7 @@ main() {
         expect( buttons[2].style.width  , equals("${toolbarPostion.width}px"));
         expect( buttons[0].style.top  , equals("0px"));
         expect( buttons[1].style.top  , equals("${toolbarPostion.height}px"));
-        expect( buttons[2].style.top  , equals("${2*toolbarPostion.height}px"));
+        expect( buttons[2].style.top  , equals("${ 2*toolbarPostion.height}px"));
         expect( buttons[0].style.left  , equals("0px"));
         expect( buttons[1].style.left  , equals("0px"));
         expect( buttons[2].style.left  , equals("0px"));        
