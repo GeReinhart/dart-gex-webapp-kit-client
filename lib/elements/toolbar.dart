@@ -74,6 +74,7 @@ class Toolbar extends Positionable {
     }
     if ( Orientation.west ==  orientation ){
       this.postion.left =  position.left - (buttonCount-1)* position.width ;
+      this.postion.width =  buttonCount * position.width ;
     }
     if ( Orientation.south ==  orientation ){
       this.postion.height =  buttonCount * position.height ;
