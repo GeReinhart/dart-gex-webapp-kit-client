@@ -10,8 +10,10 @@ import 'package:gex_common_ui_elements/common_ui_elements.dart' ;
 import 'package:gex_common_ui_elements/elements/space.dart' ;
 import 'package:gex_common_ui_elements/elements/button.dart' ;
 import 'package:gex_common_ui_elements/elements/toolbar.dart' ;
+import 'package:gex_common_ui_elements/elements/view_port.dart' ;
 import 'show_room_button.dart' ;
 import 'show_room_toolbar.dart' ;
+import 'show_room_view_port.dart' ;
 
 @CustomTag('gex-show-room')
 class ShowRoom extends PolymerElement {
@@ -22,6 +24,7 @@ class ShowRoom extends PolymerElement {
   Space space ;
   ShowRoomButton showRoomButton ;
   ShowRoomToolbar showRoomToolbar ;
+  ShowRoomViewPort showRoomViewPort ;
   
   Button buttonSpaceButton ;
   Button buttonSpaceToolbar ;
@@ -50,6 +53,7 @@ class ShowRoom extends PolymerElement {
     space = $["space"] as Space ;
     showRoomButton = $["showRoomButton"] as ShowRoomButton ;
     showRoomToolbar = $["showRoomToolbar"] as ShowRoomToolbar ; 
+    showRoomViewPort = $["showRoomViewPort"] as ShowRoomViewPort ; 
     
     buttonSpaceButton = $["buttonSpaceButton"] as Button ;
     buttonSpaceToolbar = $["buttonSpaceToolbar"] as Button ;
@@ -60,10 +64,12 @@ class ShowRoom extends PolymerElement {
     space.moveTo( new Position(0, 0, window.innerWidth, window.innerHeight, 100));
     showRoomButton.moveTo( new Position(70, 70, window.innerWidth-140, window.innerHeight-140, 101));
     showRoomToolbar.moveTo( new Position(70, 70, window.innerWidth-140, window.innerHeight-140, 101));
+    showRoomViewPort.moveTo( new Position(70, 70, window.innerWidth-140, window.innerHeight-140, 101));
     buttonSpaceButton.moveTo( new Position(0, 0, 100, 30, 101));
     buttonSpaceToolbar.moveTo( new Position(100, 0, 100, 30, 101));
     showRoomButton.hide();
     showRoomToolbar.show() ;
+    showRoomViewPort.hide();
   }
 
   
@@ -76,8 +82,27 @@ class ShowRoom extends PolymerElement {
       showRoomToolbar.show() ;
       showRoomButton.hide();
     }) );
+    
+    showRoomViewPort.viewPort.subscribeViewPortChange(_viewPortChangeCallBack) ;
+    
   }
 
-
+  void _viewPortChangeCallBack(ViewPortChangeEvent event){
+    ViewPortDescriptor viewPort = event.viewPortDescriptor ;
+    
+    showRoomButton.hideBeforePutBackInitialState();
+    showRoomToolbar.hideBeforePutBackInitialState() ;
+    showRoomViewPort.hideBeforePutBackInitialState();
+    
+    space.moveTo( new Position(0, 0, viewPort.windowWidth, viewPort.windowHeigth, 100));
+    showRoomButton.moveTo( new Position(70, 70, viewPort.windowWidth -140,viewPort.windowHeigth-140, 101));
+    showRoomToolbar.moveTo( new Position(70, 70, viewPort.windowWidth -140, viewPort.windowHeigth-140, 101));
+    showRoomViewPort.moveTo( new Position(70, 70, viewPort.windowWidth -140, viewPort.windowHeigth-140, 101));
+    
+    showRoomButton.hideOrShowputToInitialState();
+    showRoomToolbar.hideOrShowputToInitialState() ;
+    showRoomViewPort.hideOrShowputToInitialState();
+    
+  }
 
 }

@@ -103,4 +103,15 @@ class Showable {
     (this as  PolymerElement).style.display = "none" ;
   }
   
+  bool _initialState;
+  void hideBeforePutBackInitialState(){
+    _initialState = isShowed();
+    hide();
+  }
+  
+  void hideOrShowputToInitialState(){
+    if ( _initialState ){
+      show();
+    }
+  }
 }

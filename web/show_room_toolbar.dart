@@ -1,12 +1,10 @@
 library gex_common_ui_elements.show_room_toolbar;
 
 
-import 'dart:html';
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
 import 'package:gex_common_ui_elements/common_ui_elements.dart' ;
 import 'package:gex_common_ui_elements/elements/space.dart' ;
-import 'package:gex_common_ui_elements/elements/button.dart' ;
 import 'package:gex_common_ui_elements/elements/toolbar.dart' ;
 
 @CustomTag('gex-show-room-toolbar')

@@ -14,22 +14,22 @@ import 'package:gex_common_ui_elements/elements/view_port.dart' ;
 main() {
   initPolymer();
   
-  ViewPort viewPort ;
   
-  group("ScreenDescriptor", (){
+  
+  group("ViewPortDescriptor", (){
 
     group('orientation: ', (){
       setUp((){
       });
 
       test('landscape', (){
-        ViewPortDescriptor viewPort = new ViewPortDescriptor(100, 50);
-        expect( viewPort.orientation  , equals(ScreenOrientation.LANDSCAPE)); 
+        ViewPortDescriptor viewPortDescriptor = new ViewPortDescriptor(100, 50);
+        expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.LANDSCAPE)); 
       });
       
       test('portrait', (){
-        ViewPortDescriptor viewPort = new ViewPortDescriptor(50, 100);
-        expect( viewPort.orientation  , equals(ScreenOrientation.PORTRAIT)); 
+        ViewPortDescriptor viewPortDescriptor = new ViewPortDescriptor(50, 100);
+        expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.PORTRAIT)); 
       });
       
     });
@@ -50,11 +50,35 @@ main() {
         when(windowMock.innerHeight).thenReturn(50);
         when(windowMock.innerWidth).thenReturn(100);
         
-        ViewPortDescriptor viewPort = new ViewPortDescriptor.fromWindow(windowMock) ;
-        expect( viewPort.orientation  , equals(ScreenOrientation.PORTRAIT)); 
+        ViewPortDescriptor viewPortDescriptor = new ViewPortDescriptor.fromWindow(windowMock) ;
+        
+        var wait = new Duration(milliseconds: 2000);
+        new Timer(wait, (){
+          expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.PORTRAIT)) ;
+        });
+        
       });      
       
     });    
+    
+    group('equals: ', (){
+      
+      test('== values', (){
+        ViewPortDescriptor viewPortDescriptor1 = new ViewPortDescriptor(100, 200) ;
+        ViewPortDescriptor viewPortDescriptor2 = new ViewPortDescriptor(100, 200) ;
+        
+        expect( viewPortDescriptor1  , equals(viewPortDescriptor2)); 
+      });
+      
+      test('!= values', (){
+        ViewPortDescriptor viewPortDescriptor1 = new ViewPortDescriptor(200, 200) ;
+        ViewPortDescriptor viewPortDescriptor2 = new ViewPortDescriptor(100, 200) ;
+        
+        expect( viewPortDescriptor1  , isNot( equals(viewPortDescriptor2) ) ); 
+      });      
+      
+      
+    });      
     
     
   });
@@ -66,6 +90,9 @@ main() {
 }
 
 class WindowMock extends Mock implements Window{}
+
+
+
 
 pollForDone(List tests) {
   if (tests.every((t)=> t.isComplete)) {
