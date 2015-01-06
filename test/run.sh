@@ -59,6 +59,7 @@ analyze-sources
 install-content_shell
 launch-test test_button.html
 launch-test test_toolbar.html
+launch-test test_virtual_screen.html
 
 
 

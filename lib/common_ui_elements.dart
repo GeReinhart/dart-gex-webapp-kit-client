@@ -8,4 +8,3 @@ import 'package:logging/logging.dart';
 
 part 'actions.dart';
 part 'abilities.dart';
-
