@@ -8,13 +8,13 @@ import 'package:polymer/polymer.dart';
 import 'package:gex_common_ui_elements/common_ui_elements.dart' ;
 import 'package:gex_common_ui_elements/elements/space.dart' ;
 import 'package:gex_common_ui_elements/elements/button.dart' ;
-import 'package:gex_common_ui_elements/elements/virtual_screen.dart' ;
+import 'package:gex_common_ui_elements/elements/view_port.dart' ;
 
 
 main() {
   initPolymer();
   
-  VirtualScreen virtualScreen ;
+  ViewPort viewPort ;
   
   group("ScreenDescriptor", (){
 
@@ -23,13 +23,13 @@ main() {
       });
 
       test('landscape', (){
-        ScreenDescriptor screen = new ScreenDescriptor(100, 50, 10);
-        expect( screen.orientation  , equals(ScreenOrientation.LANDSCAPE)); 
+        ViewPortDescriptor viewPort = new ViewPortDescriptor(100, 50);
+        expect( viewPort.orientation  , equals(ScreenOrientation.LANDSCAPE)); 
       });
       
       test('portrait', (){
-        ScreenDescriptor screen = new ScreenDescriptor(50, 100, 10);
-        expect( screen.orientation  , equals(ScreenOrientation.PORTRAIT)); 
+        ViewPortDescriptor viewPort = new ViewPortDescriptor(50, 100);
+        expect( viewPort.orientation  , equals(ScreenOrientation.PORTRAIT)); 
       });
       
     });
@@ -41,8 +41,8 @@ main() {
         when(windowMock.innerHeight).thenReturn(100);
         when(windowMock.innerWidth).thenReturn(50);
         
-        ScreenDescriptor screen = new ScreenDescriptor.fromWindow(windowMock) ;
-        expect( screen.orientation  , equals(ScreenOrientation.LANDSCAPE)); 
+        ViewPortDescriptor viewPort = new ViewPortDescriptor.fromWindow(windowMock) ;
+        expect( viewPort.orientation  , equals(ScreenOrientation.LANDSCAPE)); 
       });
       
       test('portrait', (){
@@ -50,8 +50,8 @@ main() {
         when(windowMock.innerHeight).thenReturn(50);
         when(windowMock.innerWidth).thenReturn(100);
         
-        ScreenDescriptor screen = new ScreenDescriptor.fromWindow(windowMock) ;
-        expect( screen.orientation  , equals(ScreenOrientation.PORTRAIT)); 
+        ViewPortDescriptor viewPort = new ViewPortDescriptor.fromWindow(windowMock) ;
+        expect( viewPort.orientation  , equals(ScreenOrientation.PORTRAIT)); 
       });      
       
     });    

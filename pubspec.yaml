@@ -19,7 +19,7 @@ transformers:
       - web/index.html
       - test/test_button.html
       - test/test_toolbar.html      
-      - test/test_virtual_screen.html  
+      - test/test_view_port.html  
 - $dart2js:
     commandLineOptions:
       - --enable-enum
