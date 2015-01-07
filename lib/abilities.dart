@@ -19,14 +19,20 @@ abstract class Positionable extends PolymerElement with Identifiable{
   
   @published String id;
   
-  @observable
-  final Position position = toObservable(new Position.empty());
+  final Position position = new Position.empty();
   
   Positionable.created() : super.created() {
     log.fine("Positionable object created with name: ${id}");
   }
   
+  bool isCurrentPostion(Position position){
+    return position == this.position ;
+  }
+  
   void moveTo(Position position) {
+    if (isCurrentPostion(position)){
+      return ;
+    }
     log.fine("Moving ${id} to ${position}");
     this.position.merge( position );
     _moveToTargetPosition();
@@ -46,13 +52,14 @@ abstract class Positionable extends PolymerElement with Identifiable{
 
 
 class Position {
-  num left ;
-  num top ;
-  num width ;
-  num height ;
-  num zIndex;
+  num left =0;
+  num top =0;
+  num width =0;
+  num height =0;
+  num zIndex =0;
   
   Position.empty();
+ 
   Position(this.left,this.top,this.width,this.height,this.zIndex);
   
   Position clone(){
@@ -65,6 +72,23 @@ class Position {
   @override
   String toString() => "SquarePosition: left:${left}, top:${top}, width:${width}, height:${height}, zIndex:${zIndex}";
   
+  @override
+  int get hashCode {
+     int result = 17;
+     result = 37 * result + left.hashCode;
+     result = 37 * result + top.hashCode;
+     result = 37 * result + width.hashCode;
+     result = 37 * result + height.hashCode;
+     result = 37 * result + zIndex.hashCode;
+     return result;
+  }
+
+  @override
+  bool operator ==(other) {
+     if (other is! Position) return false;
+     Position position = other;
+     return (position.hashCode == this.hashCode);
+   }  
   
   void merge(Position position) {
     this.left = position.left;

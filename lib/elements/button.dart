@@ -14,7 +14,7 @@ import 'package:paper_elements/paper_button.dart';
  * It execute the action on the click on the button.
  */
 @CustomTag('gex-button')
-class Button  extends Positionable with Actionable {
+class Button  extends Positionable with Actionable, Showable {
 
   final Logger log = new Logger('Button');
   final num MIN_SIZE_WITH_TEXT = 150 ;  
@@ -63,7 +63,11 @@ class Button  extends Positionable with Actionable {
   
   
   void moveTo(Position position) {
+    if (isCurrentPostion(position)){
+      return ;
+    }
     super.moveTo(position);
+    
     num heightForImage  ;
     num heightForText = 0 ;
     if ( image.isNotEmpty &&  ( position.width < MIN_SIZE_WITH_TEXT || label.isEmpty  ) ){

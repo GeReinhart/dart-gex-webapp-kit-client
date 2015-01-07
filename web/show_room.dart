@@ -28,6 +28,7 @@ class ShowRoom extends PolymerElement {
   
   Button buttonSpaceButton ;
   Button buttonSpaceToolbar ;
+  Button buttonViewPort ;
   
  
   
@@ -57,6 +58,7 @@ class ShowRoom extends PolymerElement {
     
     buttonSpaceButton = $["buttonSpaceButton"] as Button ;
     buttonSpaceToolbar = $["buttonSpaceToolbar"] as Button ;
+    buttonViewPort = $["buttonViewPort"] as Button ;
     
   }
   
@@ -67,6 +69,7 @@ class ShowRoom extends PolymerElement {
     showRoomViewPort.moveTo( new Position(70, 70, window.innerWidth-140, window.innerHeight-140, 101));
     buttonSpaceButton.moveTo( new Position(0, 0, 100, 30, 101));
     buttonSpaceToolbar.moveTo( new Position(100, 0, 100, 30, 101));
+    buttonViewPort.moveTo( new Position(200, 0, 100, 30, 101));
     showRoomButton.hide();
     showRoomToolbar.show() ;
     showRoomViewPort.hide();
@@ -77,10 +80,17 @@ class ShowRoom extends PolymerElement {
     buttonSpaceButton.targetAction( new ActionDescriptor("","",(Parameters params){
       showRoomButton.show();
       showRoomToolbar.hide() ;
+      showRoomViewPort.hide();
     }) );
     buttonSpaceToolbar.targetAction( new ActionDescriptor("","",(Parameters params){
       showRoomToolbar.show() ;
       showRoomButton.hide();
+      showRoomViewPort.hide();
+    }) );
+    buttonViewPort.targetAction( new ActionDescriptor("","",(Parameters params){
+      showRoomToolbar.hide() ;
+      showRoomButton.hide();
+      showRoomViewPort.show();      
     }) );
     
     showRoomViewPort.viewPort.subscribeViewPortChange(_viewPortChangeCallBack) ;
@@ -90,18 +100,10 @@ class ShowRoom extends PolymerElement {
   void _viewPortChangeCallBack(ViewPortChangeEvent event){
     ViewPortDescriptor viewPort = event.viewPortDescriptor ;
     
-    showRoomButton.hideBeforePutBackInitialState();
-    showRoomToolbar.hideBeforePutBackInitialState() ;
-    showRoomViewPort.hideBeforePutBackInitialState();
-    
     space.moveTo( new Position(0, 0, viewPort.windowWidth, viewPort.windowHeigth, 100));
     showRoomButton.moveTo( new Position(70, 70, viewPort.windowWidth -140,viewPort.windowHeigth-140, 101));
     showRoomToolbar.moveTo( new Position(70, 70, viewPort.windowWidth -140, viewPort.windowHeigth-140, 101));
     showRoomViewPort.moveTo( new Position(70, 70, viewPort.windowWidth -140, viewPort.windowHeigth-140, 101));
-    
-    showRoomButton.hideOrShowputToInitialState();
-    showRoomToolbar.hideOrShowputToInitialState() ;
-    showRoomViewPort.hideOrShowputToInitialState();
     
   }
 

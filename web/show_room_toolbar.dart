@@ -25,12 +25,16 @@ class ShowRoomToolbar extends Positionable with Showable {
     super.ready();
     _setAttributes();
     _setUpEventsOnElements();
+    _initialPositionsForElements();
   }
   
   @override
   void moveTo(Position position) {
       super.moveTo(position);
-      _initialPositionsForElements();
+      estToolbar.moveTo(new Position(0, 0, 100, 160, 102) ) ;
+      southToolbar.moveTo(new Position( position.width - 100   , 0, 100, 30, 102) ) ;
+      westToolbar.moveTo(new Position( position.width - 100 , position.height - 50 , 100, 50, 102) ) ; 
+      northToolbar.moveTo(new Position( 0 , position.height - 50 , 100, 50, 103) ) ;
   }
     
   
