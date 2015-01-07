@@ -30,9 +30,6 @@ abstract class Positionable extends PolymerElement with Identifiable{
   }
   
   void moveTo(Position position) {
-    if (isCurrentPostion(position)){
-      return ;
-    }
     log.fine("Moving ${id} to ${position}");
     this.position.merge( position );
     _moveToTargetPosition();

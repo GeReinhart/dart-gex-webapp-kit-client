@@ -14,8 +14,7 @@ class Toolbar extends Positionable {
   
   @published String backgroundColor = "black";
   
-  Position mainButtonPosition ;
-  Position postion ;
+  Position mainButtonPosition = new Position.empty();
   Orientation orientation ;
   List<ActionDescriptor> actions ;
   List<Button> buttons ;
@@ -27,13 +26,24 @@ class Toolbar extends Positionable {
     this.style.backgroundColor = backgroundColor; 
   }
   
-  
   void init(Position position, Orientation orientation, List<ActionDescriptor> actions) {
-    this.mainButtonPosition = position;
     this.orientation = orientation;
+    _initButtons(actions);
+  }
+  
+  @override
+  void moveTo(Position position){
+    if (isCurrentPostion(position)){
+      return ;
+    }
+    _moveButtons(position);
+    super.moveTo(this.position);
+  }
+  
+  void _initButtons( List<ActionDescriptor> actions) {
     this.actions = actions ;
-    buttons = new List<Button>();
-    this.postion = position.clone() ;
+    this.buttons = new List<Button>();
+    
     for (var i = 0; i < actions.length; i++) {
       Button button = new Element.tag('gex-button') as Button;
       
@@ -42,6 +52,17 @@ class Toolbar extends Positionable {
       if (action.image != null){
         button.image = action.image;
       }
+      button.targetAction(action);
+      this.append(button);
+      buttons.add(button);
+    }
+  }
+ 
+  void _moveButtons(Position position) {
+    this.mainButtonPosition = position;
+    this.position.merge(position) ;
+    for (var i = 0; i < buttons.length; i++) {
+      Button button = buttons[i];
       
       num left = 0;
       if ( Orientation.est ==  orientation ){
@@ -63,28 +84,27 @@ class Toolbar extends Positionable {
                     ..top = top ;
       
       button.moveTo(currentPostion) ;
-      button.targetAction(action);
-      this.append(button);
-      buttons.add(button);
     }
     
-    num buttonCount = actions.length  ;
+    num buttonCount = buttons.length  ;
     if ( Orientation.est ==  orientation ){
-      this.postion.width = buttonCount * position.width ;
+      this.position.width = buttonCount * position.width ;
     }
     if ( Orientation.west ==  orientation ){
-      this.postion.left =  position.left - (buttonCount-1)* position.width ;
-      this.postion.width =  buttonCount * position.width ;
+      this.position.left =  position.left - (buttonCount-1)* position.width ;
+      this.position.width =  buttonCount * position.width ;
     }
     if ( Orientation.south ==  orientation ){
-      this.postion.height =  buttonCount * position.height ;
+      this.position.height =  buttonCount * position.height ;
     }
     if ( Orientation.north ==  orientation ){
-      this.postion.top =  position.top - (buttonCount-1)* position.height ;
-      this.postion.height =  buttonCount * position.height ;
+      this.position.top =  position.top - (buttonCount-1)* position.height ;
+      this.position.height =  buttonCount * position.height ;
     }    
     
-    moveTo(this.postion);
-  }
+    
+  }  
+  
+  
   
 }
