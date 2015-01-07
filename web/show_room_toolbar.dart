@@ -56,10 +56,10 @@ class ShowRoomToolbar extends Positionable with Showable {
     actions.add(new ActionDescriptor("Action 2","",action2));
     actions.add(new ActionDescriptor("Action 3","",action3));
     actions.add(new ActionDescriptor("Action 4","",action4));
-    estToolbar.init(new Position(0, 0, 100, 160, 102), Orientation.est,actions ) ;
-    southToolbar.init(new Position( position.width - 100   , 0, 100, 30, 102), Orientation.south,actions ) ;
-    westToolbar.init(new Position( position.width - 100 , position.height - 50 , 100, 50, 102), Orientation.west,actions ) ; 
-    northToolbar.init(new Position( 0 , position.height - 50 , 100, 50, 103), Orientation.north,actions ) ; 
+    estToolbar.init( Orientation.est,actions ) ;
+    southToolbar.init( Orientation.south,actions ) ;
+    westToolbar.init( Orientation.west,actions ) ; 
+    northToolbar.init( Orientation.north,actions ) ; 
   }
   
 

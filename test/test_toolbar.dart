@@ -40,10 +40,14 @@ main() {
       toolbarAction.add(new ActionDescriptor("two", "two",  action2.targetAction)) ;
       toolbarAction.add(new ActionDescriptor("three", "three",  action3.targetAction)) ;
       
-      toolbarEst.init(toolbarPostion,Orientation.est,toolbarAction );
-      toolbarWest.init(toolbarPostion,Orientation.west,toolbarAction );
-      toolbarNorth.init(toolbarPostion,Orientation.north,toolbarAction );
-      toolbarSouth.init(toolbarPostion,Orientation.south,toolbarAction );      
+      toolbarEst.init(Orientation.est,toolbarAction );
+      toolbarEst.moveTo(toolbarPostion);
+      toolbarWest.init(Orientation.west,toolbarAction );
+      toolbarWest.moveTo(toolbarPostion);
+      toolbarNorth.init(Orientation.north,toolbarAction );
+      toolbarNorth.moveTo(toolbarPostion);
+      toolbarSouth.init(Orientation.south,toolbarAction );    
+      toolbarSouth.moveTo(toolbarPostion);
     });
 
     tearDown((){

@@ -26,7 +26,7 @@ class Toolbar extends Positionable {
     this.style.backgroundColor = backgroundColor; 
   }
   
-  void init(Position position, Orientation orientation, List<ActionDescriptor> actions) {
+  void init(Orientation orientation, List<ActionDescriptor> actions) {
     this.orientation = orientation;
     _initButtons(actions);
   }
