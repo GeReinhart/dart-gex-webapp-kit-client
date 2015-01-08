@@ -6,7 +6,9 @@ import 'dart:async';
 import 'package:gex_common_ui_elements/common_ui_elements.dart';
 import 'package:polymer/polymer.dart';
 
-
+/**
+ * Listen to the screen/window changes and broadcast ViewPort change events.
+ */
 @CustomTag('gex-view-port')
 class ViewPort extends Positionable with Showable {
   

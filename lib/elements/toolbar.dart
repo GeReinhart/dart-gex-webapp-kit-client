@@ -7,6 +7,9 @@ import 'package:gex_common_ui_elements/common_ui_elements.dart';
 import 'package:gex_common_ui_elements/elements/button.dart';
 import 'package:polymer/polymer.dart';
 
+/**
+ * Display buttons to create a toolbar.
+ */
 @CustomTag('gex-toolbar')
 class Toolbar extends Positionable {
   
