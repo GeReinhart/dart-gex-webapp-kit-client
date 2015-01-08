@@ -68,7 +68,7 @@ class ViewPortDescriptor {
   
   num get windowHeigth => _windowHeight ;
   num get windowWidth => _windowWidth ;
-  ScreenOrientation get orientation => _windowHeight > _windowWidth ? ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
+  ScreenOrientation get orientation => _windowHeight < _windowWidth ? ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
       
   
   @override

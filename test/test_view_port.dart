@@ -24,12 +24,12 @@ main() {
 
       test('landscape', (){
         ViewPortDescriptor viewPortDescriptor = new ViewPortDescriptor(100, 50);
-        expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.LANDSCAPE)); 
+        expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.PORTRAIT)); 
       });
       
       test('portrait', (){
         ViewPortDescriptor viewPortDescriptor = new ViewPortDescriptor(50, 100);
-        expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.PORTRAIT)); 
+        expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.LANDSCAPE)); 
       });
       
     });
@@ -42,7 +42,7 @@ main() {
         when(windowMock.innerWidth).thenReturn(50);
         
         ViewPortDescriptor viewPort = new ViewPortDescriptor.fromWindow(windowMock) ;
-        expect( viewPort.orientation  , equals(ScreenOrientation.LANDSCAPE)); 
+        expect( viewPort.orientation  , equals(ScreenOrientation.PORTRAIT)); 
       });
       
       test('portrait', (){
@@ -54,7 +54,7 @@ main() {
         
         var wait = new Duration(milliseconds: 2000);
         new Timer(wait, (){
-          expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.PORTRAIT)) ;
+          expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.LANDSCAPE)) ;
         });
         
       });      

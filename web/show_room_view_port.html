@@ -13,9 +13,25 @@
 
 <polymer-element name="gex-show-room-view-port">
   <template>
+    <style>
+      ul li {
+        color: white;
+        font-size: x-large;
+      }
+    </style>  
+  
     <gex-view-port id="viewPort"  >
     
-       
+     <gex-space id="viewPortSpace"  backgroundColor="#00D2B8">
+          
+         <ul>
+           <li><span>Width: </span><span id="viewPortWidth" ></span></li>
+           <li><span>Height: </span><span id="viewPortHeight" ></span></li>
+           <li><span>Orientation: </span><span id="viewPortOrientation" ></span></li>
+         </ul> 
+          
+          
+     </gex-space>
     
     </gex-view-port>
   </template>
