@@ -10,8 +10,8 @@ import 'package:polymer/polymer.dart';
 /**
  * Display buttons to create a toolbar.
  */
-@CustomTag('gex-toolbar')
-class Toolbar extends Positionable {
+@CustomTag('gex-toolbar') 
+class Toolbar extends Positionable with Showable {
   
   final Logger log = new Logger('Toolbar');
   
@@ -64,6 +64,11 @@ class Toolbar extends Positionable {
   void _moveButtons(Position position) {
     this.mainButtonPosition = position;
     this.position.merge(position) ;
+    
+    if(buttons == null){
+      throw new Exception("On ToolBar call 'init' before 'moveTo'");
+    }
+    
     for (var i = 0; i < buttons.length; i++) {
       Button button = buttons[i];
       

@@ -10,6 +10,7 @@ import 'package:polymer/polymer.dart';
 /**
  * Create a workspace inside the available space.
  * Put toolbars at the 4 corners of the space.
+ * Put buttons at the bottom of the space.
  * Adapt the workspace and the toolbars according to the viewPort change events. 
  */
 @CustomTag('gex-layout')

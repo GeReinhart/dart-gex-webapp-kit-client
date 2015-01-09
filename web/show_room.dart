@@ -11,9 +11,11 @@ import 'package:gex_common_ui_elements/elements/space.dart' ;
 import 'package:gex_common_ui_elements/elements/button.dart' ;
 import 'package:gex_common_ui_elements/elements/toolbar.dart' ;
 import 'package:gex_common_ui_elements/elements/view_port.dart' ;
+import 'package:gex_common_ui_elements/elements/layout.dart' ;
 import 'show_room_button.dart' ;
 import 'show_room_toolbar.dart' ;
 import 'show_room_view_port.dart' ;
+import 'show_room_layout.dart' ;
 
 @CustomTag('gex-show-room')
 class ShowRoom extends PolymerElement {
@@ -25,10 +27,15 @@ class ShowRoom extends PolymerElement {
   ShowRoomButton showRoomButton ;
   ShowRoomToolbar showRoomToolbar ;
   ShowRoomViewPort showRoomViewPort ;
+  ShowRoomLayout showRoomLayout ;
+  
+  ViewPort showRoomLayoutViewPort ;
+  Toolbar  showRoomLayoutToolbar ;
   
   Button buttonSpaceButton ;
   Button buttonSpaceToolbar ;
   Button buttonViewPort ;
+  Button buttonLayout ;
   
  
   
@@ -56,23 +63,44 @@ class ShowRoom extends PolymerElement {
     showRoomToolbar = $["showRoomToolbar"] as ShowRoomToolbar ; 
     showRoomViewPort = $["showRoomViewPort"] as ShowRoomViewPort ; 
     
+    showRoomLayoutViewPort = $["showRoomLayoutViewPort"] as ViewPort ; 
+    showRoomLayoutToolbar  = $["showRoomLayoutToolbar"] as Toolbar ; 
+    List<ActionDescriptor> actions = new List<ActionDescriptor>();
+    actions.add(new ActionDescriptor("Reset","",(p)=>addNewShowRoomLayout()));
+    actions.add(new ActionDescriptor("Add toolbar","",(p)=>showRoomLayout.addToolbar()));
+    actions.add(new ActionDescriptor("Add button","",(p)=>showRoomLayout.addButton()));
+    actions.add(new ActionDescriptor("Add content","",(p)=>showRoomLayout.addContent()));
+    showRoomLayoutToolbar.init( Orientation.est,actions ) ;        
+    
     buttonSpaceButton = $["buttonSpaceButton"] as Button ;
     buttonSpaceToolbar = $["buttonSpaceToolbar"] as Button ;
     buttonViewPort = $["buttonViewPort"] as Button ;
+    buttonLayout = $["buttonLayout"] as Button ;
+    
     
   }
   
   void _initialPositionsForElements(){
     space.moveTo( new Position(0, 0, window.innerWidth, window.innerHeight, 100));
-    showRoomButton.moveTo( new Position(70, 70, window.innerWidth-140, window.innerHeight-140, 101));
-    showRoomToolbar.moveTo( new Position(70, 70, window.innerWidth-140, window.innerHeight-140, 101));
-    showRoomViewPort.moveTo( new Position(70, 70, window.innerWidth-140, window.innerHeight-140, 101));
+    Position centerPosition = new Position(70, 70, window.innerWidth-140, window.innerHeight-140, 101);
+    showRoomButton.moveTo(centerPosition);
+    showRoomToolbar.moveTo(centerPosition);
+    showRoomViewPort.moveTo(centerPosition);
+    showRoomLayoutViewPort.moveTo(centerPosition);
+    
     buttonSpaceButton.moveTo( new Position(0, 0, 100, 30, 101));
     buttonSpaceToolbar.moveTo( new Position(100, 0, 100, 30, 101));
     buttonViewPort.moveTo( new Position(200, 0, 100, 30, 101));
+    buttonLayout.moveTo( new Position(300, 0, 100, 30, 101));
+
+    showRoomLayoutToolbar.moveTo( new Position(300, 30, 100, 30, 101));
+    
     showRoomButton.hide();
     showRoomToolbar.show() ;
     showRoomViewPort.hide();
+    showRoomLayoutViewPort.hide();
+    showRoomLayoutToolbar.hide();
+    addNewShowRoomLayout();
   }
 
   
@@ -81,30 +109,55 @@ class ShowRoom extends PolymerElement {
       showRoomButton.show();
       showRoomToolbar.hide() ;
       showRoomViewPort.hide();
+      showRoomLayoutViewPort.hide();
+      showRoomLayoutToolbar.hide();
     }) );
     buttonSpaceToolbar.targetAction( new ActionDescriptor("","",(Parameters params){
       showRoomToolbar.show() ;
       showRoomButton.hide();
       showRoomViewPort.hide();
+      showRoomLayoutViewPort.hide();
+      showRoomLayoutToolbar.hide();
     }) );
     buttonViewPort.targetAction( new ActionDescriptor("","",(Parameters params){
       showRoomToolbar.hide() ;
       showRoomButton.hide();
-      showRoomViewPort.show();      
+      showRoomViewPort.show();    
+      showRoomLayoutViewPort.hide();
+      showRoomLayoutToolbar.hide();
     }) );
+    buttonLayout.targetAction( new ActionDescriptor("","",(Parameters params){
+      showRoomToolbar.hide() ;
+      showRoomButton.hide();
+      showRoomViewPort.hide();    
+      showRoomLayoutViewPort.show();
+      showRoomLayoutToolbar.show();
+    }) );  
     
     showRoomViewPort.viewPort.subscribeViewPortChange(_viewPortChangeCallBack) ;
     
   }
 
+  void addNewShowRoomLayout(){
+    ShowRoomLayout newShowRoomLayout = new Element.tag('gex-show-room-layout') as ShowRoomLayout;
+    if (showRoomLayout != null){
+      showRoomLayout.hide(); // we should remove it...
+    }
+    showRoomLayout = newShowRoomLayout;
+    showRoomLayoutViewPort.append(showRoomLayout);
+  }
+  
   void _viewPortChangeCallBack(ViewPortChangeEvent event){
     ViewPortDescriptor viewPort = event.viewPortDescriptor ;
+    Position fullPosition = new Position(0, 0, viewPort.windowWidth, viewPort.windowHeigth, 100);
+    Position centerPosition = new Position(70, 70, viewPort.windowWidth -140,viewPort.windowHeigth-140, 100);
     
-    space.moveTo( new Position(0, 0, viewPort.windowWidth, viewPort.windowHeigth, 100));
-    showRoomButton.moveTo( new Position(70, 70, viewPort.windowWidth -140,viewPort.windowHeigth-140, 101));
-    showRoomToolbar.moveTo( new Position(70, 70, viewPort.windowWidth -140, viewPort.windowHeigth-140, 101));
-    showRoomViewPort.moveTo( new Position(70, 70, viewPort.windowWidth -140, viewPort.windowHeigth-140, 101));
-    
+    space.moveTo( fullPosition);
+    showRoomButton.moveTo( centerPosition);
+    showRoomToolbar.moveTo( centerPosition);
+    showRoomViewPort.moveTo( centerPosition);
+    showRoomLayoutViewPort.moveTo( centerPosition);
+    showRoomLayout.moveTo( centerPosition);
   }
 
 }

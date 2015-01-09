@@ -14,6 +14,7 @@
 <link rel="import" href="show_room_button.html">
 <link rel="import" href="show_room_toolbar.html">
 <link rel="import" href="show_room_view_port.html">
+<link rel="import" href="show_room_layout.html">
 
 <polymer-element name="gex-show-room">
   <template>
@@ -21,10 +22,15 @@
       <gex-button id="buttonSpaceButton" label="Buttons"  backgroundColor="white" ></gex-button>
       <gex-button id="buttonSpaceToolbar" label="Toolbars" backgroundColor="#00D2B8" ></gex-button>
       <gex-button id="buttonViewPort" label="ViewPort"  backgroundColor="white" ></gex-button>
+      <gex-button id="buttonLayout" label="Layout"  backgroundColor="#00D2B8" ></gex-button>
+      <gex-toolbar id="showRoomLayoutToolbar"  backgroundColor="#FFFFE0" ></gex-toolbar>
   
       <gex-show-room-button  id="showRoomButton"  backgroundColor="#55DDCA" ></gex-show-room-button>
       <gex-show-room-toolbar id="showRoomToolbar" backgroundColor="#55DDCA" ></gex-show-room-toolbar>
-      <gex-show-room-view-port id="showRoomViewPort"  ></gex-show-room-view-port>
+      <gex-show-room-view-port id="showRoomViewPort" backgroundColor="#55DDCA" ></gex-show-room-view-port>
+      
+      <gex-view-port id="showRoomLayoutViewPort"  ></gex-view-port>
+      
     </gex-space>
   </template>
   <script type="application/dart" src="show_room.dart"></script>
