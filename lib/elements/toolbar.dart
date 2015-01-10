@@ -24,6 +24,7 @@ class Toolbar extends Positionable with Showable {
   
   Toolbar.created() : super.created() ;
   
+  
   void attached() {
     super.attached();
     this.style.backgroundColor = backgroundColor; 
@@ -113,6 +114,6 @@ class Toolbar extends Positionable with Showable {
     
   }  
   
-  
+  num get nbActions => actions == null ? 0 : actions.length;
   
 }

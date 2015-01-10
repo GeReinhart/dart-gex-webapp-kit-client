@@ -51,11 +51,26 @@ class ShowRoomLayout extends Positionable with Showable {
   
   
   void addButton() {
+    List<ActionDescriptor> actions = new List<ActionDescriptor>();
+    actions.add(new ActionDescriptor("Action 1","",action1));
+    actions.add(new ActionDescriptor("Action 2","",action2));
+    actions.add(new ActionDescriptor("Action 3","",action3));
+    layout.actions = actions ;
   }
   
   void addContent() {
     DivElement newContent = content.clone(true) as DivElement ;
     newContent.style.display = "inline";
     layout.append(newContent);
+  }
+  
+  action1(Parameters params){
+    layout.style.backgroundColor ="white" ;
+  }
+  action2(Parameters params){
+    layout.style.backgroundColor ="#00D2B8" ;
+  }
+  action3(Parameters params){
+    layout.style.backgroundColor ="#778899" ;
   }
 }
