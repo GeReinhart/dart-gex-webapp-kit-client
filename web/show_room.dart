@@ -140,20 +140,22 @@ class ShowRoom extends PolymerElement {
   void addNewShowRoomLayout(){
     showRoomLayoutViewPort.children.clear();
     showRoomLayout = new Element.tag('gex-show-room-layout') as ShowRoomLayout;
+    showRoomLayout.moveTo( new Position(0, 0, window.innerWidth -140,window.innerHeight-140, 100));
+     
     showRoomLayoutViewPort.append(showRoomLayout);
   }
   
   void _viewPortChangeCallBack(ViewPortChangeEvent event){
     ViewPortDescriptor viewPort = event.viewPortDescriptor ;
-    Position fullPosition = new Position(0, 0, viewPort.windowWidth, viewPort.windowHeigth, 100);
-    Position centerPosition = new Position(70, 70, viewPort.windowWidth -140,viewPort.windowHeigth-140, 100);
+    Position fullPosition = new Position(0, 0, viewPort.windowWidth, viewPort.windowHeight, 100);
+    Position centerPosition = new Position(70, 70, viewPort.windowWidth -140,viewPort.windowHeight-140, 100);
     
     space.moveTo( fullPosition);
     showRoomButton.moveTo( centerPosition);
     showRoomToolbar.moveTo( centerPosition);
     showRoomViewPort.moveTo( centerPosition);
     showRoomLayoutViewPort.moveTo( centerPosition);
-    showRoomLayout.moveTo( new Position(0, 0, viewPort.windowWidth -140,viewPort.windowHeigth-140, 100));
+    showRoomLayout.moveTo( new Position(0, 0, viewPort.windowWidth -140,viewPort.windowHeight-140, 100));
   }
 
 }

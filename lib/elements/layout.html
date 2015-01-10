@@ -4,9 +4,11 @@
 
 <polymer-element name="gex-layout" attributes ="backgroundColor" >
   <template>
-     <gex-space id="space"  backgroundColor="{{backgroundColor}}">
-          <content></content>
-     </gex-space>
+     <div id="main" style="left:0px; top:0px; width: 100%; height: 100%; overflow-y: hidden; overflow-x: hidden;" >
+         <div id="space"  backgroundColor="{{backgroundColor}}">
+              <content></content>
+         </div>
+     </div>
   </template>
   <script type="application/dart" src="layout.dart"></script>
 </polymer-element>

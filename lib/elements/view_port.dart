@@ -68,7 +68,7 @@ class ViewPortDescriptor {
   }
   ViewPortDescriptor(this._windowHeight, this._windowWidth);
   
-  num get windowHeigth => _windowHeight ;
+  num get windowHeight => _windowHeight ;
   num get windowWidth => _windowWidth ;
   ScreenOrientation get orientation => _windowHeight < _windowWidth ? ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
       
