@@ -64,7 +64,7 @@ class Layout extends Positionable with Showable {
       Position toolBarPosition = position.clone();
       toolBarPosition.left =  position.width *  marginXInPercent / 2; 
       toolBarPosition.height =  position.height * buttonYInPercent;
-      toolBarPosition.top  = position.height - toolBarPosition.height;
+      toolBarPosition.top  = position.height - toolBarPosition.height - (toolBarPosition.height * buttonYInPercent  ) ;
       toolBarPosition.width =  position.width * (1- marginXInPercent) / _toolbar.nbActions  ;
       _toolbar.moveTo(toolBarPosition);
       

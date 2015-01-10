@@ -15,6 +15,7 @@ class ShowRoomLayout extends Positionable with Showable {
   
   Layout layout ;
   DivElement content;
+  List<ActionDescriptor> actions ;
   
   ShowRoomLayout.created() : super.created(){
   }
@@ -50,12 +51,14 @@ class ShowRoomLayout extends Positionable with Showable {
   }
   
   
-  void addButton() {
-    List<ActionDescriptor> actions = new List<ActionDescriptor>();
-    actions.add(new ActionDescriptor("Action 1","",action1));
-    actions.add(new ActionDescriptor("Action 2","",action2));
-    actions.add(new ActionDescriptor("Action 3","",action3));
-    layout.actions = actions ;
+  void addButtons() {
+    if (actions == null){
+      actions = new List<ActionDescriptor>();
+      actions.add(new ActionDescriptor("Action 1","",action1));
+      actions.add(new ActionDescriptor("Action 2","",action2));
+      actions.add(new ActionDescriptor("Action 3","",action3));
+      layout.actions = actions ;
+    }
   }
   
   void addContent() {

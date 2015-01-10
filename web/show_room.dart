@@ -67,7 +67,7 @@ class ShowRoom extends PolymerElement {
     showRoomLayoutToolbar  = $["showRoomLayoutToolbar"] as Toolbar ; 
     List<ActionDescriptor> actions = new List<ActionDescriptor>();
     actions.add(new ActionDescriptor("Reset","",(p)=>addNewShowRoomLayout()));
-    actions.add(new ActionDescriptor("Add button","",(p)=>showRoomLayout.addButton()));
+    actions.add(new ActionDescriptor("Add buttons","",(p)=>showRoomLayout.addButtons()));
     actions.add(new ActionDescriptor("Add content","",(p)=>showRoomLayout.addContent()));
     showRoomLayoutToolbar.init( Orientation.est,actions ) ;        
     
