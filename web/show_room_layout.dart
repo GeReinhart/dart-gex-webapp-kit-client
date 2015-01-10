@@ -49,12 +49,13 @@ class ShowRoomLayout extends Positionable with Showable {
   void _initialPositionsForElements() {
   }
   
-  void addToolbar() {
-  }
   
   void addButton() {
   }
   
   void addContent() {
+    DivElement newContent = content.clone(true) as DivElement ;
+    newContent.style.display = "inline";
+    layout.append(newContent);
   }
 }

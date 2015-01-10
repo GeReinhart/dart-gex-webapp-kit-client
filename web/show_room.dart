@@ -67,7 +67,6 @@ class ShowRoom extends PolymerElement {
     showRoomLayoutToolbar  = $["showRoomLayoutToolbar"] as Toolbar ; 
     List<ActionDescriptor> actions = new List<ActionDescriptor>();
     actions.add(new ActionDescriptor("Reset","",(p)=>addNewShowRoomLayout()));
-    actions.add(new ActionDescriptor("Add toolbar","",(p)=>showRoomLayout.addToolbar()));
     actions.add(new ActionDescriptor("Add button","",(p)=>showRoomLayout.addButton()));
     actions.add(new ActionDescriptor("Add content","",(p)=>showRoomLayout.addContent()));
     showRoomLayoutToolbar.init( Orientation.est,actions ) ;        
@@ -139,11 +138,8 @@ class ShowRoom extends PolymerElement {
   }
 
   void addNewShowRoomLayout(){
-    ShowRoomLayout newShowRoomLayout = new Element.tag('gex-show-room-layout') as ShowRoomLayout;
-    if (showRoomLayout != null){
-      showRoomLayout.hide(); // we should remove it...
-    }
-    showRoomLayout = newShowRoomLayout;
+    showRoomLayoutViewPort.children.clear();
+    showRoomLayout = new Element.tag('gex-show-room-layout') as ShowRoomLayout;
     showRoomLayoutViewPort.append(showRoomLayout);
   }
   
@@ -157,7 +153,7 @@ class ShowRoom extends PolymerElement {
     showRoomToolbar.moveTo( centerPosition);
     showRoomViewPort.moveTo( centerPosition);
     showRoomLayoutViewPort.moveTo( centerPosition);
-    showRoomLayout.moveTo( centerPosition);
+    showRoomLayout.moveTo( new Position(0, 0, viewPort.windowWidth -140,viewPort.windowHeigth-140, 100));
   }
 
 }
