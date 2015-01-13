@@ -15,6 +15,7 @@
 <link rel="import" href="show_room_toolbar.html">
 <link rel="import" href="show_room_view_port.html">
 <link rel="import" href="show_room_layout.html">
+<link rel="import" href="app/show_room_application.html">
 
 <polymer-element name="gex-show-room">
   <template>
@@ -24,12 +25,15 @@
       <gex-button id="buttonViewPort" label="ViewPort"  backgroundColor="white" ></gex-button>
       <gex-button id="buttonLayout" label="Layout"  backgroundColor="#00D2B8" ></gex-button>
       <gex-toolbar id="showRoomLayoutToolbar"  backgroundColor="#FFFFE0" ></gex-toolbar>
+      <gex-button id="buttonApplication" label="Application"  backgroundColor="white" ></gex-button>
   
       <gex-show-room-button  id="showRoomButton"  backgroundColor="#55DDCA" ></gex-show-room-button>
       <gex-show-room-toolbar id="showRoomToolbar" backgroundColor="#55DDCA" ></gex-show-room-toolbar>
       <gex-show-room-view-port id="showRoomViewPort" backgroundColor="#55DDCA" ></gex-show-room-view-port>
       
       <gex-view-port id="showRoomLayoutViewPort"  ></gex-view-port>
+      
+      <gex-show-room-application  id="showRoomApplication"  backgroundColor="#55DDCA" ></gex-show-room-application>
       
     </gex-space>
   </template>

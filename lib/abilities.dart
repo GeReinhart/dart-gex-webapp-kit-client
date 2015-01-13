@@ -129,7 +129,7 @@ class Showable {
     hide();
   }
   
-  void hideOrShowputToInitialState(){
+  void hideOrShowPutToInitialState(){
     if ( _initialState ){
       show();
     }

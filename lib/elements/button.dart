@@ -29,9 +29,10 @@ class Button  extends Positionable with Actionable, Showable {
     log.fine("Button ${id} created with label: ${label}");
   }
 
-  void attached() {
-    super.attached();
-    this.style.backgroundColor = backgroundColor;
+  @override
+  void ready() {
+    super.ready();
+    _colorElement.style.backgroundColor = backgroundColor;
     if( image.isNotEmpty ){
       _imageElement.style.display = "inline" ;
       _imageElement.src = image ;
@@ -41,6 +42,14 @@ class Button  extends Positionable with Actionable, Showable {
     this.onClick.listen((_)=>_click());
     this.onMouseDown.listen((_)=>_shadow.z= 1);
     this.onMouseUp.listen(  (_)=>_shadow.z= 2);
+  }
+  
+  @override
+  void attributeChanged(String name, String oldValue, String newValue) {
+    super.attributeChanged(name,  oldValue,  newValue);
+    if (name == "backgroundcolor") {
+      _colorElement.style.backgroundColor = newValue; 
+    }
   }
   
   void _click(){
@@ -86,6 +95,10 @@ class Button  extends Positionable with Actionable, Showable {
         ..height = squareSize
         ..top  = position.height < position.width ? smallMargin : largeMargin
         ..left = position.height > position.width ? smallMargin : largeMargin;
+    
+    _colorElement.style
+        ..width  = "${position.width}px"   
+        ..height = "${position.height}px";
         
     try {
        Element internalButton = _button.shadowRoot.querySelector('div') ;
@@ -104,7 +117,8 @@ class Button  extends Positionable with Actionable, Showable {
   ImageElement get _imageElement => $["image"] as ImageElement;
   ImageElement get imageElement => _imageElement.clone(true);
   PaperShadow get _shadow => $["shadow"] as PaperShadow;
-  PaperButton get _button => $["button"] as PaperButton;    
+  PaperButton get _button => $["button"] as PaperButton; 
+  DivElement get _colorElement => $["color"] as DivElement ;
   
 }
 

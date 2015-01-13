@@ -24,6 +24,7 @@ class Layout extends Positionable with Showable {
   
   @published String backgroundColor = "white";
   
+  num marginYInPercent = 0.1 ;
   num marginXInPercent = 0.3 ;
   num buttonYInPercent = 0.1 ;
   
@@ -34,7 +35,8 @@ class Layout extends Positionable with Showable {
   
   Layout.created() : super.created() ;
   
-  ready() {
+  @override
+  void ready() {
     super.ready();
     this.style.backgroundColor = backgroundColor; 
     _setAttributes();
@@ -53,6 +55,9 @@ class Layout extends Positionable with Showable {
       Position spacePosition = position.clone();
       spacePosition.left =  spacePosition.width *  marginXInPercent / 2; 
       spacePosition.width =  spacePosition.width * (1- marginXInPercent);
+      spacePosition.top =  spacePosition.height *  marginYInPercent / 2;
+      spacePosition.height =  spacePosition.height * (1 - marginYInPercent );
+      
       _space.style.marginLeft = "${spacePosition.left}px";
       _space.style.width = "${spacePosition.width}px";
       

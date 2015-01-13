@@ -16,6 +16,7 @@ import 'show_room_button.dart' ;
 import 'show_room_toolbar.dart' ;
 import 'show_room_view_port.dart' ;
 import 'show_room_layout.dart' ;
+import 'app/show_room_application.dart' ;
 
 @CustomTag('gex-show-room')
 class ShowRoom extends PolymerElement {
@@ -28,6 +29,7 @@ class ShowRoom extends PolymerElement {
   ShowRoomToolbar showRoomToolbar ;
   ShowRoomViewPort showRoomViewPort ;
   ShowRoomLayout showRoomLayout ;
+  ShowRoomApplication showRoomApplication;
   
   ViewPort showRoomLayoutViewPort ;
   Toolbar  showRoomLayoutToolbar ;
@@ -36,6 +38,7 @@ class ShowRoom extends PolymerElement {
   Button buttonSpaceToolbar ;
   Button buttonViewPort ;
   Button buttonLayout ;
+  Button buttonApplication;
   
  
   
@@ -71,11 +74,13 @@ class ShowRoom extends PolymerElement {
     actions.add(new ActionDescriptor("Add content","",(p)=>showRoomLayout.addContent()));
     showRoomLayoutToolbar.init( Orientation.est,actions ) ;        
     
+    showRoomApplication = $["showRoomApplication"] as ShowRoomApplication ; 
+    
     buttonSpaceButton = $["buttonSpaceButton"] as Button ;
     buttonSpaceToolbar = $["buttonSpaceToolbar"] as Button ;
     buttonViewPort = $["buttonViewPort"] as Button ;
     buttonLayout = $["buttonLayout"] as Button ;
-    
+    buttonApplication = $["buttonApplication"] as Button ;
     
   }
   
@@ -86,19 +91,23 @@ class ShowRoom extends PolymerElement {
     showRoomToolbar.moveTo(centerPosition);
     showRoomViewPort.moveTo(centerPosition);
     showRoomLayoutViewPort.moveTo(centerPosition);
+    showRoomApplication.moveTo(centerPosition);
     
     buttonSpaceButton.moveTo( new Position(0, 0, 100, 30, 101));
     buttonSpaceToolbar.moveTo( new Position(100, 0, 100, 30, 101));
     buttonViewPort.moveTo( new Position(200, 0, 100, 30, 101));
     buttonLayout.moveTo( new Position(300, 0, 100, 30, 101));
+    buttonApplication.moveTo( new Position(400, 0, 100, 30, 101));
 
     showRoomLayoutToolbar.moveTo( new Position(300, 30, 100, 30, 101));
     
-    showRoomButton.hide();
-    showRoomToolbar.show() ;
+    showRoomButton.show();
+    showRoomToolbar.hide() ;
     showRoomViewPort.hide();
     showRoomLayoutViewPort.hide();
     showRoomLayoutToolbar.hide();
+    showRoomApplication.hide();
+    
     addNewShowRoomLayout();
   }
 
@@ -110,6 +119,7 @@ class ShowRoom extends PolymerElement {
       showRoomViewPort.hide();
       showRoomLayoutViewPort.hide();
       showRoomLayoutToolbar.hide();
+      showRoomApplication.hide();
     }) );
     buttonSpaceToolbar.targetAction( new ActionDescriptor("","",(Parameters params){
       showRoomToolbar.show() ;
@@ -117,6 +127,7 @@ class ShowRoom extends PolymerElement {
       showRoomViewPort.hide();
       showRoomLayoutViewPort.hide();
       showRoomLayoutToolbar.hide();
+      showRoomApplication.hide();
     }) );
     buttonViewPort.targetAction( new ActionDescriptor("","",(Parameters params){
       showRoomToolbar.hide() ;
@@ -124,6 +135,7 @@ class ShowRoom extends PolymerElement {
       showRoomViewPort.show();    
       showRoomLayoutViewPort.hide();
       showRoomLayoutToolbar.hide();
+      showRoomApplication.hide();
     }) );
     buttonLayout.targetAction( new ActionDescriptor("","",(Parameters params){
       showRoomToolbar.hide() ;
@@ -131,7 +143,16 @@ class ShowRoom extends PolymerElement {
       showRoomViewPort.hide();    
       showRoomLayoutViewPort.show();
       showRoomLayoutToolbar.show();
+      showRoomApplication.hide();
     }) );  
+    buttonApplication.targetAction( new ActionDescriptor("","",(Parameters params){
+      showRoomToolbar.hide() ;
+      showRoomButton.hide();
+      showRoomViewPort.hide();    
+      showRoomLayoutViewPort.hide();
+      showRoomLayoutToolbar.hide();
+      showRoomApplication.show();
+    }) );      
     
     showRoomViewPort.viewPort.subscribeViewPortChange(_viewPortChangeCallBack) ;
     
@@ -156,6 +177,7 @@ class ShowRoom extends PolymerElement {
     showRoomViewPort.moveTo( centerPosition);
     showRoomLayoutViewPort.moveTo( centerPosition);
     showRoomLayout.moveTo( new Position(0, 0, viewPort.windowWidth -140,viewPort.windowHeight-140, 100));
+    showRoomApplication.moveTo( centerPosition);
   }
 
 }

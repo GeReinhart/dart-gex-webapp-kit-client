@@ -18,11 +18,12 @@ class ViewPort extends Positionable with Showable {
   StreamController<ViewPortChangeEvent> _viewPortChangeEventStream ;
   
   ViewPort.created() : super.created(){
-    _viewPortChangeEventStream = new StreamController<ViewPortChangeEvent>.broadcast(sync: false);
   } 
   
-  void attached() {
-    super.attached();
+  @override
+  void ready() {
+    super.ready();
+    _viewPortChangeEventStream = new StreamController<ViewPortChangeEvent>.broadcast(sync: false);
     _updateViewPort(); 
   }
   

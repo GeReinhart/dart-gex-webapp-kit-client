@@ -15,8 +15,9 @@ class Space extends Positionable with Showable {
   
   Space.created() : super.created() ;
   
-  void attached() {
-    super.attached();
+  @override
+  void ready() {
+    super.ready();
     this.style.backgroundColor = backgroundColor; 
   }
   

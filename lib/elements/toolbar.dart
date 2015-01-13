@@ -15,19 +15,17 @@ class Toolbar extends Positionable with Showable {
   
   final Logger log = new Logger('Toolbar');
   
-  @published String backgroundColor = "black";
-  
   Position mainButtonPosition = new Position.empty();
   Orientation orientation ;
   List<ActionDescriptor> actions ;
   List<Button> buttons ;
+  String backgroundColor = "white";
   
   Toolbar.created() : super.created() ;
   
-  
-  void attached() {
-    super.attached();
-    this.style.backgroundColor = backgroundColor; 
+  @override
+  void ready() {
+    super.ready();
   }
   
   void init(Orientation orientation, List<ActionDescriptor> actions) {
@@ -50,7 +48,7 @@ class Toolbar extends Positionable with Showable {
     
     for (var i = 0; i < actions.length; i++) {
       Button button = new Element.tag('gex-button') as Button;
-      
+      button.attributes['backgroundColor'] = backgroundColor ;
       ActionDescriptor  action = actions[i];
       button.label = action.name ;
       if (action.image != null){
