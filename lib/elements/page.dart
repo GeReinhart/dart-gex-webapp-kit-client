@@ -26,15 +26,16 @@ class Page extends Positionable with Showable {
     _layout = $["layout"] as Layout ;
   }
   
+  void init(HtmlElement content, LayoutModel model)  {
+    _layout.init(model);
+    _layout.children.clear() ;
+    _layout.children.add(content);
+  }
+  
   @override
   void moveTo(Position position) {
       super.moveTo(position);
       _layout.moveTo(position);
-  }
-  
-  set content (HtmlElement content)  {
-    _layout.children.clear() ;
-    _layout.children.add(content);
   }
   
 }

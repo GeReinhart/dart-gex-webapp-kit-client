@@ -1,11 +1,11 @@
 library gex_common_ui_elements.toolbar;
 
 import "dart:html";
+import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 
 import 'package:gex_common_ui_elements/common_ui_elements.dart';
 import 'package:gex_common_ui_elements/elements/button.dart';
-import 'package:polymer/polymer.dart';
 
 /**
  * Display buttons to create a toolbar.
@@ -15,26 +15,23 @@ class Toolbar extends Positionable with Showable {
   
   final Logger log = new Logger('Toolbar');
   
-  Position mainButtonPosition = new Position.empty();
-  Orientation orientation ;
-  List<ActionDescriptor> actions ;
-  List<Button> buttons ;
-  String backgroundColor = "white";
+  ToolbarModel _model ;
+  List<Button> _buttons ;
   
   Toolbar.created() : super.created() ;
   
-  @override
-  void ready() {
-    super.ready();
-  }
+  ToolbarModel get model => _model.clone();
   
-  void init(Orientation orientation, List<ActionDescriptor> actions) {
-    this.orientation = orientation;
-    _initButtons(actions);
+  void init(ToolbarModel model) {
+    _model = model ;
+    _initButtons(model);
   }
   
   @override
   void moveTo(Position position){
+    if(_buttons == null){
+      throw new Exception("On ToolBar call 'init' before 'moveTo'");
+    }    
     if (isCurrentPostion(position)){
       return ;
     }
@@ -42,49 +39,38 @@ class Toolbar extends Positionable with Showable {
     super.moveTo(this.position);
   }
   
-  void _initButtons( List<ActionDescriptor> actions) {
-    this.actions = actions ;
-    this.buttons = new List<Button>();
-    
-    for (var i = 0; i < actions.length; i++) {
+  void _initButtons( ToolbarModel model) {
+    this._buttons = new List<Button>();
+    List<ButtonModel> buttons = model.buttons;
+    for (var i = 0; i < buttons.length; i++) {
       Button button = new Element.tag('gex-button') as Button;
-      button.attributes['backgroundColor'] = backgroundColor ;
-      ActionDescriptor  action = actions[i];
-      button.label = action.name ;
-      if (action.image != null){
-        button.image = action.image;
-      }
-      button.targetAction(action);
+      button.init( buttons[i]) ;
       this.append(button);
-      buttons.add(button);
+      _buttons.add(button);
     }
   }
  
   void _moveButtons(Position position) {
-    this.mainButtonPosition = position;
+    _model.mainButtonPosition = position;
     this.position.merge(position) ;
     
-    if(buttons == null){
-      throw new Exception("On ToolBar call 'init' before 'moveTo'");
-    }
-    
-    for (var i = 0; i < buttons.length; i++) {
-      Button button = buttons[i];
+    for (var i = 0; i < _buttons.length; i++) {
+      Button button = _buttons[i];
       
       num left = 0;
-      if ( Orientation.est ==  orientation ){
+      if ( Orientation.est ==  _model.orientation ){
         left =  i * position.width ;
       }
-      if ( Orientation.west ==  orientation ){
-        left =  (actions.length - i -1 ) * position.width ;
+      if ( Orientation.west ==  _model.orientation ){
+        left =  (_model.nbActions - i -1 ) * position.width ;
       }
       
       num top = 0;
-      if ( Orientation.south ==  orientation ){
+      if ( Orientation.south ==  _model.orientation ){
         top =  i * position.height ;
       }
-      if ( Orientation.north ==  orientation ){
-        top =  (actions.length - i -1 )* position.height ;
+      if ( Orientation.north ==  _model.orientation ){
+        top =  (_model.nbActions - i -1 )* position.height ;
       }      
       Position currentPostion = position.clone() ;
       currentPostion..left = left
@@ -93,25 +79,22 @@ class Toolbar extends Positionable with Showable {
       button.moveTo(currentPostion) ;
     }
     
-    num buttonCount = buttons.length  ;
-    if ( Orientation.est ==  orientation ){
-      this.position.width = buttonCount * position.width ;
+    if ( Orientation.est ==  _model.orientation ){
+      this.position.width = _model.nbActions * position.width ;
     }
-    if ( Orientation.west ==  orientation ){
-      this.position.left =  position.left - (buttonCount-1)* position.width ;
-      this.position.width =  buttonCount * position.width ;
+    if ( Orientation.west ==  _model.orientation ){
+      this.position.left =  position.left - (_model.nbActions-1)* position.width ;
+      this.position.width =  _model.nbActions * position.width ;
     }
-    if ( Orientation.south ==  orientation ){
-      this.position.height =  buttonCount * position.height ;
+    if ( Orientation.south ==  _model.orientation ){
+      this.position.height =  _model.nbActions * position.height ;
     }
-    if ( Orientation.north ==  orientation ){
-      this.position.top =  position.top - (buttonCount-1)* position.height ;
-      this.position.height =  buttonCount * position.height ;
+    if ( Orientation.north ==  _model.orientation ){
+      this.position.top =  position.top - (_model.nbActions-1)* position.height ;
+      this.position.height =  _model.nbActions * position.height ;
     }    
-    
-    
   }  
   
-  num get nbActions => actions == null ? 0 : actions.length;
+  
   
 }

@@ -14,11 +14,10 @@ class ViewPort extends Positionable with Showable {
   
   final Logger log = new Logger('ViewPort');
   
-  ViewPortDescriptor _viewPort ;
+  ViewPortModel _model ;
   StreamController<ViewPortChangeEvent> _viewPortChangeEventStream ;
   
-  ViewPort.created() : super.created(){
-  } 
+  ViewPort.created() : super.created();
   
   @override
   void ready() {
@@ -27,69 +26,22 @@ class ViewPort extends Positionable with Showable {
     _updateViewPort(); 
   }
   
-  ViewPortDescriptor get descriptor => _viewPort;
+  ViewPortModel get model => _model.clone();
   
   void subscribeViewPortChange( ViewPortChangeCallBack callBack  ){
-    _viewPortChangeEventStream.stream.listen((event) => callBack(event));
+    _viewPortChangeEventStream.stream.listen((ViewPortChangeEvent event) => callBack(event.clone()));
   }
   
   void _updateViewPort(){
-    ViewPortDescriptor newScreen = new ViewPortDescriptor.fromWindow( window  ) ;
-    if (newScreen != _viewPort  ){
-      _viewPort = newScreen ;
-      log.info("ViewPort ${id} changed to ${_viewPort}");
-      _viewPortChangeEventStream.add( new ViewPortChangeEvent(_viewPort) ) ;
+    ViewPortModel newScreen = new ViewPortModel.fromWindow( window  ) ;
+    if (newScreen != _model  ){
+      _model = newScreen ;
+      log.info("ViewPort ${id} changed to ${_model}");
+      _viewPortChangeEventStream.add( new ViewPortChangeEvent(_model) ) ;
     }
-    var wait = new Duration(milliseconds: 250);
+    var wait = new Duration(milliseconds: 125);
     new Timer(wait, ()=> _updateViewPort());
   }
   
 }
 
-typedef void ViewPortChangeCallBack(ViewPortChangeEvent event);
-
-class ViewPortChangeEvent{
-  ViewPortDescriptor _viewPortDescriptor ;
-  
-  ViewPortChangeEvent(this._viewPortDescriptor);
-  
-  ViewPortDescriptor get viewPortDescriptor => _viewPortDescriptor;
-}
-
-enum ScreenOrientation { LANDSCAPE , PORTRAIT }
-
-class ViewPortDescriptor {
-  
-  num _windowHeight ;
-  num _windowWidth ;
-
-  ViewPortDescriptor.fromWindow(Window window){
-    _windowHeight = window.innerHeight ;
-    _windowWidth = window.innerWidth ;
-  }
-  ViewPortDescriptor(this._windowHeight, this._windowWidth);
-  
-  num get windowHeight => _windowHeight ;
-  num get windowWidth => _windowWidth ;
-  ScreenOrientation get orientation => _windowHeight < _windowWidth ? ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
-      
-  
-  @override
-  String toString() => "ViewPortDescriptor: windowHeight: ${_windowHeight}, windowWidth: ${_windowWidth}";
-  
-  @override
-  int get hashCode {
-     int result = 17;
-     result = 37 * result + _windowHeight.hashCode;
-     result = 37 * result + _windowWidth.hashCode;
-     return result;
-  }
-
-  @override
-  bool operator ==(other) {
-     if (other is! ViewPortDescriptor) return false;
-     ViewPortDescriptor viewPort = other;
-     return (viewPort.hashCode == this.hashCode);
-   }
-  
-}

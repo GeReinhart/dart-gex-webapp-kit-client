@@ -6,5 +6,7 @@ import "dart:html";
 import 'package:logging/logging.dart';
 
 
-part 'actions.dart';
 part 'abilities.dart';
+part 'colors.dart';
+part 'beans.dart';
+part 'elements/models.dart';

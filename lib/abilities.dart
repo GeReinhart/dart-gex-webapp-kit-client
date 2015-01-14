@@ -1,6 +1,24 @@
 part of gex_common_ui_elements;
 
 
+typedef void LaunchAction(Parameters params);
+
+class Actionable{
+  
+  ActionDescriptor _action ;
+  
+  void targetAction(ActionDescriptor action) {
+    this._action = action ;
+  }
+  
+  void launchAction(Parameters params){
+    if (_action != null){
+      _action.launchAction(params);
+    }
+  }
+  
+  ActionDescriptor get action => _action.clone();
+}
 
 
 class Identifiable{

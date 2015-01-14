@@ -58,7 +58,7 @@ main() {
 
       test('actions', (){
         
-        List<Button> buttons = toolbarEst.buttons ;
+        List<Button> buttons = toolbarEst._buttons ;
         
         expect( buttons.length , equals(3));
         expect( buttons[0].action.launchAction  , equals(action1.targetAction));
@@ -69,7 +69,7 @@ main() {
       
       test('orientation est', (){
         
-        List<Button> buttons = toolbarEst.buttons ;
+        List<Button> buttons = toolbarEst._buttons ;
         
         expect( buttons.length , equals(3));
         expect( buttons[0].style.height  , equals("${toolbarPostion.height}px"));
@@ -89,7 +89,7 @@ main() {
       
       test('orientation west', (){
         
-        List<Button> buttons = toolbarWest.buttons ;
+        List<Button> buttons = toolbarWest._buttons ;
         
         expect( buttons.length , equals(3));
         expect( buttons[0].style.height  , equals("${toolbarPostion.height}px"));
@@ -109,7 +109,7 @@ main() {
       
       test('orientation north', (){
         
-        List<Button> buttons = toolbarNorth.buttons ;
+        List<Button> buttons = toolbarNorth._buttons ;
         
         expect( buttons.length , equals(3));
         expect( buttons[0].style.height  , equals("${toolbarPostion.height}px"));
@@ -129,7 +129,7 @@ main() {
       
       test('orientation south', (){
         
-        List<Button> buttons = toolbarSouth.buttons ;
+        List<Button> buttons = toolbarSouth._buttons ;
         
         expect( buttons.length , equals(3));
         expect( buttons[0].style.height  , equals("${toolbarPostion.height}px"));

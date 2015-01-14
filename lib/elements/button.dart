@@ -1,11 +1,11 @@
 library gex_common_ui_elements.extensible_button;
 
 import "dart:html";
+import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 
 import 'package:gex_common_ui_elements/common_ui_elements.dart';
 
-import 'package:polymer/polymer.dart';
 import 'package:paper_elements/paper_shadow.dart';
 import 'package:paper_elements/paper_button.dart';
 
@@ -21,57 +21,52 @@ class Button  extends Positionable with Actionable, Showable {
   final num HEIGHT_TEXT = 35 ;
   final num PART_USED_BY_IMAGE = .85 ;
 
-  @published String label = "";
-  @published String image = "";
-  @published String backgroundColor;
+  ButtonModel _model  ;
   
-  Button.created() : super.created() {
-    log.fine("Button ${id} created with label: ${label}");
-  }
+  Button.created() : super.created() ;
+  
+  String get label => _model.label;
+  String get image => _model.image;
+  String get backgroundColor => _model.color.mainColor;
 
-  @override
-  void ready() {
-    super.ready();
+  bool get isButtonLabelVisible => _labelSpan.style.display != "none" ;
+  bool get isImageVisible => _imageElement.style.display != "none" && _imageElement.src.isNotEmpty ;
+  
+  SpanElement get _labelSpan => $["label"] as SpanElement;
+  ImageElement get _imageElement => $["image"] as ImageElement;
+  ImageElement get imageElement => _imageElement.clone(true);
+  PaperShadow get _shadow => $["shadow"] as PaperShadow;
+  PaperButton get _button => $["button"] as PaperButton; 
+  DivElement get _colorElement => $["color"] as DivElement ;
+  
+  void init(ButtonModel model){
+    _model = model;
     _colorElement.style.backgroundColor = backgroundColor;
-    if( image.isNotEmpty ){
+    if( _model.hasImage ){
       _imageElement.style.display = "inline" ;
       _imageElement.src = image ;
     }else{
       _imageElement.style.display = "none" ;
     }
-    this.onClick.listen((_)=>_click());
+    if(_model.hasLabel){
+      _labelSpan.innerHtml = _model.label;
+    }
+    targetAction(model.actionDescriptor);
+    
+    this.onClick.listen((_)=>_launchAction());
     this.onMouseDown.listen((_)=>_shadow.z= 1);
     this.onMouseUp.listen(  (_)=>_shadow.z= 2);
   }
   
-  @override
-  void attributeChanged(String name, String oldValue, String newValue) {
-    super.attributeChanged(name,  oldValue,  newValue);
-    if (name == "backgroundcolor") {
-      _colorElement.style.backgroundColor = newValue; 
-    }
-  }
-  
-  void _click(){
+  void _launchAction(){
     launchAction(null);
   }
 
   @override
-  Button clone(bool deep ){
-    Button clone = (new Element.tag('gex-button')
-           ..attributes['label'] = label
-           ..attributes['image'] = image
-           ..attributes['backgroundColor'] = backgroundColor )   as Button;
-    return clone..targetAction(this.action);
-  }
-  
-  Button cloneAndMove( Position position ){
-    Button clone = this.clone(true);
-    return clone..moveTo(position);
-  }
-  
-  
   void moveTo(Position position) {
+    if(_model == null){
+      throw new Exception("On Button call 'init' before 'moveTo'");
+    }
     if (isCurrentPostion(position)){
       return ;
     }
@@ -79,7 +74,7 @@ class Button  extends Positionable with Actionable, Showable {
     
     num heightForImage  ;
     num heightForText = 0 ;
-    if ( image.isNotEmpty &&  ( position.width < MIN_SIZE_WITH_TEXT || label.isEmpty  ) ){
+    if ( _model.hasImage &&  ( position.width < MIN_SIZE_WITH_TEXT || !_model.hasLabel  ) ){
       _labelSpan.style.display = "none" ;
       heightForImage = position.smallerSection ;
     }else{
@@ -98,7 +93,8 @@ class Button  extends Positionable with Actionable, Showable {
     
     _colorElement.style
         ..width  = "${position.width}px"   
-        ..height = "${position.height}px";
+        ..height = "${position.height}px"
+        ..zIndex = "${position.zIndex -1}";
         
     try {
        Element internalButton = _button.shadowRoot.querySelector('div') ;
@@ -110,15 +106,17 @@ class Button  extends Positionable with Actionable, Showable {
     }
   }
   
-  bool get isButtonLabelVisible => _labelSpan.style.display != "none" ;
-  bool get isImageVisible => _imageElement.style.display != "none" && _imageElement.src.isNotEmpty ;
+  @override
+  Button clone(bool deep ){
+    Button clone = (new Element.tag('gex-button')) as Button;
+    clone.init(_model.clone());
+    return clone;
+  }
   
-  SpanElement get _labelSpan => $["label"] as SpanElement;
-  ImageElement get _imageElement => $["image"] as ImageElement;
-  ImageElement get imageElement => _imageElement.clone(true);
-  PaperShadow get _shadow => $["shadow"] as PaperShadow;
-  PaperButton get _button => $["button"] as PaperButton; 
-  DivElement get _colorElement => $["color"] as DivElement ;
+  Button cloneAndMove( Position position ){
+    Button clone = this.clone(true);
+    return clone..moveTo(position);
+  }
   
 }
 

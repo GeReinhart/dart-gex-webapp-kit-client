@@ -1,13 +1,12 @@
 library gex_common_ui_elements.layout;
 
 import "dart:html";
+import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 
 import 'package:gex_common_ui_elements/common_ui_elements.dart';
-import 'package:gex_common_ui_elements/elements/button.dart';
-import 'package:gex_common_ui_elements/elements/space.dart';
+
 import 'package:gex_common_ui_elements/elements/toolbar.dart';
-import 'package:polymer/polymer.dart';
 
 /**
  * Create a workspace inside the available space.
@@ -18,70 +17,66 @@ import 'package:polymer/polymer.dart';
 @CustomTag('gex-layout')
 class Layout extends Positionable with Showable {
   
-  
-  
-  final Logger log = new Logger('Toolbar');
-  
-  @published String backgroundColor = "white";
-  
-  num marginYInPercent = 0.1 ;
-  num marginXInPercent = 0.3 ;
-  num buttonYInPercent = 0.1 ;
+  final Logger log = new Logger('Layout');
   
   DivElement _space ;
   DivElement _emptySpace ;
-  
   Toolbar _toolbar ;
+  LayoutModel _model ;
   
   Layout.created() : super.created() ;
   
   @override
   void ready() {
     super.ready();
-    this.style.backgroundColor = backgroundColor; 
     _setAttributes();
   }
 
+  void init(LayoutModel model){
+    _model = model ;
+    this.style.backgroundColor = model.color.veryLightColor ;
+    _toolbar.init(model.toolbarModel);
+  }
+  
   void _setAttributes(){
     _space = $["space"] as DivElement ;
     _toolbar = $["toolbar"] as Toolbar ;
-    _toolbar.hide();
     _emptySpace = $["emptySpace"] as DivElement ;
   }
   
   @override
   void moveTo(Position position) {
+      if(_model == null){
+         throw new Exception("On Layout call 'init' before 'moveTo'");
+      }
       super.moveTo(position);
-      Position spacePosition = position.clone();
-      spacePosition.left =  spacePosition.width *  marginXInPercent / 2; 
+      Position spacePosition = position.clone(); 
+      num marginXInPercent = _model.marginXInPercent(position);
+      spacePosition.left =  spacePosition.width * marginXInPercent / 2; 
       spacePosition.width =  spacePosition.width * (1- marginXInPercent);
-      spacePosition.top =  spacePosition.height *  marginYInPercent / 2;
-      spacePosition.height =  spacePosition.height * (1 - marginYInPercent );
+      spacePosition.top =  spacePosition.height ;
+      spacePosition.height =  spacePosition.height * (1 - 0.1 );
       
       _space.style.marginLeft = "${spacePosition.left}px";
       _space.style.width = "${spacePosition.width}px";
       
-      _moveToToolbar(position);
+      _moveToolbar(position);
   }
   
-  void _moveToToolbar(Position position){
-    if(_toolbar.nbActions > 0){
+  void _moveToolbar(Position position){
+    num nbActions = _toolbar.model.nbActions;
+    if( nbActions > 0){
       Position toolBarPosition = position.clone();
+      num marginXInPercent = _model.marginXInPercent(position);
       toolBarPosition.left =  position.width *  marginXInPercent / 2; 
-      toolBarPosition.height =  position.height * buttonYInPercent;
-      toolBarPosition.top  = position.height - toolBarPosition.height - (toolBarPosition.height * buttonYInPercent  ) ;
-      toolBarPosition.width =  position.width * (1- marginXInPercent) / _toolbar.nbActions  ;
+      toolBarPosition.height =  position.height ;
+      toolBarPosition.top  = position.height - toolBarPosition.height - (toolBarPosition.height  ) ;
+      toolBarPosition.width =  position.width * (1- marginXInPercent) / nbActions  ;
       _toolbar.moveTo(toolBarPosition);
       
       _emptySpace.style.width = "${toolBarPosition.width}px";
       _emptySpace.style.height = "${toolBarPosition.height}px";
     }
-  }
-  
-  set actions(List<ActionDescriptor> actions) {
-    _toolbar.init(Orientation.est, actions);
-    _moveToToolbar(position);
-    _toolbar.show();
   }
   
 }

@@ -23,12 +23,12 @@ main() {
       });
 
       test('landscape', (){
-        ViewPortDescriptor viewPortDescriptor = new ViewPortDescriptor(100, 50);
+        ViewPortModel viewPortDescriptor = new ViewPortModel(100, 50);
         expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.PORTRAIT)); 
       });
       
       test('portrait', (){
-        ViewPortDescriptor viewPortDescriptor = new ViewPortDescriptor(50, 100);
+        ViewPortModel viewPortDescriptor = new ViewPortModel(50, 100);
         expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.LANDSCAPE)); 
       });
       
@@ -41,7 +41,7 @@ main() {
         when(windowMock.innerHeight).thenReturn(100);
         when(windowMock.innerWidth).thenReturn(50);
         
-        ViewPortDescriptor viewPort = new ViewPortDescriptor.fromWindow(windowMock) ;
+        ViewPortModel viewPort = new ViewPortModel.fromWindow(windowMock) ;
         expect( viewPort.orientation  , equals(ScreenOrientation.PORTRAIT)); 
       });
       
@@ -50,7 +50,7 @@ main() {
         when(windowMock.innerHeight).thenReturn(50);
         when(windowMock.innerWidth).thenReturn(100);
         
-        ViewPortDescriptor viewPortDescriptor = new ViewPortDescriptor.fromWindow(windowMock) ;
+        ViewPortModel viewPortDescriptor = new ViewPortModel.fromWindow(windowMock) ;
         
         var wait = new Duration(milliseconds: 2000);
         new Timer(wait, (){
@@ -64,15 +64,15 @@ main() {
     group('equals: ', (){
       
       test('== values', (){
-        ViewPortDescriptor viewPortDescriptor1 = new ViewPortDescriptor(100, 200) ;
-        ViewPortDescriptor viewPortDescriptor2 = new ViewPortDescriptor(100, 200) ;
+        ViewPortModel viewPortDescriptor1 = new ViewPortModel(100, 200) ;
+        ViewPortModel viewPortDescriptor2 = new ViewPortModel(100, 200) ;
         
         expect( viewPortDescriptor1  , equals(viewPortDescriptor2)); 
       });
       
       test('!= values', (){
-        ViewPortDescriptor viewPortDescriptor1 = new ViewPortDescriptor(200, 200) ;
-        ViewPortDescriptor viewPortDescriptor2 = new ViewPortDescriptor(100, 200) ;
+        ViewPortModel viewPortDescriptor1 = new ViewPortModel(200, 200) ;
+        ViewPortModel viewPortDescriptor2 = new ViewPortModel(100, 200) ;
         
         expect( viewPortDescriptor1  , isNot( equals(viewPortDescriptor2) ) ); 
       });      

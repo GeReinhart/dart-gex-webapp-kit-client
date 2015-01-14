@@ -4,8 +4,6 @@ import "dart:html";
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
 import 'package:gex_common_ui_elements/common_ui_elements.dart' ;
-import 'package:gex_common_ui_elements/elements/space.dart' ;
-import 'package:gex_common_ui_elements/elements/view_port.dart' ;
 import 'package:gex_common_ui_elements/elements/layout.dart' ;
 
 @CustomTag('gex-show-room-layout')
@@ -15,7 +13,7 @@ class ShowRoomLayout extends Positionable with Showable {
   
   Layout layout ;
   DivElement content;
-  List<ActionDescriptor> actions ;
+  LayoutModel model ;
   
   ShowRoomLayout.created() : super.created(){
   }
@@ -27,6 +25,7 @@ class ShowRoomLayout extends Positionable with Showable {
     _initialPositionsForElements();
   }
   
+  
   @override
   void moveTo(Position position) {
       super.moveTo(position);
@@ -36,6 +35,7 @@ class ShowRoomLayout extends Positionable with Showable {
   
   void _setAttributes(){
     layout = $["layout"] as Layout ;
+    layout.init(new LayoutModel());
     content = this.shadowRoot.querySelector("#content") as DivElement ;
   }
 
@@ -43,7 +43,7 @@ class ShowRoomLayout extends Positionable with Showable {
   }
 
   void viewPortChangeCallBack(ViewPortChangeEvent event){
-    ViewPortDescriptor viewPort = event.viewPortDescriptor ;
+    ViewPortModel viewPort = event.viewPortModel ;
     
   }
 
@@ -52,13 +52,13 @@ class ShowRoomLayout extends Positionable with Showable {
   
   
   void addButtons() {
-    if (actions == null){
+ /*   if (actions == null){
       actions = new List<ActionDescriptor>();
       actions.add(new ActionDescriptor("Action 1","",action1));
       actions.add(new ActionDescriptor("Action 2","",action2));
       actions.add(new ActionDescriptor("Action 3","",action3));
       layout.actions = actions ;
-    }
+    }*/
   }
   
   void addContent() {

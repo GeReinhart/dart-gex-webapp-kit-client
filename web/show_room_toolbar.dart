@@ -50,16 +50,16 @@ class ShowRoomToolbar extends Positionable with Showable {
   }
 
   void _initialPositionsForElements() {
+    List<ButtonModel> buttonModels = new List<ButtonModel>();
+    buttonModels.add( new ButtonModel(label: "Action 1",action:action1,image:"/images/button/dart-logo.png" )  );
+    buttonModels.add( new ButtonModel(label: "Action 2",action:action2 )  );
+    buttonModels.add( new ButtonModel(label: "Action 3",action:action3 )  );
+    ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels );
     
-    List<ActionDescriptor> actions = new List<ActionDescriptor>();
-    actions.add(new ActionDescriptor("Action 1","",action1)..image ="/images/button/dart-logo.png");
-    actions.add(new ActionDescriptor("Action 2","",action2));
-    actions.add(new ActionDescriptor("Action 3","",action3));
-    actions.add(new ActionDescriptor("Action 4","",action4));
-    estToolbar.init( Orientation.est,actions ) ;
-    southToolbar.init( Orientation.south,actions ) ;
-    westToolbar.init( Orientation.west,actions ) ; 
-    northToolbar.init( Orientation.north,actions ) ; 
+    estToolbar.init( toolbarModel.clone()..orientation = Orientation.est ) ;
+    southToolbar.init( toolbarModel.clone()..orientation = Orientation.south ) ;
+    westToolbar.init( toolbarModel.clone()..orientation = Orientation.west ) ; 
+    northToolbar.init( toolbarModel.clone()..orientation = Orientation.north) ; 
   }
   
 

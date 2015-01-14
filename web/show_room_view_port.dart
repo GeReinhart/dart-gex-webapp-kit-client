@@ -47,7 +47,7 @@ class ShowRoomViewPort extends Positionable with Showable {
   }
 
   void _viewPortChangeCallBack(ViewPortChangeEvent event){
-    ViewPortDescriptor viewPort = event.viewPortDescriptor ;
+    ViewPortModel viewPort = event.viewPortModel ;
     viewPortSpace.moveTo( new Position(0, 0, viewPort.windowWidth-140, viewPort.windowHeight-140, 100));
     viewPortWidth.innerHtml = viewPort.windowWidth.toString();
     viewPortHeight.innerHtml = viewPort.windowHeight.toString();

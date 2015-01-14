@@ -1,15 +1,15 @@
 library gex_common_ui_elements.application;
 
 import "dart:html";
+import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 import 'dart:async';
+
 import 'package:gex_common_ui_elements/common_ui_elements.dart';
-import 'package:gex_common_ui_elements/elements/space.dart' ;
-import 'package:gex_common_ui_elements/elements/button.dart' ;
+
 import 'package:gex_common_ui_elements/elements/toolbar.dart' ;
 import 'package:gex_common_ui_elements/elements/view_port.dart' ;
 import 'package:gex_common_ui_elements/elements/page.dart' ;
-import 'package:polymer/polymer.dart';
 
 /**
  * Listen to the screen/window changes and broadcast ViewPort change events.
@@ -20,13 +20,12 @@ class Application extends Positionable with Showable {
   final Logger log = new Logger('Application');
   
   ViewPort _viewPort ;
-  Element _toolBarsContainer ;
+  Element _toolbarsContainer ;
   List<Toolbar> _toolbars = new List<Toolbar>();
   Element _pagesContainer ;
   List<Page> _pages = new List<Page>();
   
-  Application.created() : super.created(){
-  } 
+  Application.created() : super.created();
   
   List<Page> get pages => _pages;
   
@@ -34,21 +33,14 @@ class Application extends Positionable with Showable {
   void ready() {
     super.ready();
     _setAttributes();
-    _initialPositionsForElements();
-    _setUpEventsOnElements(); 
   }
   
   void _setAttributes() {
     _viewPort = $["viewPort"] as ViewPort;
-    _toolBarsContainer = $["toolBars"] ;
+    _toolbarsContainer = $["toolBars"] ;
     _pagesContainer = $["pages"] ;
   }
 
-  void _setUpEventsOnElements() {
-  }
-  
-  void _initialPositionsForElements() {
-  }
   
   @override
   void moveTo(Position position) {
@@ -83,27 +75,26 @@ class Application extends Positionable with Showable {
     }
   }
   
-  void addToolbar(List<ActionDescriptor> actions, String backgroundColor ){
+  void addToolbar(ToolbarModel model){
     
     Toolbar toolbar = new Element.tag('gex-toolbar') as Toolbar;
-    toolbar.backgroundColor = backgroundColor;
-    _toolbars.add(toolbar);
     switch(_toolbars.length-1){
       case 0:
-        toolbar.init( Orientation.est, actions );
+        model.orientation =  Orientation.est;
         break;
       case 1:
-        toolbar.init( Orientation.south, actions );
+        model.orientation =  Orientation.south;
         break;
       case 2:
-        toolbar.init( Orientation.west, actions );        
+        model.orientation =  Orientation.west;        
         break;
       case 3:
-        toolbar.init( Orientation.north, actions );        
+        model.orientation =  Orientation.north;        
         break;
     }    
-    
-    _toolBarsContainer.append(toolbar);
+    toolbar.init(model);
+    _toolbars.add(toolbar);    
+    _toolbarsContainer.append(toolbar);
     _moveToolBars(position);
   }
 
@@ -139,9 +130,8 @@ class Application extends Positionable with Showable {
   }
   
   Page buildPage(HtmlElement pageContent){
-    Page page = new Element.tag('gex-page') as Page;
-    page.content = pageContent;
-    return page ;
+    LayoutModel model = new LayoutModel();
+    return new Element.tag('gex-page') as Page ..init(pageContent,model) ;
   }
   
   void _movePages(Position position){
