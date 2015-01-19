@@ -96,15 +96,15 @@ class Application extends Positionable with Showable {
   void addToolbar(ToolbarModel model){
     
     Toolbar toolbar = new Element.tag('gex-toolbar') as Toolbar;
-    switch(_toolbars.length-1){
+    switch(_toolbars.length){
       case 0:
         model.orientation =  Orientation.est;
         break;
       case 1:
-        model.orientation =  Orientation.south;
+        model.orientation =  Orientation.west;        
         break;
       case 2:
-        model.orientation =  Orientation.west;        
+        model.orientation =  Orientation.south;
         break;
       case 3:
         model.orientation =  Orientation.north;        
@@ -123,18 +123,18 @@ class Application extends Positionable with Showable {
       _toolBarWidth  = position.width / 8 ;
       _toolBarHeight = position.height * 0.15;
       num zIndex = position.zIndex + 1 ;
-      switch(i){
+      switch(i){ 
         case 0:
           toolbar.moveTo( new Position(0,0, _toolBarWidth,  _toolBarHeight, zIndex  )  );
           break;
         case 1:
-          toolbar.moveTo( new Position(position.width - _toolBarWidth,0, _toolBarWidth,  _toolBarHeight, zIndex   )  );
+          toolbar.moveTo( new Position(position.width - _toolBarWidth,position.height - _toolBarHeight, _toolBarWidth,  _toolBarHeight, zIndex   )  );
           break;
         case 2:
-          toolbar.moveTo( new Position(position.width - _toolBarWidth,position.top - _toolBarHeight, _toolBarWidth,  _toolBarHeight, zIndex   )  );
+          toolbar.moveTo( new Position(0 ,position.height - _toolBarHeight, _toolBarWidth,  _toolBarHeight, zIndex   )  );
           break;
         case 3:
-          toolbar.moveTo( new Position(0 ,position.top - _toolBarHeight, _toolBarWidth,  _toolBarHeight, zIndex   )  );
+          toolbar.moveTo( new Position(position.width - _toolBarWidth,0, _toolBarWidth,  _toolBarHeight, zIndex   )  );
           break;
       }
     }

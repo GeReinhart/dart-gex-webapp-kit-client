@@ -32,6 +32,14 @@ class ShowRoomApplication  extends Application{
     ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, orientation: Orientation.est,colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
     addToolbar(toolbarModel);
     
+    
+    List<ButtonModel> bottomToolbar = new List<ButtonModel>();
+    bottomToolbar.add( new ButtonModel(label: "Login", image: "images/button/login.png",action:(p)=>showPage(pageIndex: 0) )  );
+    bottomToolbar.add( new ButtonModel(label: "Register", image: "images/button/create1.png",action:(p)=>showPage(pageIndex: 1) )  );
+    bottomToolbar.add( new ButtonModel(label: "About", image: "images/button/info24.png",action:(p)=>showPage(pageIndex: 0) )  );
+    ToolbarModel bottomToolbarModel = new ToolbarModel(buttons:bottomToolbar, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
+    addToolbar(bottomToolbarModel);    
+
     pages[0].show();
   }
   
