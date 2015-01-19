@@ -32,6 +32,8 @@ class Application extends Positionable with Showable {
   
   List<Page> get pages => _pages;
   
+  
+  
   @override
   void ready() {
     super.ready();
@@ -44,6 +46,19 @@ class Application extends Positionable with Showable {
     _pagesContainer = $["pages"] ;
   }
 
+ 
+  void subscribeViewPortChange( ViewPortChangeCallBack callBack  ){
+    _viewPort.subscribeViewPortChange(callBack);
+  }
+  
+  ViewPortModel get viewPortModel => _viewPort.model;
+  
+  void fitWithWindow(){
+     moveTo( new Position(0,0,viewPortModel.windowHeight,viewPortModel.windowWidth, 100)  );
+     subscribeViewPortChange( (event){
+         moveTo( new Position(0,0,viewPortModel.windowHeight,viewPortModel.windowWidth, 100)  );
+     }) ;
+  }
   
   @override
   void moveTo(Position position) {
