@@ -54,9 +54,9 @@ class Application extends Positionable with Showable {
   ViewPortModel get viewPortModel => _viewPort.model;
   
   void fitWithWindow(){
-     moveTo( new Position(0,0,viewPortModel.windowHeight,viewPortModel.windowWidth, 100)  );
+     moveTo( new Position(0,0,viewPortModel.windowWidth,viewPortModel.windowHeight, 100)  );
      subscribeViewPortChange( (event){
-         moveTo( new Position(0,0,viewPortModel.windowHeight,viewPortModel.windowWidth, 100)  );
+         moveTo( new Position(0,0,viewPortModel.windowWidth,viewPortModel.windowHeight, 100)  );
      }) ;
   }
   
