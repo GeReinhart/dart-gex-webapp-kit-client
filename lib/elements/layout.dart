@@ -20,7 +20,8 @@ class Layout extends Positionable with Showable {
   final Logger log = new Logger('Layout');
   
   DivElement _space ;
-  DivElement _emptySpace ;
+  DivElement _emptySpaceBottom ;
+  DivElement _emptySpaceTop ;
   Toolbar _toolbar ;
   LayoutModel _model ;
   
@@ -41,7 +42,12 @@ class Layout extends Positionable with Showable {
   void _setAttributes(){
     _space = $["space"] as DivElement ;
     _toolbar = $["toolbar"] as Toolbar ;
-    _emptySpace = $["emptySpace"] as DivElement ;
+    _emptySpaceBottom = $["emptySpaceBottom"] as DivElement ;
+    _emptySpaceTop = $["emptySpaceTop"] as DivElement ;
+  }
+  
+  set margin(Margin margin){
+    _model.margin=margin;
   }
   
   @override
@@ -50,15 +56,12 @@ class Layout extends Positionable with Showable {
          throw new Exception("On Layout call 'init' before 'moveTo'");
       }
       super.moveTo(position);
-      Position spacePosition = position.clone(); 
-      num marginXInPercent = _model.marginXInPercent(position);
-      spacePosition.left =  spacePosition.width * marginXInPercent / 2; 
-      spacePosition.width =  spacePosition.width * (1- marginXInPercent);
-      spacePosition.top =  spacePosition.height ;
-      spacePosition.height =  spacePosition.height * (1 - 0.1 );
       
-      _space.style.marginLeft = "${spacePosition.left}px";
-      _space.style.width = "${spacePosition.width}px";
+      _space.style.marginLeft = "${_model.leftMarginInPx(position)}px";
+      _space.style.width = "${_model.spaceWidth(position) }px";
+      
+      _emptySpaceTop.style.height = "${_model.topMarginInPx(position)}px";
+      _emptySpaceTop.style.width = "${ _model.spaceWidth(position)}px";
       
       _moveToolbar(position);
   }
@@ -67,15 +70,15 @@ class Layout extends Positionable with Showable {
     num nbActions = _toolbar.model.nbActions;
     if( nbActions > 0){
       Position toolBarPosition = position.clone();
-      num marginXInPercent = _model.marginXInPercent(position);
-      toolBarPosition.left =  position.width *  marginXInPercent / 2; 
-      toolBarPosition.height =  position.height ;
-      toolBarPosition.top  = position.height - toolBarPosition.height - (toolBarPosition.height  ) ;
-      toolBarPosition.width =  position.width * (1- marginXInPercent) / nbActions  ;
+      toolBarPosition.left =  _model.leftMarginInPx(position); 
+      toolBarPosition.height =  _model.toolBarHeight(position); 
+      toolBarPosition.top  = position.height - toolBarPosition.height - (toolBarPosition.height * 0.05  ) ;
+      toolBarPosition.width =   _model.spaceWidth(position)  / nbActions  ;
       _toolbar.moveTo(toolBarPosition);
       
-      _emptySpace.style.width = "${toolBarPosition.width}px";
-      _emptySpace.style.height = "${toolBarPosition.height}px";
+
+      _emptySpaceBottom.style.width = "${toolBarPosition.width}px";
+      _emptySpaceBottom.style.height = "${toolBarPosition.height}px";
     }
   }
   

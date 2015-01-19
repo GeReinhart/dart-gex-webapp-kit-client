@@ -25,6 +25,9 @@ class Application extends Positionable with Showable {
   Element _pagesContainer ;
   List<Page> _pages = new List<Page>();
   
+  num _toolBarWidth = 0 ;
+  num _toolBarHeight = 0 ;
+  
   Application.created() : super.created();
   
   List<Page> get pages => _pages;
@@ -102,21 +105,21 @@ class Application extends Positionable with Showable {
     for(int i=0 ; i<_toolbars.length ; i++){
       Toolbar toolbar = _toolbars[i];
       
-      num width  = position.width / 8 ;
-      num height = position.height * 0.15;
+      _toolBarWidth  = position.width / 8 ;
+      _toolBarHeight = position.height * 0.15;
       num zIndex = position.zIndex + 1 ;
       switch(i){
         case 0:
-          toolbar.moveTo( new Position(0,0, width,  height, zIndex  )  );
+          toolbar.moveTo( new Position(0,0, _toolBarWidth,  _toolBarHeight, zIndex  )  );
           break;
         case 1:
-          toolbar.moveTo( new Position(position.width - width,0, width,  height, zIndex   )  );
+          toolbar.moveTo( new Position(position.width - _toolBarWidth,0, _toolBarWidth,  _toolBarHeight, zIndex   )  );
           break;
         case 2:
-          toolbar.moveTo( new Position(position.width - width,position.top - height, width,  height, zIndex   )  );
+          toolbar.moveTo( new Position(position.width - _toolBarWidth,position.top - _toolBarHeight, _toolBarWidth,  _toolBarHeight, zIndex   )  );
           break;
         case 3:
-          toolbar.moveTo( new Position(0 ,position.top - height, width,  height, zIndex   )  );
+          toolbar.moveTo( new Position(0 ,position.top - _toolBarHeight, _toolBarWidth,  _toolBarHeight, zIndex   )  );
           break;
       }
     }
@@ -129,13 +132,12 @@ class Application extends Positionable with Showable {
     page.moveTo(position);
   }
   
-  Page buildPage(HtmlElement pageContent){
-    LayoutModel model = new LayoutModel();
-    return new Element.tag('gex-page') as Page ..init(pageContent,model) ;
-  }
   
   void _movePages(Position position){
+    
+    Margin margin = new Margin(leftInPx: _toolBarWidth,rightInPx: _toolBarWidth, topInPx:_toolBarHeight , bottomInPx:_toolBarHeight);
     for(Page page in _pages){
+      page.margin = margin ;
       page.moveTo(position);
     }
   }

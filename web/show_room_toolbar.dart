@@ -12,6 +12,8 @@ class ShowRoomToolbar extends Positionable with Showable {
   
   final Logger log = new Logger('ShowRoomToolbar');
   
+  Color mainColor = Color.GREEN_07CC00;
+  
   Space toolbarSpace ;
   Toolbar estToolbar;
   Toolbar southToolbar;
@@ -31,7 +33,7 @@ class ShowRoomToolbar extends Positionable with Showable {
   @override
   void moveTo(Position position) {
       super.moveTo(position);
-      estToolbar.moveTo(new Position(0, 0, 100, 160, 102) ) ;
+      estToolbar.moveTo(new Position(0, 0, 160, 160, 102) ) ;
       southToolbar.moveTo(new Position( position.width - 100   , 0, 100, 30, 102) ) ;
       westToolbar.moveTo(new Position( position.width - 100 , position.height - 50 , 100, 50, 102) ) ; 
       northToolbar.moveTo(new Position( 0 , position.height - 50 , 100, 50, 103) ) ;
@@ -51,29 +53,30 @@ class ShowRoomToolbar extends Positionable with Showable {
 
   void _initialPositionsForElements() {
     List<ButtonModel> buttonModels = new List<ButtonModel>();
-    buttonModels.add( new ButtonModel(label: "Action 1",action:action1,image:"/images/button/dart-logo.png" )  );
-    buttonModels.add( new ButtonModel(label: "Action 2",action:action2 )  );
-    buttonModels.add( new ButtonModel(label: "Action 3",action:action3 )  );
-    ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels );
+    buttonModels.add( new ButtonModel(label: "Action 1",action:action1,image:"/images/button/create1.png" )  );
+    buttonModels.add( new ButtonModel(label: "Action 2",action:action2,image:"/images/button/factory6.png" )  );
+    buttonModels.add( new ButtonModel(label: "Action 3",action:action3,image:"/images/button/login.png" )  );
+    buttonModels.add( new ButtonModel(label: "Action 4",action:action4,image:"/images/button/logout.png" )  );    
+    ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor );
     
-    estToolbar.init( toolbarModel.clone()..orientation = Orientation.est ) ;
-    southToolbar.init( toolbarModel.clone()..orientation = Orientation.south ) ;
-    westToolbar.init( toolbarModel.clone()..orientation = Orientation.west ) ; 
-    northToolbar.init( toolbarModel.clone()..orientation = Orientation.north) ; 
+    estToolbar.init( toolbarModel.clone()..orientation = Orientation.est ..colorUsage = ColorUsage.GRADATION   ) ;
+    southToolbar.init( toolbarModel.clone()..orientation = Orientation.south ..colorUsage = ColorUsage.ALTERNATE ) ;
+    westToolbar.init( toolbarModel.clone()..orientation = Orientation.west ..colorUsage = ColorUsage.ALTERNATE_WITH_LIGHT ) ; 
+    northToolbar.init( toolbarModel.clone()..orientation = Orientation.north ..colorUsage = ColorUsage.UNIFORM) ; 
   }
   
 
   action1(Parameters params){
-    toolbarSpace.style.backgroundColor ="white" ;
+    toolbarSpace.style.backgroundColor =  mainColor.veryStrongColor ;
   }
   action2(Parameters params){
-    toolbarSpace.style.backgroundColor ="#00D2B8" ;
+    toolbarSpace.style.backgroundColor = mainColor.strongColor ;
   }
   action3(Parameters params){
-    toolbarSpace.style.backgroundColor ="#778899" ;
+    toolbarSpace.style.backgroundColor =mainColor.lightColor ;
   }
   action4(Parameters params){
-    toolbarSpace.style.backgroundColor ="#0082C8" ;
+    toolbarSpace.style.backgroundColor =mainColor.veryLightColor ;
   }
   
   

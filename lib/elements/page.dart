@@ -1,4 +1,4 @@
-library gex_common_ui_elements.layout;
+library gex_common_ui_elements.page;
 
 import "dart:html";
 import 'package:logging/logging.dart';
@@ -13,6 +13,7 @@ class Page extends Positionable with Showable {
   final Logger log = new Logger('Page');
   
   Layout _layout ;
+  PageModel _model ;
   
   Page.created() : super.created() ;
   
@@ -26,10 +27,14 @@ class Page extends Positionable with Showable {
     _layout = $["layout"] as Layout ;
   }
   
-  void init(HtmlElement content, LayoutModel model)  {
-    _layout.init(model);
-    _layout.children.clear() ;
-    _layout.children.add(content);
+  void init(PageModel model)  {
+    _model = model;
+    _layout.init(model.layoutModel);
+  }
+
+  set margin(Margin margin){
+    _model.margin=margin;
+    _layout.margin=margin;
   }
   
   @override

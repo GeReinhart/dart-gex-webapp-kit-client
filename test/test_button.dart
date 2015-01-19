@@ -18,19 +18,28 @@ main() {
   Button smallButton ;
   Button largeButton ;
   Button noImageButton ;    
+
+  setUp((){
+    absoluteSpace = querySelector("#absoluteSpace");
+
+    smallButton = new Button.fromModel(new ButtonModel(label: "Small", image: "images/button/dart-logo.png")) ;
+    absoluteSpace.append(smallButton) ;
+    
+    largeButton = new Button.fromModel(new ButtonModel(label: "Large", image: "images/button/dart-logo.png")) ;
+    absoluteSpace.append(largeButton) ;
+    
+    noImageButton = new Button.fromModel(new ButtonModel(label: "No image")) ;
+    absoluteSpace.append(noImageButton) ;      
+  });
+  tearDown((){
+    absoluteSpace.children.clear();
+  });
+  
   
   group("Button", (){
-    setUp((){
-      absoluteSpace = querySelector("#absoluteSpace");
-      smallButton = querySelector("#smallButton");
-      largeButton = querySelector("#largeButton");
-      noImageButton = querySelector("#noImageButton");
-            
-    });
 
-    tearDown((){
 
-    });
+
 
     group('text: ', (){
       setUp((){
@@ -91,7 +100,7 @@ main() {
     group('action: ', (){
       
       TargetAction targetAction = new TargetAction();
-      ActionDescriptor action = new ActionDescriptor("","",targetAction.targetAction);
+      ActionDescriptor action = new ActionDescriptor(launchAction:targetAction.targetAction);
       
       setUp((){
         smallButton.moveTo( new Position(200, 100, 50, 50, 101));

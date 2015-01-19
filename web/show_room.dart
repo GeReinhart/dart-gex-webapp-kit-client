@@ -71,7 +71,6 @@ class ShowRoom extends PolymerElement {
     
     List<ButtonModel> showRoomLayoutToolbarButtons = new List<ButtonModel>();
     showRoomLayoutToolbarButtons.add( new ButtonModel(label: "Reset",action:(p)=>addNewShowRoomLayout() )  );
-    showRoomLayoutToolbarButtons.add( new ButtonModel(label: "Add buttons",action:(p)=>showRoomLayout.addButtons() )  );
     showRoomLayoutToolbarButtons.add( new ButtonModel(label: "Add content",action:(p)=>showRoomLayout.addContent() )  );
     ToolbarModel showRoomLayoutToolbarModel = new ToolbarModel(buttons:showRoomLayoutToolbarButtons,orientation: Orientation.est  );
     showRoomLayoutToolbar.init( showRoomLayoutToolbarModel) ;        

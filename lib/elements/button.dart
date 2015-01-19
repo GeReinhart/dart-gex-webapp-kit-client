@@ -39,6 +39,14 @@ class Button  extends Positionable with Actionable, Showable {
   PaperButton get _button => $["button"] as PaperButton; 
   DivElement get _colorElement => $["color"] as DivElement ;
   
+  
+  factory Button.fromModel(ButtonModel model){
+    Button button = new Element.tag('gex-button') as Button;
+    button.init(model);
+    return button ;
+  }
+  
+  
   void init(ButtonModel model){
     _model = model;
     _colorElement.style.backgroundColor = backgroundColor;
@@ -78,6 +86,7 @@ class Button  extends Positionable with Actionable, Showable {
       _labelSpan.style.display = "none" ;
       heightForImage = position.smallerSection ;
     }else{
+      _labelSpan.style.display = "" ;
       heightForImage = position.smallerSection - HEIGHT_TEXT ;
       heightForText = HEIGHT_TEXT;
     }

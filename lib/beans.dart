@@ -2,6 +2,8 @@ part of gex_common_ui_elements;
 
 enum ScreenOrientation { LANDSCAPE , PORTRAIT }
 
+
+
 class Parameter{
   String _key ;
   String _value;
@@ -63,3 +65,41 @@ class ActionDescriptor{
   }
   
 }
+
+class Margin {
+  
+  num _leftInPx  ;
+  num _rightInPx ;
+  num _topInPx ;
+  num _bottomInPx ;
+  
+  Margin( {num leftInPx, num rightInPx, num topInPx, num bottomInPx} ){
+    _leftInPx = _value(leftInPx) ;
+    _rightInPx = _value(rightInPx) ;
+    _topInPx = _value(topInPx) ;
+    _bottomInPx = _value(bottomInPx) ;
+  }
+  
+  num _value(num value) => value == null ? 0 : value ;
+  
+  String get leftInPxAsString => "${_leftInPx}px" ;
+  String get rightInPxAsString => "${_rightInPx}px" ;
+  String get topInPxAsString => "${_topInPx}px" ;
+  String get bottomInPxAsString => "${_bottomInPx}px" ;
+    
+  num get leftInPx => _leftInPx ;
+  num get rightInPx => _rightInPx ;
+  num get topInPx => _topInPx ;
+  num get bottomInPx => _bottomInPx ;  
+  
+  Margin clone(){
+    return new Margin(leftInPx:_leftInPx, rightInPx: _rightInPx,topInPx: _topInPx,bottomInPx: _bottomInPx) ;
+  }
+  
+  
+  
+}
+
+
+
+

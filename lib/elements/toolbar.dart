@@ -22,6 +22,12 @@ class Toolbar extends Positionable with Showable {
   
   ToolbarModel get model => _model.clone();
   
+  factory Toolbar.fromModel(ToolbarModel model){
+    Toolbar toolbar = new Element.tag('gex-toolbar') as Toolbar;
+    toolbar.init(model);
+    return toolbar ;
+  }
+  
   void init(ToolbarModel model) {
     _model = model ;
     _initButtons(model);
@@ -41,12 +47,12 @@ class Toolbar extends Positionable with Showable {
   
   void _initButtons( ToolbarModel model) {
     this._buttons = new List<Button>();
-    List<ButtonModel> buttons = model.buttons;
-    for (var i = 0; i < buttons.length; i++) {
+    List<ButtonModel> buttonModels = model.buttons;
+    for (var i = 0; i < buttonModels.length; i++) {
       Button button = new Element.tag('gex-button') as Button;
-      button.init( buttons[i]) ;
       this.append(button);
       _buttons.add(button);
+      button.init( buttonModels[i]..color = model.getColorForBackGround(i)) ;
     }
   }
  
@@ -95,6 +101,12 @@ class Toolbar extends Positionable with Showable {
     }    
   }  
   
-  
+  List<Position> get buttonPositions{
+    List<Position> positions = new List<Position>();
+    _buttons.forEach((b){
+      positions.add(b.position);
+    });
+    return positions;
+  }
   
 }

@@ -11,9 +11,11 @@ class ShowRoomLayout extends Positionable with Showable {
   
   final Logger log = new Logger('ShowRoomLayout');
   
+  Color mainColor = Color.GREY_858585.lightColorAsColor;
+  
   Layout layout ;
-  DivElement content;
   LayoutModel model ;
+  DivElement content;
   
   ShowRoomLayout.created() : super.created(){
   }
@@ -21,8 +23,6 @@ class ShowRoomLayout extends Positionable with Showable {
   ready() {
     super.ready();
     _setAttributes();
-    _setUpEventsOnElements();
-    _initialPositionsForElements();
   }
   
   
@@ -35,30 +35,22 @@ class ShowRoomLayout extends Positionable with Showable {
   
   void _setAttributes(){
     layout = $["layout"] as Layout ;
-    layout.init(new LayoutModel());
+    
+    List<ButtonModel> buttonModels = new List<ButtonModel>();
+    buttonModels.add( new ButtonModel(label: "Action 1",action:action1,image:"/images/button/create1.png" )  );
+    buttonModels.add( new ButtonModel(label: "Action 2",action:action2,image:"/images/button/factory6.png" )  );
+    buttonModels.add( new ButtonModel(label: "Action 3",action:action3,image:"/images/button/login.png" )  );
+    ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, orientation: Orientation.est,colorUsage: ColorUsage.ALTERNATE );  
+    
+    model = new LayoutModel(toolbarModel: toolbarModel,color: mainColor);
+    layout.init(model);
     content = this.shadowRoot.querySelector("#content") as DivElement ;
-  }
-
-  void _setUpEventsOnElements(){
+    
   }
 
   void viewPortChangeCallBack(ViewPortChangeEvent event){
     ViewPortModel viewPort = event.viewPortModel ;
     
-  }
-
-  void _initialPositionsForElements() {
-  }
-  
-  
-  void addButtons() {
- /*   if (actions == null){
-      actions = new List<ActionDescriptor>();
-      actions.add(new ActionDescriptor("Action 1","",action1));
-      actions.add(new ActionDescriptor("Action 2","",action2));
-      actions.add(new ActionDescriptor("Action 3","",action3));
-      layout.actions = actions ;
-    }*/
   }
   
   void addContent() {
@@ -68,12 +60,12 @@ class ShowRoomLayout extends Positionable with Showable {
   }
   
   action1(Parameters params){
-    layout.style.backgroundColor ="white" ;
+    layout.style.backgroundColor =mainColor.strongColor ;
   }
   action2(Parameters params){
-    layout.style.backgroundColor ="#00D2B8" ;
+    layout.style.backgroundColor =mainColor.mainColor ;
   }
   action3(Parameters params){
-    layout.style.backgroundColor ="#778899" ;
+    layout.style.backgroundColor =mainColor.lightColor ;
   }
 }

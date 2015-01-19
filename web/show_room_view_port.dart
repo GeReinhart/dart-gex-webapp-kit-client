@@ -40,6 +40,9 @@ class ShowRoomViewPort extends Positionable with Showable {
     viewPortWidth = this.shadowRoot.querySelector("#viewPortWidth") as SpanElement ;
     viewPortHeight = this.shadowRoot.querySelector("#viewPortHeight") as SpanElement ;
     viewPortOrientation = this.shadowRoot.querySelector("#viewPortOrientation") as SpanElement ;
+    
+    viewPortSpace.style.backgroundColor = Color.BLUE_0082C8.veryLightColor;
+    _viewPortChangeCallBack( new ViewPortChangeEvent(viewPort.model)) ;
   }
 
   void _setUpEventsOnElements(){
