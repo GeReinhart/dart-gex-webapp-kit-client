@@ -31,7 +31,7 @@ class PageTwo extends Page with Showable  {
        buttonModels.add( new ButtonModel(label: "Action 1",action:action1 )  );
        buttonModels.add( new ButtonModel(label: "Action 2",action:action2 )  );
        buttonModels.add( new ButtonModel(label: "Action 3",action:action3)  );
-       ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, orientation: Orientation.est,colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );  
+       ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );  
 
        LayoutModel layoutModel = new LayoutModel(toolbarModel: toolbarModel,color: mainColor);
        PageModel model = new PageModel(layoutModel:layoutModel );

@@ -37,6 +37,7 @@ class Layout extends Positionable with Showable {
   void init(LayoutModel model){
     _model = model ;
     this.style.backgroundColor = model.color.veryLightColor ;
+    model.toolbarModel.orientation = Orientation.est ;
     _toolbar.init(model.toolbarModel);
   }
   
