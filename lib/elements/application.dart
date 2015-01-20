@@ -24,9 +24,7 @@ class Application extends Positionable with Showable {
   List<Toolbar> _toolbars = new List<Toolbar>();
   Element _pagesContainer ;
   List<Page> _pages = new List<Page>();
-  
-  num _toolBarWidth = 0 ;
-  num _toolBarHeight = 0 ;
+  Margin _margin = new Margin();
   
   Application.created() : super.created();
   
@@ -100,7 +98,7 @@ class Application extends Positionable with Showable {
   }
   
   void addToolbar(ToolbarModel model){
-    
+    assert(_toolbars.length  < 4);
     Toolbar toolbar = new Element.tag('gex-toolbar') as Toolbar;
     toolbar.init(model);
     _toolbars.add(toolbar);    
@@ -109,34 +107,69 @@ class Application extends Positionable with Showable {
   }
 
   void _moveToolBars(Position position, ScreenOrientation screenOrientation){
+    
+    num pagePercentage = 0.15 ;
+    num size = position.width>position.height?position.height*pagePercentage:position.width*pagePercentage;
+    num zIndex = position.zIndex + 1 ;
+
     for(int i=0 ; i<_toolbars.length ; i++){
       Toolbar toolbar = _toolbars[i];
       
-      num pagePercentage = 0.20 ;
-      num size = position.width>position.height?position.height*pagePercentage:position.width*pagePercentage;
-      _toolBarWidth  = size ;
-      _toolBarHeight = size;
-      
-      num zIndex = position.zIndex + 1 ;
       switch(i){ 
         case 0:
           toolbar.orientation =    screenOrientation == ScreenOrientation.LANDSCAPE ? Orientation.south : Orientation.est  ;
-          toolbar.moveTo( new Position(0,0, _toolBarWidth,  _toolBarHeight, zIndex  )  );
+          toolbar.moveTo( new Position(0,0, size,  size, zIndex  )  );
           break;
         case 1:
           toolbar.orientation =    screenOrientation == ScreenOrientation.LANDSCAPE ? Orientation.north : Orientation.west  ;
-          toolbar.moveTo( new Position(position.width - _toolBarWidth,position.height - _toolBarHeight, _toolBarWidth,  _toolBarHeight, zIndex   )  );
+          toolbar.moveTo( new Position(position.width - size,position.height - size, size,  size, zIndex   )  );
           break;
         case 2:
           toolbar.orientation =    screenOrientation == ScreenOrientation.LANDSCAPE ? Orientation.west : Orientation.south  ;
-          toolbar.moveTo( new Position(position.width - _toolBarWidth,0, _toolBarWidth,  _toolBarHeight, zIndex   )  );
+          toolbar.moveTo( new Position(position.width - size,0, size,  size, zIndex   )  );
           break;
         case 3:
           toolbar.orientation =    screenOrientation == ScreenOrientation.LANDSCAPE ? Orientation.est : Orientation.north  ;
-          toolbar.moveTo( new Position(0 ,position.height - _toolBarHeight, _toolBarWidth,  _toolBarHeight, zIndex   )  );
+          toolbar.moveTo( new Position(0 ,position.height - size, size,  size, zIndex   )  );
           break;
       }
     }
+    
+    _margin = new Margin();
+    num marginSize= size * 1.2;
+    switch(_toolbars.length-1){ 
+      case 0:
+        if (screenOrientation == ScreenOrientation.LANDSCAPE){
+          _margin= _margin.merge(leftInPx:marginSize )  ;
+        }else{
+          _margin= _margin.merge(topInPx:marginSize )  ;
+        }
+        break;
+      case 1:
+        if (screenOrientation == ScreenOrientation.LANDSCAPE){
+          _margin= _margin.merge(leftInPx:marginSize, rightInPx:marginSize )  ;
+        }else{
+          _margin= _margin.merge(topInPx:marginSize, bottomInPx:marginSize )  ;
+        }
+        break;
+      case 2:
+        if (screenOrientation == ScreenOrientation.LANDSCAPE){
+          _margin= _margin.merge(leftInPx:marginSize, rightInPx:marginSize,topInPx:marginSize )  ;
+        }else{
+          _margin= _margin.merge(topInPx:marginSize, bottomInPx:marginSize,rightInPx:marginSize )  ;
+        }
+        break;
+      case 3:
+        if (screenOrientation == ScreenOrientation.LANDSCAPE){
+          _margin= _margin.merge(leftInPx:marginSize, rightInPx:marginSize,topInPx:marginSize,bottomInPx:marginSize )  ;
+        }else{
+          _margin= _margin.merge(topInPx:marginSize, bottomInPx:marginSize,rightInPx:marginSize,leftInPx:marginSize )  ;
+        }
+        break;
+    }
+    
+    
+    
   }
   
   void addPage(Page page){
@@ -148,10 +181,8 @@ class Application extends Positionable with Showable {
   
   
   void _movePages(Position position){
-    
-    Margin margin = new Margin(leftInPx: _toolBarWidth,rightInPx: _toolBarWidth, topInPx:_toolBarHeight , bottomInPx:_toolBarHeight);
     for(Page page in _pages){
-      page.margin = margin ;
+      page.margin = _margin ;
       page.moveTo(position);
     }
   }

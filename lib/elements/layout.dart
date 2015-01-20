@@ -25,6 +25,7 @@ class Layout extends Positionable with Showable {
   Toolbar _toolbar ;
   LayoutModel _model ;
   
+  
   Layout.created() : super.created() ;
   
   @override
@@ -48,6 +49,7 @@ class Layout extends Positionable with Showable {
   
   set margin(Margin margin){
     _model.margin=margin;
+    _adaptElement(position);    
   }
   
   @override
@@ -56,14 +58,17 @@ class Layout extends Positionable with Showable {
          throw new Exception("On Layout call 'init' before 'moveTo'");
       }
       super.moveTo(position);
-      
-      _space.style.marginLeft = "${_model.leftMarginInPx(position)}px";
-      _space.style.width = "${_model.spaceWidth(position) }px";
-      
-      _emptySpaceTop.style.height = "${_model.topMarginInPx(position)}px";
-      _emptySpaceTop.style.width = "${ _model.spaceWidth(position)}px";
-      
+      _adaptElement(position);
       _moveToolbar(position);
+  }
+  
+  void _adaptElement(Position position){
+    _space.style.marginLeft = "${_model.leftMarginInPx(position)}px";
+    _space.style.marginRight = "${_model.rightMarginInPx(position)}px";
+    _space.style.width = "${_model.spaceWidth(position) }px";
+    
+    _emptySpaceTop.style.height = "${_model.topMarginInPx(position)}px";
+    _emptySpaceBottom.style.height = "${_model.bottomMarginInPx(position) + _toolbar.model.mainButtonPosition.height   }px";
   }
   
   void _moveToolbar(Position position){
@@ -72,13 +77,13 @@ class Layout extends Positionable with Showable {
       Position toolBarPosition = position.clone();
       toolBarPosition.left =  _model.leftMarginInPx(position); 
       toolBarPosition.height =  _model.toolBarHeight(position); 
-      toolBarPosition.top  = position.height - toolBarPosition.height - (toolBarPosition.height * 0.05  ) ;
-      toolBarPosition.width =   _model.spaceWidth(position)  / nbActions  ;
+      toolBarPosition.top  = position.height - _model.bottomMarginInPx(position) - toolBarPosition.height  ;
+      toolBarPosition.width =   (_model.spaceWidth(position)-10)  / nbActions  ;
       _toolbar.moveTo(toolBarPosition);
       
 
       _emptySpaceBottom.style.width = "${toolBarPosition.width}px";
-      _emptySpaceBottom.style.height = "${toolBarPosition.height}px";
+      _emptySpaceBottom.style.height = "${ _model.bottomMarginInPx(position) + toolBarPosition.height}px";
     }
   }
   

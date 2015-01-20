@@ -90,7 +90,14 @@ class Margin {
   num get leftInPx => _leftInPx ;
   num get rightInPx => _rightInPx ;
   num get topInPx => _topInPx ;
-  num get bottomInPx => _bottomInPx ;  
+  num get bottomInPx => _bottomInPx ; 
+  
+  Margin merge({num leftInPx, num rightInPx, num topInPx, num bottomInPx}){
+    return new Margin(leftInPx:  leftInPx==null? _leftInPx : leftInPx,
+                      rightInPx: rightInPx==null? _rightInPx : rightInPx,
+                      topInPx: topInPx==null? _topInPx : topInPx,
+                      bottomInPx: bottomInPx==null? _bottomInPx : bottomInPx) ;
+  }
   
   Margin clone(){
     return new Margin(leftInPx:_leftInPx, rightInPx: _rightInPx,topInPx: _topInPx,bottomInPx: _bottomInPx) ;

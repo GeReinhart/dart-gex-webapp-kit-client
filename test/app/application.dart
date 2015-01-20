@@ -13,6 +13,9 @@ class TestApplication  extends Application{
   
   Color mainColor = Color.GREEN_07CC00 ;
   
+  @published num nbToolBar ;
+  
+  
   TestApplication.created() : super.created(){
   } 
   
@@ -26,34 +29,39 @@ class TestApplication  extends Application{
     addPage( new Element.tag('gex-page-one') ) ;
     addPage( new Element.tag('gex-page-two') ) ;
     
+    
     List<ButtonModel> buttonModels = new List<ButtonModel>();
-    buttonModels.add( new ButtonModel(label: "Page 1",action:(p)=>showPage(pageIndex: 0) )  );
-    buttonModels.add( new ButtonModel(label: "Page 2",action:(p)=>showPage(pageIndex: 1) )  );
-    ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
-    addToolbar(toolbarModel);
-    
-    
-    buttonModels = new List<ButtonModel>();
-    buttonModels.add( new ButtonModel(label: "Page 11",action:(p)=>showPage(pageIndex: 0) )  );
-    buttonModels.add( new ButtonModel(label: "Page 12",action:(p)=>showPage(pageIndex: 1) )  );
-    buttonModels.add( new ButtonModel(label: "Page 13",action:(p)=>showPage(pageIndex: 0) )  );
-    toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
-    addToolbar(toolbarModel);    
-
-    buttonModels = new List<ButtonModel>();
-    buttonModels.add( new ButtonModel(label: "Page 21",action:(p)=>showPage(pageIndex: 0) )  );
-    buttonModels.add( new ButtonModel(label: "Page 22",action:(p)=>showPage(pageIndex: 1) )  );
-    buttonModels.add( new ButtonModel(label: "Page 23",action:(p)=>showPage(pageIndex: 0) )  );
-    toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
-    addToolbar(toolbarModel);    
-    
-    buttonModels = new List<ButtonModel>();
-    buttonModels.add( new ButtonModel(label: "Page 31",action:(p)=>showPage(pageIndex: 0) )  );
-    buttonModels.add( new ButtonModel(label: "Page 32",action:(p)=>showPage(pageIndex: 1) )  );
-    buttonModels.add( new ButtonModel(label: "Page 33",action:(p)=>showPage(pageIndex: 0) )  );
-    toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
-    addToolbar(toolbarModel);        
-    
+    ToolbarModel toolbarModel ;
+    if (nbToolBar>0 ){
+      buttonModels.add( new ButtonModel(label: "Page 1",action:(p)=>showPage(pageIndex: 0) )  );
+      buttonModels.add( new ButtonModel(label: "Page 2",action:(p)=>showPage(pageIndex: 1) )  );
+      toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
+      addToolbar(toolbarModel);
+    }
+    if (nbToolBar>1 ){
+      buttonModels = new List<ButtonModel>();
+      buttonModels.add( new ButtonModel(label: "Page 11",action:(p)=>showPage(pageIndex: 0) )  );
+      buttonModels.add( new ButtonModel(label: "Page 12",action:(p)=>showPage(pageIndex: 1) )  );
+      buttonModels.add( new ButtonModel(label: "Page 13",action:(p)=>showPage(pageIndex: 0) )  );
+      toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
+      addToolbar(toolbarModel);    
+    }
+    if (nbToolBar>2 ){    
+      buttonModels = new List<ButtonModel>();
+      buttonModels.add( new ButtonModel(label: "Page 21",action:(p)=>showPage(pageIndex: 0) )  );
+      buttonModels.add( new ButtonModel(label: "Page 22",action:(p)=>showPage(pageIndex: 1) )  );
+      buttonModels.add( new ButtonModel(label: "Page 23",action:(p)=>showPage(pageIndex: 0) )  );
+      toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
+      addToolbar(toolbarModel);    
+    }
+    if (nbToolBar>3 ){
+      buttonModels = new List<ButtonModel>();
+      buttonModels.add( new ButtonModel(label: "Page 31",action:(p)=>showPage(pageIndex: 0) )  );
+      buttonModels.add( new ButtonModel(label: "Page 32",action:(p)=>showPage(pageIndex: 1) )  );
+      buttonModels.add( new ButtonModel(label: "Page 33",action:(p)=>showPage(pageIndex: 0) )  );
+      toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
+      addToolbar(toolbarModel);        
+    }
     
     pages[0].show();
   }

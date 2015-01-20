@@ -186,7 +186,8 @@ class ViewPortModel {
 class LayoutModel{
   
   num _small = 500 ;
-  num _big = 2000 ;   
+  num _big = 2000 ; 
+  num incompressible = 18 ;
   
   Color _color  ;
   ToolbarModel _toolbarModel ;
@@ -221,13 +222,13 @@ class LayoutModel{
     if ( position.width > _big   ){
       return   (position.width - _big ) /2 ;
     }
-    return _margin.leftInPx;
+    return _margin.leftInPx +incompressible;
   }
   num rightMarginInPx(Position position){
     if ( position.width > _big   ){
       return   (position.width - _big ) /2 ;
     }
-    return _margin.rightInPx;
+    return _margin.rightInPx+incompressible;
   }
   num topMarginInPx(Position position){
     return _margin.topInPx;
@@ -236,7 +237,7 @@ class LayoutModel{
     return _margin.bottomInPx;
   } 
   num spaceWidth(Position position){
-    return position.width - leftMarginInPx(position) - rightMarginInPx(position);
+    return position.width - leftMarginInPx(position) - rightMarginInPx(position)  ;
   }
   
   num toolBarHeight(Position position){

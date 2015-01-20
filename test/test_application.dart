@@ -16,25 +16,28 @@ import 'app/application.dart' ;
 main() {
   initPolymer();
   
-  TestApplication application ;
+  TestApplication application4Toolbars ;
+  TestApplication application2Toolbars ;
+  
+  num toolBarPercentage = 0.15;
+  num marginPercentage  = 0.2;
   
   group("Application", (){
 
     setUp((){
-      application = querySelector("#application");
+      application4Toolbars = querySelector("#application4Toolbars");
+      application2Toolbars = querySelector("#application2Toolbars");
       
     });
     
     group('toolbars: ', (){
-      setUp((){
-      });
 
       test('landscape orientation', (){
         num width = 1000;
         num height = 500;
         
-        application.moveTo( new Position(0,0, width,height, 100)  ) ;
-        List<ToolbarModel> toolbars = application.toolbarModels ;
+        application4Toolbars.moveTo( new Position(0,0, width,height, 100)  ) ;
+        List<ToolbarModel> toolbars = application4Toolbars.toolbarModels ;
         expect( toolbars.length  , equals(4));
         expect( toolbars[0].orientation  , equals(Orientation.south));
         expect( toolbars[0].mainButtonPosition.left  , equals(0));
@@ -58,8 +61,8 @@ main() {
         num width = 500;
         num height = 1000;
         
-        application.moveTo( new Position(0,0, width,height, 100)  ) ;
-        List<ToolbarModel> toolbars = application.toolbarModels ;
+        application4Toolbars.moveTo( new Position(0,0, width,height, 100)  ) ;
+        List<ToolbarModel> toolbars = application4Toolbars.toolbarModels ;
         expect( toolbars.length  , equals(4));
         expect( toolbars[0].orientation  , equals(Orientation.est));
         expect( toolbars[0].mainButtonPosition.left  , equals(0));
@@ -82,10 +85,10 @@ main() {
       test('landscape size', (){
         num width = 1000;
         num height = 500;
-        num size = width>height?height*0.20:width*0.20;
+        num size = width>height?height*toolBarPercentage:width*toolBarPercentage;
         
-        application.moveTo( new Position(0,0, width,height, 100)  ) ;
-        application.toolbarModels.forEach((t){
+        application4Toolbars.moveTo( new Position(0,0, width,height, 100)  ) ;
+        application4Toolbars.toolbarModels.forEach((t){
           expect( t.mainButtonPosition.width  , equals(size));
           expect( t.mainButtonPosition.height  , equals(size));
         } );
@@ -94,10 +97,10 @@ main() {
       test('portrait size', (){
         num width = 500;
         num height = 1000;
-        num size = width>height?height*0.20:width*0.20;
+        num size = width>height?height*toolBarPercentage:width*toolBarPercentage;
         
-        application.moveTo( new Position(0,0, width,height, 100)  ) ;
-        application.toolbarModels.forEach((t){
+        application4Toolbars.moveTo( new Position(0,0, width,height, 100)  ) ;
+        application4Toolbars.toolbarModels.forEach((t){
           expect( t.mainButtonPosition.width  , equals(size));
           expect( t.mainButtonPosition.height  , equals(size));
         } );      
@@ -105,6 +108,26 @@ main() {
       });
       
     });
+    
+    group('margin: ', (){
+
+      test('landscape', (){
+        num width = 1000;
+        num height = 500;
+        num sizeToolBar = width>height?height*toolBarPercentage:width*toolBarPercentage;
+        num sizeMargin = sizeToolBar* (1+marginPercentage);
+        
+        application2Toolbars.moveTo( new Position(0,0, width,height, 100)  ) ;
+        application2Toolbars.pages.forEach((p){
+          expect( p.margin.topInPx  , equals(0));
+          expect( p.margin.bottomInPx  , equals(0));
+          expect( p.margin.rightInPx  , equals(sizeMargin));
+          expect( p.margin.leftInPx  , equals(sizeMargin));
+        } );         
+        
+      });
+      
+    });    
     
     
   });

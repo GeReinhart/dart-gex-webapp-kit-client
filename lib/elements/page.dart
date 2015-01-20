@@ -32,6 +32,8 @@ class Page extends Positionable with Showable {
     _layout.init(model.layoutModel);
   }
 
+  Margin get margin => _model.margin;
+  
   set margin(Margin margin){
     _model.margin=margin;
     _layout.margin=margin;
