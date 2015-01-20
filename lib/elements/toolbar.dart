@@ -1,6 +1,6 @@
 library gex_common_ui_elements.toolbar;
 
-import "dart:html";
+import "dart:html" hide ScreenOrientation;
 import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 
@@ -21,6 +21,10 @@ class Toolbar extends Positionable with Showable {
   Toolbar.created() : super.created() ;
   
   ToolbarModel get model => _model.clone();
+  
+  set orientation(Orientation value){
+    _model.orientation = value ;
+  }
   
   factory Toolbar.fromModel(ToolbarModel model){
     Toolbar toolbar = new Element.tag('gex-toolbar') as Toolbar;

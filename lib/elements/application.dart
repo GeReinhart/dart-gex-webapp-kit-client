@@ -1,6 +1,6 @@
 library gex_common_ui_elements.application;
 
-import "dart:html";
+import "dart:html" hide ScreenOrientation;
 import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 import 'dart:async';
@@ -52,6 +52,12 @@ class Application extends Positionable with Showable {
   }
   
   ViewPortModel get viewPortModel => _viewPort.model;
+  List<ToolbarModel> get toolbarModels {
+    List<ToolbarModel> toolbars = new List<ToolbarModel> ();
+    _toolbars.forEach((t)=> toolbars.add(t.model));
+    return toolbars ;
+  }
+  
   
   void fitWithWindow(){
      moveTo( new Position(0,0,viewPortModel.windowWidth,viewPortModel.windowHeight, 100)  );
@@ -67,7 +73,7 @@ class Application extends Positionable with Showable {
       subElementPosition.left = 0 ;
       subElementPosition.top = 0 ;
       
-      _moveToolBars(subElementPosition);
+      _moveToolBars(subElementPosition,position.orientation);
       _movePages(subElementPosition);
   }
   
@@ -96,45 +102,38 @@ class Application extends Positionable with Showable {
   void addToolbar(ToolbarModel model){
     
     Toolbar toolbar = new Element.tag('gex-toolbar') as Toolbar;
-    switch(_toolbars.length){
-      case 0:
-        model.orientation =  Orientation.est;
-        break;
-      case 1:
-        model.orientation =  Orientation.west;        
-        break;
-      case 2:
-        model.orientation =  Orientation.south;
-        break;
-      case 3:
-        model.orientation =  Orientation.north;        
-        break;
-    }    
     toolbar.init(model);
     _toolbars.add(toolbar);    
     _toolbarsContainer.append(toolbar);
-    _moveToolBars(position);
+    _moveToolBars(position,position.orientation);
   }
 
-  void _moveToolBars(Position position){
+  void _moveToolBars(Position position, ScreenOrientation screenOrientation){
     for(int i=0 ; i<_toolbars.length ; i++){
       Toolbar toolbar = _toolbars[i];
       
-      _toolBarWidth  = position.width / 8 ;
-      _toolBarHeight = position.height * 0.15;
+      num pagePercentage = 0.20 ;
+      num size = position.width>position.height?position.height*pagePercentage:position.width*pagePercentage;
+      _toolBarWidth  = size ;
+      _toolBarHeight = size;
+      
       num zIndex = position.zIndex + 1 ;
       switch(i){ 
         case 0:
+          toolbar.orientation =    screenOrientation == ScreenOrientation.LANDSCAPE ? Orientation.south : Orientation.est  ;
           toolbar.moveTo( new Position(0,0, _toolBarWidth,  _toolBarHeight, zIndex  )  );
           break;
         case 1:
+          toolbar.orientation =    screenOrientation == ScreenOrientation.LANDSCAPE ? Orientation.north : Orientation.west  ;
           toolbar.moveTo( new Position(position.width - _toolBarWidth,position.height - _toolBarHeight, _toolBarWidth,  _toolBarHeight, zIndex   )  );
           break;
         case 2:
-          toolbar.moveTo( new Position(0 ,position.height - _toolBarHeight, _toolBarWidth,  _toolBarHeight, zIndex   )  );
+          toolbar.orientation =    screenOrientation == ScreenOrientation.LANDSCAPE ? Orientation.west : Orientation.south  ;
+          toolbar.moveTo( new Position(position.width - _toolBarWidth,0, _toolBarWidth,  _toolBarHeight, zIndex   )  );
           break;
         case 3:
-          toolbar.moveTo( new Position(position.width - _toolBarWidth,0, _toolBarWidth,  _toolBarHeight, zIndex   )  );
+          toolbar.orientation =    screenOrientation == ScreenOrientation.LANDSCAPE ? Orientation.est : Orientation.north  ;
+          toolbar.moveTo( new Position(0 ,position.height - _toolBarHeight, _toolBarWidth,  _toolBarHeight, zIndex   )  );
           break;
       }
     }

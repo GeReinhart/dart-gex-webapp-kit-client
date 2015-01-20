@@ -29,7 +29,7 @@ class ShowRoomApplication  extends Application{
     List<ButtonModel> buttonModels = new List<ButtonModel>();
     buttonModels.add( new ButtonModel(label: "Page 1", image: "images/button/list23.png",action:(p)=>showPage(pageIndex: 0) )  );
     buttonModels.add( new ButtonModel(label: "Page 2", image: "images/button/user58.png",action:(p)=>showPage(pageIndex: 1) )  );
-    ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, orientation: Orientation.est,colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
+    ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
     addToolbar(toolbarModel);
     
     

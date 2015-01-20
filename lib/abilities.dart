@@ -83,6 +83,8 @@ class Position {
   num get smallerSection => width>height?height:width;
   num get largerSection => width<height?height:width;
   
+  ScreenOrientation get orientation =>  width>height?ScreenOrientation.LANDSCAPE:ScreenOrientation.PORTRAIT;
+  
   @override
   String toString() => "SquarePosition: left:${left}, top:${top}, width:${width}, height:${height}, zIndex:${zIndex}";
   
