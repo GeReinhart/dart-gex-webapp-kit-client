@@ -21,25 +21,20 @@ class Actionable{
 }
 
 
-class Identifiable{
-  String id;
-}
 
 enum Orientation { north, est, south, west }
 
 /**
  * Be able to move the element in an absolute space.
  */
-abstract class Positionable extends PolymerElement with Identifiable{
+abstract class Positionable extends PolymerElement {
   
   final Logger log = new Logger('Positionable');
   
-  @published String id;
   
   final Position position = new Position.empty();
   
   Positionable.created() : super.created() {
-    log.fine("Positionable object created with name: ${id}");
   }
   
   bool isCurrentPostion(Position position){
