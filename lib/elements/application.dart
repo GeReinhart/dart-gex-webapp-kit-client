@@ -35,6 +35,7 @@ class Application extends Positionable with Showable {
   @override
   void ready() {
     super.ready();
+    this.style.overflow = "hidden";
     _setAttributes();
   }
   
