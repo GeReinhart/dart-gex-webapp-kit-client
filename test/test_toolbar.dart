@@ -33,9 +33,9 @@ main() {
       
       
       List<ButtonModel> toolbarButtons = new List<ButtonModel> ();
-      toolbarButtons.add(new ButtonModel(label: "one", image: "images/button/dart-logo.png", action: action1.targetAction)) ;
-      toolbarButtons.add(new ButtonModel(label: "two", image: "images/button/dart-logo.png", action: action2.targetAction)) ;
-      toolbarButtons.add(new ButtonModel(label: "three", image: "images/button/dart-logo.png", action: action3.targetAction)) ;
+      toolbarButtons.add(new ButtonModel(label: "one", image:new Image(mainImageUrl:  "images/button/dart-logo.png"), action: action1.targetAction)) ;
+      toolbarButtons.add(new ButtonModel(label: "two", image:new Image(mainImageUrl:"images/button/dart-logo.png"), action: action2.targetAction)) ;
+      toolbarButtons.add(new ButtonModel(label: "three", image:new Image(mainImageUrl:"images/button/dart-logo.png"), action: action3.targetAction)) ;
       
       toolbarEst = new Toolbar.fromModel( new ToolbarModel(buttons:toolbarButtons, orientation: Orientation.est   )) ;
       toolbarEst.moveTo(toolbarPostion);

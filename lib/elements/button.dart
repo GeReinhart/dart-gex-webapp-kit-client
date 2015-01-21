@@ -26,7 +26,7 @@ class Button  extends Positionable with Actionable, Showable {
   Button.created() : super.created() ;
   
   String get label => _model.label;
-  String get image => _model.image;
+  Image get image => _model.image;
   String get backgroundColor => _model.color.mainColor;
 
   bool get isButtonLabelVisible => _labelSpan.style.display != "none" ;
@@ -52,7 +52,7 @@ class Button  extends Positionable with Actionable, Showable {
     _colorElement.style.backgroundColor = backgroundColor;
     if( _model.hasImage ){
       _imageElement.style.display = "inline" ;
-      _imageElement.src = image ;
+      _imageElement.src = image.mainImageUrl ;
     }else{
       _imageElement.style.display = "none" ;
     }

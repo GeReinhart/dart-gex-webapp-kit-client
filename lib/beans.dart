@@ -103,7 +103,42 @@ class Margin {
     return new Margin(leftInPx:_leftInPx, rightInPx: _rightInPx,topInPx: _topInPx,bottomInPx: _bottomInPx) ;
   }
   
+}
+
+class Image{
   
+  List<String> _mainImageUrls ;
+  List<String> _alternativeImageUrls ;
+  
+  Image( {String mainImageUrl,String mainImageUrl2,String alternativeImageUrl,String alternativeImageUrl2 }  ){
+    assert(mainImageUrl != null);
+    _mainImageUrls = new List<String>();
+    _alternativeImageUrls = new List<String>();
+    
+    _mainImageUrls.add(mainImageUrl);
+    if (mainImageUrl2 != null){
+      _mainImageUrls.add(mainImageUrl2);
+    }
+    if (alternativeImageUrl != null){
+      _alternativeImageUrls.add(alternativeImageUrl);
+    }
+    if (alternativeImageUrl2 != null){
+      _alternativeImageUrls.add(alternativeImageUrl2);
+    }    
+  }
+  
+  String get mainImageUrl => mainImageUrls[0];
+  List<String> get mainImageUrls => new List<String>().. addAll(_mainImageUrls) ;
+ 
+  String get alternativeImageUrl => _alternativeImageUrls.length > 0 ? _alternativeImageUrls[0]: mainImageUrl;
+  List<String> get alternativeImageUrls => new List<String>().. addAll(_alternativeImageUrls) ;
+  
+  Image clone(){
+    Image clone =  new Image() ;
+    clone._mainImageUrls = this.mainImageUrls ;
+    clone._alternativeImageUrls = this.alternativeImageUrls ;
+    return clone;
+  }
   
 }
 

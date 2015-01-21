@@ -22,10 +22,10 @@ main() {
   setUp((){
     absoluteSpace = querySelector("#absoluteSpace");
 
-    smallButton = new Button.fromModel(new ButtonModel(label: "Small", image: "images/button/dart-logo.png")) ;
+    smallButton = new Button.fromModel(new ButtonModel(label: "Small", image:new Image(mainImageUrl: "images/button/dart-logo.png"))) ;
     absoluteSpace.append(smallButton) ;
     
-    largeButton = new Button.fromModel(new ButtonModel(label: "Large", image: "images/button/dart-logo.png")) ;
+    largeButton = new Button.fromModel(new ButtonModel(label: "Large", image: new Image(mainImageUrl:"images/button/dart-logo.png"))) ;
     absoluteSpace.append(largeButton) ;
     
     noImageButton = new Button.fromModel(new ButtonModel(label: "No image")) ;

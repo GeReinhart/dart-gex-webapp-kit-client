@@ -53,10 +53,10 @@ class ShowRoomToolbar extends Positionable with Showable {
 
   void _initialPositionsForElements() {
     List<ButtonModel> buttonModels = new List<ButtonModel>();
-    buttonModels.add( new ButtonModel(label: "Action 1",action:action1,image:"/images/button/create1.png" )  );
-    buttonModels.add( new ButtonModel(label: "Action 2",action:action2,image:"/images/button/factory6.png" )  );
-    buttonModels.add( new ButtonModel(label: "Action 3",action:action3,image:"/images/button/login.png" )  );
-    buttonModels.add( new ButtonModel(label: "Action 4",action:action4,image:"/images/button/logout.png" )  );    
+    buttonModels.add( new ButtonModel(label: "Action 1",action:action1,image:new Image(mainImageUrl:"/images/button/create1.png"))  );
+    buttonModels.add( new ButtonModel(label: "Action 2",action:action2,image:new Image(mainImageUrl:"/images/button/factory6.png") )  );
+    buttonModels.add( new ButtonModel(label: "Action 3",action:action3,image:new Image(mainImageUrl:"/images/button/login.png") )  );
+    buttonModels.add( new ButtonModel(label: "Action 4",action:action4,image:new Image(mainImageUrl:"/images/button/logout.png") )  );    
     ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor );
     
     estToolbar.init( toolbarModel.clone()..orientation = Orientation.est ..colorUsage = ColorUsage.GRADATION   ) ;

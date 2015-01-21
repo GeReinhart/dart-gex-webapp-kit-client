@@ -33,16 +33,16 @@ class ShowRoomButton extends Positionable with Showable {
   
   void _setAttributes(){
     button1 = $["button1"] as Button ;
-    button1.init(new ButtonModel(color:Color.WHITE, image: "images/button/info24.png",label: "Action 1" , action: action1));
+    button1.init(new ButtonModel(color:Color.WHITE, image: new Image(mainImageUrl:"images/button/info24.png"),label: "Action 1" , action: action1));
     
     button2 = $["button2"] as Button ;
-    button2.init(new ButtonModel(color:Color.GREEN_07CC00, image: "images/button/list23.png",label: "Action 2", action: action2 ));
+    button2.init(new ButtonModel(color:Color.GREEN_07CC00, image: new Image(mainImageUrl:"images/button/list23.png"),label: "Action 2", action: action2 ));
     
     button3 = $["button3"] as Button ;
-    button3.init(new ButtonModel(color:Color.GREY_858585, image: "images/button/save29.png",label: "Action 3", action: action3 ));
+    button3.init(new ButtonModel(color:Color.GREY_858585, image: new Image(mainImageUrl:"images/button/save29.png"),label: "Action 3", action: action3 ));
     
     button4 = $["button4"] as Button ; 
-    button4.init(new ButtonModel(color:Color.BLUE_0082C8, image: "images/button/user58.png",label: "Action 4", action: action4 ));
+    button4.init(new ButtonModel(color:Color.BLUE_0082C8, image: new Image(mainImageUrl:"images/button/user58.png"),label: "Action 4", action: action4 ));
     
     buttonSpace = $["buttonSpace"] as Space ;
   }

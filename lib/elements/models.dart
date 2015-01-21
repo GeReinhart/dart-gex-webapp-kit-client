@@ -4,11 +4,11 @@ part of gex_common_ui_elements;
 class ButtonModel{
   
   Color _color  ;
-  String _image;
+  Image _image;
   String _label ;
   LaunchAction _action ;
   
-  ButtonModel({Color color,String image,String label, LaunchAction action} ){
+  ButtonModel({Color color,Image image,String label, LaunchAction action} ){
     this.color = color ;
     _image = image ;
     _label = label ;
@@ -25,11 +25,11 @@ class ButtonModel{
   }
   
   
-  String get image => _image;
+  Image get image => _image;
   String get label => _label;
   LaunchAction get action => _action ;
   ActionDescriptor get actionDescriptor => new ActionDescriptor(name: _label,launchAction: _action);
-  bool get hasImage => _image != null && _image.isNotEmpty ;
+  bool get hasImage => _image != null  ;
   bool get hasLabel => _label != null && _label.isNotEmpty ;
   
   ButtonModel clone(){

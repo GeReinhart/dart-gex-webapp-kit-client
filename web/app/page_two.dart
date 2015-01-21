@@ -28,9 +28,9 @@ class PageTwo extends Page with Showable  {
        layout = $["layout"] as Layout ;
        
        List<ButtonModel> buttonModels = new List<ButtonModel>();
-       buttonModels.add( new ButtonModel(label: "Action 1",action:action1,image:"/images/button/create1.png" )  );
-       buttonModels.add( new ButtonModel(label: "Action 2",action:action2,image:"/images/button/factory6.png" )  );
-       buttonModels.add( new ButtonModel(label: "Action 3",action:action3,image:"/images/button/login.png" )  );
+       buttonModels.add( new ButtonModel(label: "Action 1",action:action1,image:new Image(mainImageUrl:"/images/button/create1.png") )  );
+       buttonModels.add( new ButtonModel(label: "Action 2",action:action2,image:new Image(mainImageUrl:"/images/button/factory6.png") )  );
+       buttonModels.add( new ButtonModel(label: "Action 3",action:action3,image:new Image(mainImageUrl:"/images/button/login.png") )  );
        ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, orientation: Orientation.est,colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );  
 
        LayoutModel layoutModel = new LayoutModel(toolbarModel: toolbarModel,color: mainColor);
