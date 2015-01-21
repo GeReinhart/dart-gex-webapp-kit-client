@@ -17,8 +17,8 @@ import 'package:paper_elements/paper_button.dart';
 class Button  extends Positionable with Actionable, Showable {
 
   final Logger log = new Logger('Button');
-  final num MIN_SIZE_WITH_TEXT = 150 ;  
-  final num HEIGHT_TEXT = 35 ;
+  final num MIN_SIZE_WITH_TEXT = 90 ;  
+  final num HEIGHT_TEXT = 30 ;
   final num PART_USED_BY_IMAGE = .85 ;
 
   ButtonModel _model  ;
@@ -82,7 +82,7 @@ class Button  extends Positionable with Actionable, Showable {
     
     num heightForImage  ;
     num heightForText = 0 ;
-    if ( _model.hasImage &&  ( position.width < MIN_SIZE_WITH_TEXT || !_model.hasLabel  ) ){
+    if ( _model.hasImage &&  ( position.height < MIN_SIZE_WITH_TEXT || !_model.hasLabel  ) ){
       _labelSpan.style.display = "none" ;
       heightForImage = position.smallerSection ;
     }else{
