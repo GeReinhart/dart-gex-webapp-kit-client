@@ -119,6 +119,7 @@ class Button  extends Positionable with Actionable, Showable {
           _imageElement2.style.display = "none" ;
         }else{
             if (_model.image.mainImageUrls.length == 2){
+              _imageElement2.style.display = "" ;
               _imageElement.style
                   ..width  = squareSize   
                   ..height = squareSize
