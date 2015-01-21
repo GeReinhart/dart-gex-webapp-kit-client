@@ -34,6 +34,7 @@ class Button  extends Positionable with Actionable, Showable {
   
   SpanElement get _labelSpan => $["label"] as SpanElement;
   ImageElement get _imageElement => $["image"] as ImageElement;
+  ImageElement get _imageElement2 => $["image2"] as ImageElement;  
   ImageElement get imageElement => _imageElement.clone(true);
   PaperShadow get _shadow => $["shadow"] as PaperShadow;
   HtmlElement get _button => $["button"] as HtmlElement; 
@@ -53,6 +54,9 @@ class Button  extends Positionable with Actionable, Showable {
     if( _model.hasImage ){
       _imageElement.style.display = "inline" ;
       _imageElement.src = image.mainImageUrl ;
+      if (image.mainImageUrls.length > 1){
+        _imageElement2.src = image.mainImageUrls[1] ;
+      }
     }else{
       _imageElement.style.display = "none" ;
     }
@@ -97,18 +101,41 @@ class Button  extends Positionable with Actionable, Showable {
       heightForImage = position.smallerSection - MIN_HEIGHT_TEXT ;
       heightForText = MIN_HEIGHT_TEXT > position.height *(1-PART_USED_BY_IMAGE) ? MIN_HEIGHT_TEXT : position.height *(1-PART_USED_BY_IMAGE) ;;
     }
-    String squareSize  = "${heightForImage * PART_USED_BY_IMAGE}px";
+    num squareSizeAsNum = heightForImage * PART_USED_BY_IMAGE ;
+    String squareSize  = "${squareSizeAsNum}px";
     String smallMargin = "${heightForImage * (1-PART_USED_BY_IMAGE)/2 }px";
     String largeMargin = "${heightForImage * (1-PART_USED_BY_IMAGE)/2  + ( position.largerSection - position.smallerSection+heightForText)/2 }px";
     
-    _imageElement.style
-        ..width  = squareSize   
-        ..height = squareSize
-        ..top  = position.height < position.width ? smallMargin : largeMargin
-        ..left = position.height > position.width ? smallMargin : largeMargin;
+    
+    if (_model.hasImage){
+        if (   _model.image.mainImageUrls.length == 1
+           ||  position.width < squareSizeAsNum *2
+           ){
+          _imageElement.style
+              ..width  = squareSize   
+              ..height = squareSize
+              ..top  = position.height < position.width ? smallMargin : largeMargin
+              ..left = position.height > position.width ? smallMargin : largeMargin;
+          _imageElement2.style.display = "none" ;
+        }else{
+            if (_model.image.mainImageUrls.length == 2){
+              _imageElement.style
+                  ..width  = squareSize   
+                  ..height = squareSize
+                  ..top  = position.height < position.width ? smallMargin : largeMargin
+                  ..left = "${ (position.width - squareSizeAsNum *2) /2          }px";
+              _imageElement2.style
+                  ..width  = squareSize   
+                  ..height = squareSize
+                  ..top  = position.height < position.width ? smallMargin : largeMargin
+                  ..left =  "${ (position.width - squareSizeAsNum *2) /2 + squareSizeAsNum}px";          
+            }
+        }
+    }
     
     _labelSpan.style.zIndex = "${position.zIndex +1 }";
     _imageElement.style.zIndex = "${position.zIndex +1 }";
+    _imageElement2.style.zIndex = "${position.zIndex +1 }";    
     _button.style.zIndex = "${position.zIndex +1 }";    
     _colorElement.style.zIndex = "${position.zIndex -1}";
         

@@ -42,7 +42,7 @@ class ShowRoomButton extends Positionable with Showable {
     button3.init(new ButtonModel(color:Color.GREY_858585, image: new Image(mainImageUrl:"images/button/save29.png"),label: "Action 3", action: action3 ));
     
     button4 = $["button4"] as Button ; 
-    button4.init(new ButtonModel(color:Color.BLUE_0082C8, image: new Image(mainImageUrl:"images/button/user58.png"),label: "Action 4", action: action4 ));
+    button4.init(new ButtonModel(color:Color.BLUE_0082C8, image: new Image(mainImageUrl:  "/images/button/save29.png",mainImageUrl2:"/images/button/map32.png" ),label: "Action 4", action: action4 ));
     
     buttonSpace = $["buttonSpace"] as Space ;
   }
@@ -52,7 +52,7 @@ class ShowRoomButton extends Positionable with Showable {
     button1.moveTo( new Position(0, 100, 150, 120, 101));
     button2.moveTo( new Position(150, 100, 150, 120, 101));
     button3.moveTo( new Position(300, 100, 150, 120, 101));
-    button4.moveTo( new Position(600, 100, 150, 120, 101));
+    button4.moveTo( new Position(600, 100, 250, 120, 101));
   }
   
 
