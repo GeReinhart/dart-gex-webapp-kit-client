@@ -42,14 +42,17 @@ abstract class Positionable extends PolymerElement {
   }
   
   void moveTo(Position position) {
-    log.fine("Moving ${id} to ${position}");
     this.position.merge( position );
-    _moveToTargetPosition();
+    _moveToTargetPosition(this,position);
+  }
+
+  void moveAnElementTo(HtmlElement element,Position position) {
+    _moveToTargetPosition(element,position);
   }
   
-  void _moveToTargetPosition(){
-    this.style.position = "absolute" ;
-    this.style
+  void _moveToTargetPosition(HtmlElement element,Position position){
+    element.style.position = "absolute" ;
+    element.style
         ..left = "${position.left}px" 
         ..top = "${position.top}px" 
         ..width = "${position.width}px" 

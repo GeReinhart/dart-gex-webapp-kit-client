@@ -18,7 +18,7 @@ class Button  extends Positionable with Actionable, Showable {
 
   final Logger log = new Logger('Button');
   final num MIN_SIZE_WITH_TEXT = 90 ;  
-  final num HEIGHT_TEXT = 30 ;
+  final num MIN_HEIGHT_TEXT = 30 ;
   final num PART_USED_BY_IMAGE = .85 ;
 
   ButtonModel _model  ;
@@ -36,9 +36,9 @@ class Button  extends Positionable with Actionable, Showable {
   ImageElement get _imageElement => $["image"] as ImageElement;
   ImageElement get imageElement => _imageElement.clone(true);
   PaperShadow get _shadow => $["shadow"] as PaperShadow;
-  PaperButton get _button => $["button"] as PaperButton; 
+  HtmlElement get _button => $["button"] as HtmlElement; 
   DivElement get _colorElement => $["color"] as DivElement ;
-  
+  DivElement get _mainElement => $["main"] as DivElement ;
   
   factory Button.fromModel(ButtonModel model){
     Button button = new Element.tag('gex-button') as Button;
@@ -80,6 +80,13 @@ class Button  extends Positionable with Actionable, Showable {
     }
     super.moveTo(position);
     
+    Position fullButtonPosition = new Position(0,0,position.width,position.height,100);
+    moveAnElementTo(_mainElement, fullButtonPosition);
+    moveAnElementTo(_shadow, fullButtonPosition);
+    moveAnElementTo(_button, fullButtonPosition);
+    moveAnElementTo(_colorElement, fullButtonPosition);
+        
+        
     num heightForImage  ;
     num heightForText = 0 ;
     if ( _model.hasImage &&  ( position.height < MIN_SIZE_WITH_TEXT || !_model.hasLabel  ) ){
@@ -87,8 +94,8 @@ class Button  extends Positionable with Actionable, Showable {
       heightForImage = position.smallerSection ;
     }else{
       _labelSpan.style.display = "" ;
-      heightForImage = position.smallerSection - HEIGHT_TEXT ;
-      heightForText = HEIGHT_TEXT;
+      heightForImage = position.smallerSection - MIN_HEIGHT_TEXT ;
+      heightForText = MIN_HEIGHT_TEXT > position.height *(1-PART_USED_BY_IMAGE) ? MIN_HEIGHT_TEXT : position.height *(1-PART_USED_BY_IMAGE) ;;
     }
     String squareSize  = "${heightForImage * PART_USED_BY_IMAGE}px";
     String smallMargin = "${heightForImage * (1-PART_USED_BY_IMAGE)/2 }px";
@@ -100,14 +107,17 @@ class Button  extends Positionable with Actionable, Showable {
         ..top  = position.height < position.width ? smallMargin : largeMargin
         ..left = position.height > position.width ? smallMargin : largeMargin;
     
-    _colorElement.style
-        ..width  = "${position.width}px"   
-        ..height = "${position.height}px"
-        ..zIndex = "${position.zIndex -1}";
+    _labelSpan.style.zIndex = "${position.zIndex +1 }";
+    _imageElement.style.zIndex = "${position.zIndex +1 }";
+    _button.style.zIndex = "${position.zIndex +1 }";    
+    _colorElement.style.zIndex = "${position.zIndex -1}";
         
     try {
        Element internalButton = _button.shadowRoot.querySelector('div') ;
        internalButton.style
+           ..position = "absolute" 
+           ..left = "0px" 
+           ..top = "0px"        
               ..width = "${position.width}px"
               ..height= "${position.height}px";
     } catch(exception) {
