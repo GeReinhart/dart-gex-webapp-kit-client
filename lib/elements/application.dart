@@ -109,7 +109,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
 
   void _moveToolBars(Position position, ScreenOrientation screenOrientation){
     
-    num pagePercentage = 0.15 ;
+    num pagePercentage =  viewPortModel.windowHeight <1200? 0.25 :  0.15  ;
     num size = position.width>position.height?position.height*pagePercentage:position.width*pagePercentage;
     num zIndex = position.zIndex + 1 ;
 
