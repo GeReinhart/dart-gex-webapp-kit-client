@@ -11,7 +11,7 @@ import 'package:gex_common_ui_elements/elements/button.dart';
  * Display buttons to create a toolbar.
  */
 @CustomTag('gex-toolbar') 
-class Toolbar extends Positionable with Showable {
+class Toolbar extends Positionable with Showable, ApplicationEventPassenger {
   
   final Logger log = new Logger('Toolbar');
   

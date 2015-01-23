@@ -8,7 +8,7 @@ import 'package:gex_common_ui_elements/elements/layout.dart';
 import 'package:polymer/polymer.dart';
 
 @CustomTag('gex-page')
-class Page extends Positionable with Showable {
+class Page extends Positionable with Showable, ApplicationEventPassenger {
   
   final Logger log = new Logger('Page');
   

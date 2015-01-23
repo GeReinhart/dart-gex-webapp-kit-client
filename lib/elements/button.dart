@@ -14,7 +14,7 @@ import 'package:paper_elements/paper_button.dart';
  * Execute the action on the click on the button.
  */
 @CustomTag('gex-button')
-class Button  extends Positionable with Actionable, Showable {
+class Button  extends Positionable with Actionable, Showable, ApplicationEventPassenger {
 
   final Logger log = new Logger('Button');
   final num MIN_SIZE_WITH_TEXT = 90 ;  
@@ -51,6 +51,7 @@ class Button  extends Positionable with Actionable, Showable {
   void init(ButtonModel model){
     _model = model;
     _colorElement.style.backgroundColor = backgroundColor;
+    
     if( _model.hasImage ){
       _imageElement.style.display = "inline" ;
       _imageElement.src = image.mainImageUrl ;

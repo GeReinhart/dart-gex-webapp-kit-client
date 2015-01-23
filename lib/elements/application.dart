@@ -15,7 +15,7 @@ import 'package:gex_common_ui_elements/elements/page.dart' ;
  * Listen to the screen/window changes and broadcast ViewPort change events.
  */
 @CustomTag('gex-application')
-class Application extends Positionable with Showable {
+class Application extends Positionable with Showable, ApplicationEventPassenger {
   
   final Logger log = new Logger('Application');
   

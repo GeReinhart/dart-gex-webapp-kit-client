@@ -16,6 +16,8 @@ class ShowRoomViewPort extends Positionable with Showable {
   Space viewPortSpace ;
   SpanElement viewPortWidth;
   SpanElement viewPortHeight;
+  SpanElement viewPortDiagonal;
+  SpanElement viewPortDevicePixelRatio;
   SpanElement viewPortOrientation;
   
   ShowRoomViewPort.created() : super.created(){
@@ -39,6 +41,8 @@ class ShowRoomViewPort extends Positionable with Showable {
     viewPortSpace = $["viewPortSpace"] as Space ;
     viewPortWidth = this.shadowRoot.querySelector("#viewPortWidth") as SpanElement ;
     viewPortHeight = this.shadowRoot.querySelector("#viewPortHeight") as SpanElement ;
+    viewPortDevicePixelRatio = this.shadowRoot.querySelector("#viewPortDevicePixelRatio") as SpanElement ;
+    viewPortDiagonal = this.shadowRoot.querySelector("#viewPortDiagonal") as SpanElement ;
     viewPortOrientation = this.shadowRoot.querySelector("#viewPortOrientation") as SpanElement ;
     
     viewPortSpace.style.backgroundColor = Color.BLUE_0082C8.veryLightColor;
@@ -53,6 +57,9 @@ class ShowRoomViewPort extends Positionable with Showable {
     ViewPortModel viewPort = event.viewPortModel ;
     viewPortSpace.moveTo( new Position(0, 0, viewPort.windowWidth-140, viewPort.windowHeight-140, 100));
     viewPortWidth.innerHtml = viewPort.windowWidth.toString();
+    viewPortHeight.innerHtml = viewPort.windowHeight.toString();
+    viewPortDiagonal.innerHtml = viewPort.windowDiagonal.toString();
+    viewPortDevicePixelRatio.innerHtml = viewPort.windowDevicePixelRatio.toString();
     viewPortHeight.innerHtml = viewPort.windowHeight.toString();
     viewPortOrientation.innerHtml = viewPort.orientation.toString();
   }

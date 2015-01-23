@@ -148,15 +148,20 @@ class ViewPortModel {
   
   num _windowHeight ;
   num _windowWidth ;
+  num _devicePixelRatio ;
 
   ViewPortModel.fromWindow(Window window){
     _windowHeight = window.innerHeight ;
     _windowWidth = window.innerWidth ;
+    _devicePixelRatio = window.devicePixelRatio ;
   }
   ViewPortModel(this._windowHeight, this._windowWidth);
   
   num get windowHeight => _windowHeight ;
   num get windowWidth => _windowWidth ;
+  num get windowDevicePixelRatio => _devicePixelRatio ;
+  num get windowDiagonal => sqrt( pow(_windowHeight, 2) +  pow(_windowWidth, 2)   ).truncate();
+  
   ScreenOrientation get orientation => _windowHeight < _windowWidth ? ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
       
   ViewPortModel clone(){
@@ -164,13 +169,14 @@ class ViewPortModel {
   }
   
   @override
-  String toString() => "ViewPortModel: windowHeight: ${_windowHeight}, windowWidth: ${_windowWidth}";
+  String toString() => "ViewPortModel: windowHeight: ${_windowHeight}, windowWidth: ${_windowWidth}, devicePixelRatio: ${_devicePixelRatio}";
   
   @override
   int get hashCode {
      int result = 17;
      result = 37 * result + _windowHeight.hashCode;
      result = 37 * result + _windowWidth.hashCode;
+     result = 37 * result + _devicePixelRatio.hashCode;
      return result;
   }
 
