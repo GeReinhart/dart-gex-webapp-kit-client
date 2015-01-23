@@ -52,8 +52,7 @@ main() {
         
         ViewPortModel viewPortDescriptor = new ViewPortModel.fromWindow(windowMock) ;
         
-        var wait = new Duration(milliseconds: 2000);
-        new Timer(wait, (){
+        new Timer(new Duration(milliseconds: 2000), (){
           expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.LANDSCAPE)) ;
         });
         

@@ -37,7 +37,7 @@ class CallingAnotherPage extends ApplicationEvent {
 
 
 class ApplicationEventBus {
-  StreamController<ApplicationEvent> _applicationEventStream = new StreamController<ApplicationEvent>.broadcast(sync: false);
+  StreamController<ApplicationEvent> _applicationEventStream = new StreamController<ApplicationEvent>.broadcast(sync: true);
 
   void subscribeApplicationChanges( ApplicationEventCallBack callBack  ){
     _applicationEventStream.stream.listen((ApplicationEvent event) => callBack(event));
@@ -49,37 +49,11 @@ class ApplicationEventBus {
 }
 
 
-class ApplicationEventProducer{
-  
-  ApplicationEventBus _applicationEventBus ;
-  
-  set applicationEventBus (ApplicationEventBus value){
-    _applicationEventBus = value;
-  }
-  
-  void fireApplicationEvent(ApplicationEvent event) {
-    _applicationEventBus.fireApplicationEvent(event) ;
-  }
-  
-}
-
-class ApplicationEventReceiver{
-  
-  set applicationEventBus (ApplicationEventBus _eventBus){
-    _eventBus.subscribeApplicationChanges(recieveApplicationEvent);
-  }
-  
-  void recieveApplicationEvent(ApplicationEvent event) {
-  }
-  
-}
-
-
 class ApplicationEventPassenger {
   
   ApplicationEventBus _applicationEventBus ;
   
-  set applicationEventBus (ApplicationEventBus value){
+  void setApplicationEventBus (ApplicationEventBus value){
     _applicationEventBus = value;
     _applicationEventBus.subscribeApplicationChanges(recieveApplicationEvent);
   }
@@ -93,4 +67,18 @@ class ApplicationEventPassenger {
   
 }
 
-
+class ApplicationEventCallBackHolder{
+  
+  ApplicationEventCallBack _applicationEventCallBack;
+  
+  ApplicationEventCallBack get applicationEventCallBack =>  _applicationEventCallBack ;
+  set applicationEventCallBack( ApplicationEventCallBack value ){
+    _applicationEventCallBack = value; 
+  }
+  void recieveApplicationEvent(ApplicationEvent event){
+    if (_applicationEventCallBack != null ){
+      _applicationEventCallBack(event);
+    }
+  }
+  
+}

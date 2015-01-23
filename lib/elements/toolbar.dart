@@ -110,7 +110,19 @@ class Toolbar extends Positionable with Showable, ApplicationEventPassenger {
     _buttons.forEach((b){
       positions.add(b.position);
     });
+    
     return positions;
+  }
+  
+  @override
+  void setApplicationEventBus (ApplicationEventBus value){
+    super.setApplicationEventBus(value);
+    _buttons.forEach((t)=> t.setApplicationEventBus(value));
+  }
+  
+  @override
+  void recieveApplicationEvent(ApplicationEvent event) {
+    _model.recieveApplicationEvent(event);
   }
   
 }

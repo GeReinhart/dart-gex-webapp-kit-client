@@ -61,7 +61,7 @@ launch-test test_button.html
 launch-test test_toolbar.html
 launch-test test_view_port.html
 launch-test test_application.html
-
+launch-test test_bus.html
 
 
 

@@ -10,7 +10,7 @@ import 'package:polymer/polymer.dart';
  * Listen to the screen/window changes and broadcast ViewPort change events.
  */
 @CustomTag('gex-view-port')
-class ViewPort extends Positionable with Showable {
+class ViewPort extends Positionable with Showable, ApplicationEventPassenger {
   
   final Logger log = new Logger('ViewPort');
   

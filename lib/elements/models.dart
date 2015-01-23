@@ -1,18 +1,19 @@
 part of gex_common_ui_elements;
 
 
-class ButtonModel{
+class ButtonModel extends Object with ApplicationEventCallBackHolder{
   
   Color _color  ;
   Image _image;
   String _label ;
   LaunchAction _action ;
   
-  ButtonModel({Color color,Image image,String label, LaunchAction action} ){
+  ButtonModel({Color color,Image image,String label, LaunchAction action, ApplicationEventCallBack applicationEventCallBack} ){
     this.color = color ;
     _image = image ;
     _label = label ;
     _action = action ;
+    _applicationEventCallBack = applicationEventCallBack;    
   }
 
   Color get color => _color.clone();
@@ -33,12 +34,12 @@ class ButtonModel{
   bool get hasLabel => _label != null && _label.isNotEmpty ;
   
   ButtonModel clone(){
-    return new ButtonModel(color:color.clone(),image:_image,label:_label,action:_action);
+    return new ButtonModel(color:color.clone(),image:_image,label:_label,action:_action,applicationEventCallBack:_applicationEventCallBack);
   }
   
 }
 
-class ToolbarModel{
+class ToolbarModel extends Object with ApplicationEventCallBackHolder{
    
   List<ButtonModel> _buttons ;
   Position _mainButtonPosition ;
@@ -46,7 +47,7 @@ class ToolbarModel{
   Color _color;
   ColorUsage _colorUsage;
   
-  ToolbarModel({List<ButtonModel> buttons,Position mainButtonPosition,Orientation orientation,Color color, ColorUsage colorUsage} ){
+  ToolbarModel({List<ButtonModel> buttons,Position mainButtonPosition,Orientation orientation,Color color, ColorUsage colorUsage, ApplicationEventCallBack applicationEventCallBack} ){
     if (buttons == null){
       _buttons = new List<ButtonModel>();
     }else{
@@ -60,6 +61,7 @@ class ToolbarModel{
     _orientation =orientation;
     _color = color;
     _colorUsage = colorUsage;
+    _applicationEventCallBack = applicationEventCallBack;
   }
   
    set mainButtonPosition(Position position){
@@ -75,7 +77,7 @@ class ToolbarModel{
     _orientation = value;
   }
   Color get color => _color == null ? null : _color.clone();
- 
+  
   num get nbActions =>  _buttons.length;
   
   List<ButtonModel> get buttons {
@@ -124,7 +126,7 @@ class ToolbarModel{
   }
   
   ToolbarModel clone(){
-    return new ToolbarModel(buttons:buttons,mainButtonPosition:mainButtonPosition,orientation:orientation,color:color, colorUsage:_colorUsage);
+    return new ToolbarModel(buttons:buttons,mainButtonPosition:mainButtonPosition,orientation:orientation,color:color, colorUsage:_colorUsage,applicationEventCallBack:_applicationEventCallBack);
   }
   
 }

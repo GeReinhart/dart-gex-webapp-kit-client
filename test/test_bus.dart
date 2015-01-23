@@ -17,31 +17,34 @@ main() {
   initPolymer();
   
   TestApplication application ;
-  num width = 1000;
-  num height = 500;
+  ApplicationEventBus applicationEventBus  = new ApplicationEventBus() ;
   
-  
-  group("Bus of events", (){
+  group("Bus", (){
 
     setUp((){
-      application = querySelector("#application");
-      application.moveTo( new Position(0,0, width,height, 100)  ) ;
-      
+      if (application==null){
+        application = querySelector("#application");
+        application.moveTo( new Position(0,0, 1000,500, 100)  ) ;
+        application.setApplicationEventBus(applicationEventBus);
+        applicationEventBus.fireApplicationEvent(  new ApplicationEvent(sender: applicationEventBus,  name: "event") ) ;
+      }
     });
     
-    group('events propagation from bus events ', (){
+    group('events propagation from bus', (){
 
-      test('to main toolbars', (){
-        
-        application.fireApplicationEvent( new ApplicationEvent(name: "event")) ;    
-        
+      test('to application', (){
+        verify(application.dummyActionApplication.doSomething("event" )).called(1);
       });
       
+      test('to main toolbars', (){
+        verify(application.dummyActionToolBars.doSomething("event" )).called(2);
+      });
+    
       test('to main toolbars buttons', (){
-        
-        
+        verify(application.dummyActionToolBarsButtons.doSomething("event" )).called(6);
       });
 
+      /*
       test('to pages', (){
         
         
@@ -60,7 +63,7 @@ main() {
       test('to pages internals buttons', (){
         
         
-      });      
+      });  */    
       
     });
       
@@ -85,3 +88,10 @@ pollForDone(List tests) {
   new Timer(wait, ()=> pollForDone(tests));
 }
 
+
+class DummyAction{
+  void doSomething(String eventName){
+  }
+}
+
+class DummyActionMock extends Mock implements DummyAction{}

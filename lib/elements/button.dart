@@ -161,6 +161,11 @@ class Button  extends Positionable with Actionable, Showable, ApplicationEventPa
     return clone;
   }
   
+  @override
+  void recieveApplicationEvent(ApplicationEvent event) {
+    _model.recieveApplicationEvent(event);
+  }
+  
   Button cloneAndMove( Position position ){
     Button clone = this.clone(true);
     return clone..moveTo(position);
