@@ -8,7 +8,7 @@ Provide a set of common WebComponent and classes to be able to build Responsive 
 
 ## UML diagram
 
-[![UML diagram](https://raw.githubusercontent.com/GeReinhart/dart-gex-common-ui-elements/master/doc/graph/images/gex_common_ui_elements.png)
+[![UML diagram](https://raw.githubusercontent.com/GeReinhart/dart-gex-common-ui-elements/master/doc/graph/images/gex_common_ui_elements.png)](https://raw.githubusercontent.com/GeReinhart/dart-gex-common-ui-elements/master/doc/graph/images/gex_common_ui_elements.png)
 
 ## Stack
 
