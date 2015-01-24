@@ -217,6 +217,7 @@ class LayoutModel{
     }else{
       _margin = margin ;
     } 
+   
   }
   
   Color get color => _color.clone();
@@ -266,12 +267,12 @@ class LayoutModel{
 }
 
 
-class PageModel{
+class PageModel extends Object with ApplicationEventCallBackHolder{
   
   LayoutModel _layoutModel ;
   Margin _margin ;
   
-  PageModel ({LayoutModel layoutModel,Margin margin }){
+  PageModel ({LayoutModel layoutModel,Margin margin , ApplicationEventCallBack applicationEventCallBack}){
     if(layoutModel == null){
       _layoutModel = new LayoutModel();
     }else{
@@ -281,7 +282,8 @@ class PageModel{
       _margin = new Margin();
     }else{
       _margin = margin ;
-    }     
+    }    
+    _applicationEventCallBack = applicationEventCallBack;    
   }
   
   Margin get margin => _margin.clone();

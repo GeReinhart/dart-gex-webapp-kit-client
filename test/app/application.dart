@@ -19,6 +19,8 @@ class TestApplication  extends Application{
   DummyActionMock dummyActionApplication = new DummyActionMock() ;
   DummyActionMock dummyActionToolBars = new DummyActionMock() ;
   DummyActionMock dummyActionToolBarsButtons = new DummyActionMock() ;  
+ 
+  
   
   TestApplication.created() : super.created(){
   } 
@@ -83,6 +85,7 @@ class TestApplication  extends Application{
   void recieveApplicationEventToolBarButtons(ApplicationEvent event) {
     dummyActionToolBarsButtons.doSomething(event.name);
   }
+
 
   
 }

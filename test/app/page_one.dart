@@ -7,6 +7,8 @@ import 'package:gex_common_ui_elements/common_ui_elements.dart' ;
 import 'package:gex_common_ui_elements/elements/layout.dart' ;
 import 'package:gex_common_ui_elements/elements/page.dart' ;
 
+import '../test_bus.dart';
+
 @CustomTag('gex-page-one')
 class PageOne extends Page with Showable {
   
@@ -15,6 +17,8 @@ class PageOne extends Page with Showable {
   Color mainColor = Color.GREY_858585.lightColorAsColor;
   
   Layout layout ;
+  
+  DummyActionMock dummyActionPages = new DummyActionMock() ; 
   
   PageOne.created() : super.created() ;
   
@@ -34,7 +38,7 @@ class PageOne extends Page with Showable {
      ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );  
      
      LayoutModel layoutModel = new LayoutModel(toolbarModel: toolbarModel,color: mainColor);
-     PageModel model = new PageModel(layoutModel:layoutModel );
+     PageModel model = new PageModel(layoutModel:layoutModel , applicationEventCallBack: recieveApplicationEventPages );
      this.init(model) ;
      
    }
@@ -47,6 +51,10 @@ class PageOne extends Page with Showable {
   }
   action3(Parameters params){
     layout.style.backgroundColor =mainColor.lightColor ;
+  }
+  
+  void recieveApplicationEventPages(ApplicationEvent event) {
+    dummyActionPages.doSomething(event.name);
   }
   
 }

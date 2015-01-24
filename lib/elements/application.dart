@@ -30,8 +30,6 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   
   List<Page> get pages => _pages;
   
-  
-  
   @override
   void ready() {
     super.ready();
@@ -69,7 +67,9 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   void setApplicationEventBus (ApplicationEventBus value){
     super.setApplicationEventBus(value);
     _toolbars.forEach((t)=> t.setApplicationEventBus(value));
+    _pages.forEach((p)=> p.setApplicationEventBus(value));
   }
+
   
   @override
   void moveTo(Position position) {

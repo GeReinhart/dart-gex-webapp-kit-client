@@ -12,6 +12,7 @@ import 'package:gex_common_ui_elements/elements/view_port.dart' ;
 import 'package:gex_common_ui_elements/elements/application.dart' ;
 import 'package:gex_common_ui_elements/elements/page.dart' ;
 import 'app/application.dart' ;
+import 'app/page_one.dart' ;
 
 main() {
   initPolymer();
@@ -44,12 +45,12 @@ main() {
         verify(application.dummyActionToolBarsButtons.doSomething("event" )).called(6);
       });
 
-      /*
       test('to pages', (){
-        
+        verify(( application.pages[0] as PageOne ).dummyActionPages.doSomething("event" )).called(1);
         
       }); 
       
+      /*
       test('to pages toolbar', (){
         
         
