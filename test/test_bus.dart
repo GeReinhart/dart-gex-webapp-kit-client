@@ -50,21 +50,6 @@ main() {
         
       }); 
       
-      /*
-      test('to pages toolbar', (){
-        
-        
-      });      
-
-      test('to pages toolbar buttons', (){
-        
-        
-      });
-      
-      test('to pages internals buttons', (){
-        
-        
-      });  */    
       
     });
       

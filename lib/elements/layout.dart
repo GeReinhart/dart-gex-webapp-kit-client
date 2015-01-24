@@ -15,7 +15,7 @@ import 'package:gex_common_ui_elements/elements/toolbar.dart';
  * Adapt the workspace and the toolbars according to the viewPort change events. 
  */
 @CustomTag('gex-layout')
-class Layout extends Positionable with Showable {
+class Layout extends Positionable with Showable, ApplicationEventPassenger {
   
   final Logger log = new Logger('Layout');
   
