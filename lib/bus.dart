@@ -30,9 +30,14 @@ class ApplicationEvent {
   
 }
 
-class CallingAnotherPage extends ApplicationEvent {
-  CallingAnotherPage({Object sender, String pageName, Parameters params} ):
-      super(sender:sender, name: "CallingAnotherPage"  , params: params..add("pageName", pageName));
+class PageCallEvent extends ApplicationEvent {
+  PageCallEvent({Object sender,String name, String pageName, Parameters params} ):
+      super(sender:sender, name: "PageCallEvent"  , params: params..add("pageName", pageName));
+}
+
+class PageDisplayedEvent extends ApplicationEvent {
+  PageDisplayedEvent({Object sender,String name, String pageName, Parameters params} ):
+      super(sender:sender, name: "PageDisplayedEvent"  , params: params..add("pageName", pageName));
 }
 
 
