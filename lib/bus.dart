@@ -30,7 +30,7 @@ class ApplicationEvent {
   
   @override
   String toString(){
-    return "${this.runtimeType.toString()}: sender=${sender}, name=${name}, params=${params}" ;
+    return "ApplicationEvent: sender=${sender}, name=${name}, params=${params}" ;
   }
   
 }
@@ -38,16 +38,31 @@ class ApplicationEvent {
 class PageCallEvent extends ApplicationEvent {
   PageCallEvent({Object sender, String pageName, Parameters params} ):
       super(sender:sender, name: pageName  , params: params);
+  
+  @override
+  String toString(){
+    return "PageCallEvent: sender=${sender}, name=${name}, params=${params}" ;
+  }
 }
 
 class PageDisplayedEvent extends ApplicationEvent {
   PageDisplayedEvent({Object sender, String pageName, Parameters params} ):
       super(sender:sender, name: pageName  , params: params);
+  
+  @override
+  String toString(){
+    return "PageDisplayedEvent: sender=${sender}, name=${name}, params=${params}" ;
+  }  
 }
 
 class PageBackEvent extends ApplicationEvent {
   PageBackEvent({Object sender} ):
       super(sender:sender, name: "PageBackEvent");
+  
+  @override
+  String toString(){
+    return "PageBackEvent: sender=${sender}, name=${name}, params=${params}" ;
+  }   
 }
 
 
