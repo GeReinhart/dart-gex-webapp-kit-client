@@ -7,7 +7,7 @@ import 'package:gex_common_ui_elements/common_ui_elements.dart';
 import 'package:gex_common_ui_elements/elements/layout.dart';
 import 'package:polymer/polymer.dart';
 
-class Page extends Positionable with Showable, ApplicationEventPassenger {
+abstract class Page extends Positionable with Showable, ApplicationEventPassenger {
   
   final Logger log = new Logger('Page');
   
@@ -22,6 +22,8 @@ class Page extends Positionable with Showable, ApplicationEventPassenger {
     _setAttributes();
   }
 
+  String get name => _model.name;
+  
   void _setAttributes(){
     _layout = $["layout"] as Layout ;
   }
@@ -33,8 +35,6 @@ class Page extends Positionable with Showable, ApplicationEventPassenger {
 
   Margin get margin => _model.margin;
 
-  String get name => this.runtimeType.toString();
-  
   set margin(Margin margin){
     _model.margin=margin;
     _layout.margin=margin;

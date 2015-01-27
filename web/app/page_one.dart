@@ -34,7 +34,7 @@ class PageOne extends Page with Showable {
      ToolbarModel toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, orientation: Orientation.est,colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );  
      
      LayoutModel layoutModel = new LayoutModel(toolbarModel: toolbarModel,color: mainColor);
-     PageModel model = new PageModel(layoutModel:layoutModel );
+     PageModel model = new PageModel(name: "PageOne",layoutModel:layoutModel );
      this.init(model) ;
      
    }

@@ -305,10 +305,13 @@ class LayoutModel{
 
 class PageModel extends Object with ApplicationEventCallBackHolder{
   
+  String _name ;
   LayoutModel _layoutModel ;
   Margin _margin ;
   
-  PageModel ({LayoutModel layoutModel,Margin margin , ApplicationEventCallBack applicationEventCallBack}){
+  PageModel ({String name ,LayoutModel layoutModel,Margin margin , ApplicationEventCallBack applicationEventCallBack}){
+    assert(name != null);
+    _name = name;
     if(layoutModel == null){
       _layoutModel = new LayoutModel();
     }else{
@@ -321,6 +324,8 @@ class PageModel extends Object with ApplicationEventCallBackHolder{
     }    
     _applicationEventCallBack = applicationEventCallBack;    
   }
+  
+  String get name => _name ;
   
   Margin get margin => _margin.clone();
   set margin(Margin margin){
