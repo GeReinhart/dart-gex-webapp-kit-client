@@ -1,17 +1,31 @@
 part of gex_common_ui_elements;
 
 
+enum ButtonStatus {
+  NORMAL,HIGHLIGHTED 
+}
+
+enum ButtonType {
+  PAGE_LAUNCHER,CUSTOM 
+}
+
+
 class ButtonModel extends Object with ApplicationEventCallBackHolder{
   
   Color _color  ;
   Image _image;
   String _label ;
+  ButtonStatus _status =  ButtonStatus.NORMAL;
+  ButtonType _type =  ButtonType.CUSTOM;
+  PageKey _targetPageKey  ;
   LaunchAction _action ;
   
-  ButtonModel({Color color,Image image,String label, LaunchAction action, ApplicationEventCallBack applicationEventCallBack} ){
+  ButtonModel({Color color,Image image,String label, ButtonType type, PageKey targetPageKey, LaunchAction action, ApplicationEventCallBack applicationEventCallBack} ){
     this.color = color ;
     _image = image ;
     _label = label ;
+    _type = type ;
+    _targetPageKey = targetPageKey;
     _action = action ;
     _applicationEventCallBack = applicationEventCallBack;    
   }
@@ -25,16 +39,38 @@ class ButtonModel extends Object with ApplicationEventCallBackHolder{
     }
   }
   
+  ButtonStatus get status => _status;
+  set status(ButtonStatus value){
+    _status = value ;
+  }
+  
+  ButtonType get type => _type;
+  set type(ButtonType value){
+    _type = value ;
+  }  
+  
+  PageKey get targetPageKey => _targetPageKey  ;
   
   Image get image => _image;
   String get label => _label;
   LaunchAction get action => _action ;
+  set action(LaunchAction action){
+    _action = action;
+  }
+  
   ActionDescriptor get actionDescriptor => new ActionDescriptor(name: _label,launchAction: _action);
   bool get hasImage => _image != null  ;
   bool get hasLabel => _label != null && _label.isNotEmpty ;
   
   ButtonModel clone(){
-    return new ButtonModel(color:color.clone(),image:_image,label:_label,action:_action,applicationEventCallBack:_applicationEventCallBack);
+    return new ButtonModel(color:color.clone(),image:_image,label:_label,type:_type,targetPageKey:_targetPageKey,action:_action,applicationEventCallBack:_applicationEventCallBack);
+  }
+  
+  @override
+  void recieveApplicationEvent(ApplicationEvent event){
+    if (_applicationEventCallBack != null){
+      _applicationEventCallBack(event);
+    }
   }
   
 }

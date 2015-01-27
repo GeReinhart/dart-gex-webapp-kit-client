@@ -43,6 +43,7 @@ class ShowRoomButton extends Positionable with Showable {
     
     button4 = $["button4"] as Button ; 
     button4.init(new ButtonModel(color:Color.BLUE_0082C8, image: new Image(mainImageUrl:  "/images/button/save29.png",mainImageUrl2:"/images/button/map32.png" ),label: "Action 4", action: action4 ));
+    button4.status = ButtonStatus.HIGHLIGHTED;
     
     buttonSpace = $["buttonSpace"] as Space ;
   }

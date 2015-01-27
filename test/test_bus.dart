@@ -34,19 +34,19 @@ main() {
     group('events propagation from bus', (){
 
       test('to application', (){
-        verify(application.dummyActionApplication.doSomething("event" )).called(1);
+        new Timer(new Duration(milliseconds:1000), () => verify(application.dummyActionApplication.doSomething("event" )).called(1));
       });
       
       test('to main toolbars', (){
-        verify(application.dummyActionToolBars.doSomething("event" )).called(2);
+        new Timer(new Duration(milliseconds:1000), () =>verify(application.dummyActionToolBars.doSomething("event" )).called(2));
       });
     
       test('to main toolbars buttons', (){
-        verify(application.dummyActionToolBarsButtons.doSomething("event" )).called(6);
+        new Timer(new Duration(milliseconds:1000), () =>verify(application.dummyActionToolBarsButtons.doSomething("event" )).called(3));
       });
 
       test('to pages', (){
-        verify(( application.pages[0] as PageOne ).dummyActionPages.doSomething("event" )).called(1);
+        new Timer(new Duration(milliseconds:1000), () =>verify(( application.pages[0] as PageOne ).dummyActionPages.doSomething("event" )).called(1));
         
       }); 
       

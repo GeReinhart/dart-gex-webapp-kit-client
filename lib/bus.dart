@@ -31,18 +31,18 @@ class ApplicationEvent {
 }
 
 class PageCallEvent extends ApplicationEvent {
-  PageCallEvent({Object sender,String name, String pageName, Parameters params} ):
-      super(sender:sender, name: "PageCallEvent"  , params: params..add("pageName", pageName));
+  PageCallEvent({Object sender, String pageName, Parameters params} ):
+      super(sender:sender, name: pageName  , params: params);
 }
 
 class PageDisplayedEvent extends ApplicationEvent {
-  PageDisplayedEvent({Object sender,String name, String pageName, Parameters params} ):
-      super(sender:sender, name: "PageDisplayedEvent"  , params: params..add("pageName", pageName));
+  PageDisplayedEvent({Object sender, String pageName, Parameters params} ):
+      super(sender:sender, name: pageName  , params: params);
 }
 
 
 class ApplicationEventBus {
-  StreamController<ApplicationEvent> _applicationEventStream = new StreamController<ApplicationEvent>.broadcast(sync: true);
+  StreamController<ApplicationEvent> _applicationEventStream = new StreamController<ApplicationEvent>.broadcast(sync: false);
 
   void subscribeApplicationChanges( ApplicationEventCallBack callBack  ){
     _applicationEventStream.stream.listen((ApplicationEvent event) => callBack(event));

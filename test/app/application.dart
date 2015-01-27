@@ -39,33 +39,33 @@ class TestApplication  extends Application{
     List<ButtonModel> buttonModels = new List<ButtonModel>();
     ToolbarModel toolbarModel ;
     if (nbToolBar>0 ){
-      buttonModels.add( new ButtonModel(label: "Page 1",action:(p)=>showPage(pageIndex: 0), applicationEventCallBack: recieveApplicationEventToolBarButtons )  );
-      buttonModels.add( new ButtonModel(label: "Page 2",action:(p)=>showPage(pageIndex: 1), applicationEventCallBack: recieveApplicationEventToolBarButtons )  );
-      buttonModels.add( new ButtonModel(label: "Page 3",action:(p)=>showPage(pageIndex: 0), applicationEventCallBack: recieveApplicationEventToolBarButtons )  );
+      buttonModels.add( new ButtonModel(label: "Page 1", applicationEventCallBack: recieveApplicationEventToolBarButtons )  );
+      buttonModels.add( new ButtonModel(label: "Page 2", applicationEventCallBack: recieveApplicationEventToolBarButtons )  );
+      buttonModels.add( new ButtonModel(label: "Page 3", applicationEventCallBack: recieveApplicationEventToolBarButtons )  );
       toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT, applicationEventCallBack: recieveApplicationEventToolBar );
       addToolbar(toolbarModel);
     }
     if (nbToolBar>1 ){
       buttonModels = new List<ButtonModel>();
-      buttonModels.add( new ButtonModel(label: "Page 11",action:(p)=>showPage(pageIndex: 0), applicationEventCallBack: recieveApplicationEventToolBarButtons )  );
-      buttonModels.add( new ButtonModel(label: "Page 12",action:(p)=>showPage(pageIndex: 1), applicationEventCallBack: recieveApplicationEventToolBarButtons )  );
-      buttonModels.add( new ButtonModel(label: "Page 13",action:(p)=>showPage(pageIndex: 0), applicationEventCallBack: recieveApplicationEventToolBarButtons )  );
+      buttonModels.add( new ButtonModel(label: "Page 11",type: ButtonType.PAGE_LAUNCHER , targetPageKey: new PageKey(name: "gex-page-one")  )  );
+      buttonModels.add( new ButtonModel(label: "Page 12",type: ButtonType.PAGE_LAUNCHER , targetPageKey: new PageKey(name: "gex-page-two") )  );
+      buttonModels.add( new ButtonModel(label: "Page 13",type: ButtonType.PAGE_LAUNCHER , targetPageKey: new PageKey(name: "gex-page-one") )  );
       toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT, applicationEventCallBack: recieveApplicationEventToolBar );
       addToolbar(toolbarModel);    
     }
     if (nbToolBar>2 ){    
       buttonModels = new List<ButtonModel>();
-      buttonModels.add( new ButtonModel(label: "Page 21",action:(p)=>showPage(pageIndex: 0) )  );
-      buttonModels.add( new ButtonModel(label: "Page 22",action:(p)=>showPage(pageIndex: 1) )  );
-      buttonModels.add( new ButtonModel(label: "Page 23",action:(p)=>showPage(pageIndex: 0) )  );
+      buttonModels.add( new ButtonModel(label: "Page 21" )  );
+      buttonModels.add( new ButtonModel(label: "Page 22" )  );
+      buttonModels.add( new ButtonModel(label: "Page 23" )  );
       toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT, applicationEventCallBack: recieveApplicationEventToolBar );
       addToolbar(toolbarModel);    
     }
     if (nbToolBar>3 ){
       buttonModels = new List<ButtonModel>();
-      buttonModels.add( new ButtonModel(label: "Page 31",action:(p)=>showPage(pageIndex: 0) )  );
-      buttonModels.add( new ButtonModel(label: "Page 32",action:(p)=>showPage(pageIndex: 1) )  );
-      buttonModels.add( new ButtonModel(label: "Page 33",action:(p)=>showPage(pageIndex: 0) )  );
+      buttonModels.add( new ButtonModel(label: "Page 31" )  );
+      buttonModels.add( new ButtonModel(label: "Page 32" )  );
+      buttonModels.add( new ButtonModel(label: "Page 33" )  );
       toolbarModel = new ToolbarModel(buttons:buttonModels, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT , applicationEventCallBack: recieveApplicationEventToolBar);
       addToolbar(toolbarModel);        
     }
@@ -85,6 +85,7 @@ class TestApplication  extends Application{
   void recieveApplicationEventToolBarButtons(ApplicationEvent event) {
     dummyActionToolBarsButtons.doSomething(event.name);
   }
+
 
 
   

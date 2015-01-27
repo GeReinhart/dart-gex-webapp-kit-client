@@ -14,7 +14,7 @@ import 'package:paper_elements/paper_button.dart';
  * Execute the action on the click on the button.
  */
 @CustomTag('gex-button')
-class Button  extends Positionable with Actionable, Showable, ApplicationEventPassenger {
+class Button  extends Positionable with Showable, ApplicationEventPassenger {
 
   final Logger log = new Logger('Button');
   final num MIN_SIZE_WITH_TEXT = 90 ;  
@@ -27,7 +27,6 @@ class Button  extends Positionable with Actionable, Showable, ApplicationEventPa
   
   String get label => _model.label;
   Image get image => _model.image;
-  String get backgroundColor => _model.color.mainColor;
 
   bool get isButtonLabelVisible => _labelSpan.style.display != "none" ;
   bool get isImageVisible => _imageElement.style.display != "none" && _imageElement.src.isNotEmpty ;
@@ -50,7 +49,7 @@ class Button  extends Positionable with Actionable, Showable, ApplicationEventPa
   
   void init(ButtonModel model){
     _model = model;
-    _colorElement.style.backgroundColor = backgroundColor;
+    _colorElement.style.backgroundColor = _model.color.mainColor;
     
     if( _model.hasImage ){
       _imageElement.style.display = "inline" ;
@@ -63,18 +62,31 @@ class Button  extends Positionable with Actionable, Showable, ApplicationEventPa
     }
     if(_model.hasLabel){
       _labelSpan.innerHtml = _model.label;
+      _labelSpan.style.color = _model.color.veryStrongColor; 
     }
-    targetAction(model.actionDescriptor);
     
-    this.onClick.listen((_)=>_launchAction());
+    
+    this.onClick.listen((_)=>_targetAction());
     this.onMouseDown.listen((_)=>_shadow.z= 1);
     this.onMouseUp.listen(  (_)=>_shadow.z= 2);
   }
   
-  void _launchAction(){
-    launchAction(null);
+  void _targetAction(){
+    if (_model.type == ButtonType.PAGE_LAUNCHER){
+      if(_model.targetPageKey != null){
+        fireApplicationEvent(new PageCallEvent( sender: this,  pageName:_model.targetPageKey.name, params: _model.targetPageKey.params )  );
+      }
+      return ;
+    }
+    if (_model.action != null ){
+      _model.action(null);
+    }
   }
 
+  set action(LaunchAction action){
+    _model.action = action;
+  }
+  
   @override
   void moveTo(Position position) {
     if(_model == null){
@@ -163,12 +175,45 @@ class Button  extends Positionable with Actionable, Showable, ApplicationEventPa
   
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
+    if (_model.type == ButtonType.PAGE_LAUNCHER){
+      if(_model.targetPageKey != null  ){
+        if ( event is  PageDisplayedEvent ){
+          PageDisplayedEvent pageDisplayed = event;
+          if ( event.name == _model.targetPageKey.name ){
+             this.status =  ButtonStatus.HIGHLIGHTED ;     
+          }else{
+            this.status =  ButtonStatus.NORMAL ;   
+          }
+        }
+      }
+      return ;
+    }
     _model.recieveApplicationEvent(event);
   }
   
   Button cloneAndMove( Position position ){
     Button clone = this.clone(true);
     return clone..moveTo(position);
+  }
+  
+  ButtonStatus get status => _model.status;
+  set status(ButtonStatus status){
+    _model.status = status ;
+    
+    switch(status.toString()){
+      case  "ButtonStatus.NORMAL" :
+        _colorElement.style.backgroundColor = _model.color.mainColor;
+        _labelSpan.style.color = _model.color.strongColor;
+        _labelSpan.style.fontWeight = "normal"; 
+      break;
+      case  "ButtonStatus.HIGHLIGHTED" :
+        _colorElement.style.backgroundColor = _model.color.veryLightColor;
+        _labelSpan.style.color = _model.color.veryStrongColor;     
+        _labelSpan.style.fontWeight = "bolder";         
+      break;
+      
+    }
+    
   }
   
 }

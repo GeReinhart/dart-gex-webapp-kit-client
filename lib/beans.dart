@@ -16,6 +16,24 @@ class Parameter{
   Parameter clone(){
     return new Parameter(this._key,this._value) ;
   }
+  
+  @override
+  String toString() => "Parameter: key:${_key}, value: ${_value}";
+  
+  @override
+  int get hashCode {
+     int result = 17;
+     result = 37 * result + _key.hashCode;
+     result = 37 * result + _value.hashCode;
+     return result;
+  }
+
+  @override
+  bool operator ==(other) {
+     if (other is! Parameters) return false;
+     Parameters that = other;
+     return (that.hashCode == this.hashCode);
+   }  
 }
 
 class Parameters{
@@ -42,6 +60,24 @@ class Parameters{
   Parameters clone(){
     return new Parameters(parameters);
   }
+  
+  @override
+  String toString() => "Parameters: parameters:${_parameters}";
+  
+  @override
+  int get hashCode {
+     int result = 17;
+     result = 37 * result + _parameters.hashCode;
+     return result;
+  }
+
+  @override
+  bool operator ==(other) {
+     if (other is! Parameters) return false;
+     Parameters that = other;
+     return (that.hashCode == this.hashCode);
+   } 
+  
 }
 
 class ActionDescriptor{
@@ -67,6 +103,46 @@ class ActionDescriptor{
 }
 
 
+class PageKey{
+  String _name ;
+  Parameters _params  ;
+  
+  PageKey({String name, Parameters params }){
+    assert(name != null);
+    _name = name ;
+    if (_params != null){
+      _params = params ;
+    }else{
+      _params = new Parameters(null);
+    }
+  }
+  
+  PageKey clone(){
+    return new PageKey(name:_name,params:_params);
+  }
+  
+  String get name => _name;
+  Parameters get params => _params.clone();
+  
+  @override
+  String toString() => "PageKey: name:${_name}, params:${_params}";
+  
+  @override
+  int get hashCode {
+     int result = 17;
+     result = 37 * result + _name.hashCode;
+     result = 37 * result + _params.hashCode;
+     return result;
+  }
+
+  @override
+  bool operator ==(other) {
+     if (other is! PageKey) return false;
+     PageKey pageKey = other;
+     return (pageKey.hashCode == this.hashCode);
+   } 
+  
+}
 
 class Margin {
   

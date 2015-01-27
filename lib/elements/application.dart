@@ -94,13 +94,31 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     _pages.forEach((p)=> p.hideBeforePutBackInitialState()) ;
   }
   
-  void showPage({num pageIndex , Page page  }){
+  
+  
+  @override
+  void recieveApplicationEvent(ApplicationEvent event) {
+    
+     switch( event.runtimeType ){
+       case PageCallEvent :
+         PageCallEvent pageCallEvent = event as PageCallEvent ;
+         _showPage(pageName:pageCallEvent.name,params: pageCallEvent.params ) ;
+         fireApplicationEvent(new   PageDisplayedEvent(sender: this, pageName: pageCallEvent.name, params: pageCallEvent.params) ) ;
+         break;
+       
+     }
+    
+    
+  }
+  
+  void _showPage({ String pageName ,Parameters params}){
     _pages.forEach((p)=> p.hide()) ;
-    if (pageIndex!= null ){
-      _pages[pageIndex].show();
-    }
-    if (page!= null ){
-      page.show();
+    if (pageName != null){
+      _pages.forEach((p){ 
+        if( p.name == pageName){
+          p.show();
+        }
+      }) ;
     }
   }
   

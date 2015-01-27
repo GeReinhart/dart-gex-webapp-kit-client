@@ -32,6 +32,8 @@ class Page extends Positionable with Showable, ApplicationEventPassenger {
   }
 
   Margin get margin => _model.margin;
+
+  String get name => this.runtimeType.toString();
   
   set margin(Margin margin){
     _model.margin=margin;
