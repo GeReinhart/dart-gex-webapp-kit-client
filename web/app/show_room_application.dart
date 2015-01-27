@@ -13,6 +13,7 @@ class ShowRoomApplication  extends Application{
   
   Color mainColor = Color.GREEN_07CC00 ;
   ApplicationEventBus applicationEventBus  = new ApplicationEventBus() ;
+  ApplicationEventLogger applicationEventLogger = new ApplicationEventLogger();
   
   
   ShowRoomApplication.created() : super.created(){
@@ -23,6 +24,8 @@ class ShowRoomApplication  extends Application{
     super.ready();
     _setAttributes();
     this.setApplicationEventBus(applicationEventBus);
+    applicationEventLogger.setApplicationEventBus(applicationEventBus);
+    
     fireApplicationEvent(new PageCallEvent( sender: this,  pageName:'PageOne' )  );
   }
   

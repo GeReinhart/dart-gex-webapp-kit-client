@@ -28,6 +28,11 @@ class ApplicationEvent {
     return identical(this, other);
   }
   
+  @override
+  String toString(){
+    return "${this.runtimeType.toString()}: sender=${sender}, name=${name}, params=${params}" ;
+  }
+  
 }
 
 class PageCallEvent extends ApplicationEvent {
@@ -38,6 +43,11 @@ class PageCallEvent extends ApplicationEvent {
 class PageDisplayedEvent extends ApplicationEvent {
   PageDisplayedEvent({Object sender, String pageName, Parameters params} ):
       super(sender:sender, name: pageName  , params: params);
+}
+
+class PageBackEvent extends ApplicationEvent {
+  PageBackEvent({Object sender} ):
+      super(sender:sender, name: "PageBackEvent");
 }
 
 
@@ -84,6 +94,18 @@ class ApplicationEventCallBackHolder{
     if (_applicationEventCallBack != null ){
       _applicationEventCallBack(event);
     }
+  }
+  
+}
+
+
+class ApplicationEventLogger extends Object with ApplicationEventPassenger{
+  
+  final Logger log = new Logger('ApplicationEventLogger');
+  
+  @override
+  void recieveApplicationEvent(ApplicationEvent event) {
+    log.info( event.toString() ) ;
   }
   
 }

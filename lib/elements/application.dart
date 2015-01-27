@@ -99,8 +99,8 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
     
-     switch( event.runtimeType ){
-       case PageCallEvent :
+     switch( event.runtimeType.toString() ){
+       case "PageCallEvent" :
          PageCallEvent pageCallEvent = event as PageCallEvent ;
          _showPage(pageName:pageCallEvent.name,params: pageCallEvent.params ) ;
          fireApplicationEvent(new   PageDisplayedEvent(sender: this, pageName: pageCallEvent.name, params: pageCallEvent.params) ) ;
