@@ -77,7 +77,7 @@ class Button  extends Positionable with Showable, ApplicationEventPassenger {
       case  "ButtonStatus.NORMAL" :
         _colorElement.style.backgroundColor = _model.color.veryLightColor;
         _labelSpan.style.color = _model.color.strongColor;
-        _labelSpan.style.fontWeight = "bold"; 
+        _labelSpan.style.fontWeight = "bolder"; 
       break;
     }    
   }
@@ -88,7 +88,7 @@ class Button  extends Positionable with Showable, ApplicationEventPassenger {
       case  "ButtonStatus.NORMAL" :
         _colorElement.style.backgroundColor = _model.color.mainColor;
         _labelSpan.style.color = _model.color.strongColor;
-        _labelSpan.style.fontWeight = "normal"; 
+        _labelSpan.style.fontWeight = "bold"; 
       break;
       case  "ButtonStatus.HIGHLIGHTED" :
         _colorElement.style.backgroundColor = _model.color.veryLightColor;
@@ -232,7 +232,7 @@ class Button  extends Positionable with Showable, ApplicationEventPassenger {
       case  "ButtonStatus.NORMAL" :
         _colorElement.style.backgroundColor = _model.color.mainColor;
         _labelSpan.style.color = _model.color.strongColor;
-        _labelSpan.style.fontWeight = "normal"; 
+        _labelSpan.style.fontWeight = "bold"; 
       break;
       case  "ButtonStatus.HIGHLIGHTED" :
         _colorElement.style.backgroundColor = _model.color.veryLightColor;
