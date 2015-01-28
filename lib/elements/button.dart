@@ -7,7 +7,6 @@ import 'package:logging/logging.dart';
 import 'package:gex_common_ui_elements/common_ui_elements.dart';
 
 import 'package:paper_elements/paper_shadow.dart';
-import 'package:paper_elements/paper_button.dart';
 
 /**
  * Change it's display according to the space it can take.
@@ -67,8 +66,37 @@ class Button  extends Positionable with Showable, ApplicationEventPassenger {
     
     
     this.onClick.listen((_)=>_targetAction());
-    this.onMouseDown.listen((_)=>_shadow.z= 1);
-    this.onMouseUp.listen(  (_)=>_shadow.z= 2);
+    this.onMouseDown.listen((_)=>_buttonDown());
+    this.onMouseUp.listen(  (_)=>_buttonUp());
+  
+  }
+  
+  void _buttonDown(){
+    _shadow.z= 1;
+    switch(status.toString()){
+      case  "ButtonStatus.NORMAL" :
+        _colorElement.style.backgroundColor = _model.color.veryLightColor;
+        _labelSpan.style.color = _model.color.strongColor;
+        _labelSpan.style.fontWeight = "bold"; 
+      break;
+    }    
+  }
+  
+  void _buttonUp(){
+    _shadow.z= 2;
+    switch(status.toString()){
+      case  "ButtonStatus.NORMAL" :
+        _colorElement.style.backgroundColor = _model.color.mainColor;
+        _labelSpan.style.color = _model.color.strongColor;
+        _labelSpan.style.fontWeight = "normal"; 
+      break;
+      case  "ButtonStatus.HIGHLIGHTED" :
+        _colorElement.style.backgroundColor = _model.color.veryLightColor;
+        _labelSpan.style.color = _model.color.veryStrongColor;     
+        _labelSpan.style.fontWeight = "bolder";         
+      break;
+      
+    }    
   }
   
   void _targetAction(){
@@ -150,7 +178,7 @@ class Button  extends Positionable with Showable, ApplicationEventPassenger {
     _labelSpan.style.zIndex = "${position.zIndex +1 }";
     _imageElement.style.zIndex = "${position.zIndex +1 }";
     _imageElement2.style.zIndex = "${position.zIndex +1 }";    
-    _button.style.zIndex = "${position.zIndex +1 }";    
+    _button.style.zIndex = "${position.zIndex +2 }";    
     _colorElement.style.zIndex = "${position.zIndex -1}";
         
     try {
