@@ -6,4 +6,9 @@
     <content></content>
   </template>
   <script type="application/dart" src="view_port.dart"></script>
+  <script type="application/javascript">
+    function hasTouchSupport() {
+      return 'ontouchstart' in document.documentElement;
+    }
+  </script>
 </polymer-element>

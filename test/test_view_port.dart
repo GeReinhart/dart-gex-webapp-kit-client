@@ -41,7 +41,7 @@ main() {
         when(windowMock.innerHeight).thenReturn(100);
         when(windowMock.innerWidth).thenReturn(50);
         
-        ViewPortModel viewPort = new ViewPortModel.fromWindow(windowMock) ;
+        ViewPortModel viewPort = new ViewPortModel.fromWindow(windowMock, false) ;
         expect( viewPort.orientation  , equals(ScreenOrientation.PORTRAIT)); 
       });
       
@@ -50,7 +50,7 @@ main() {
         when(windowMock.innerHeight).thenReturn(50);
         when(windowMock.innerWidth).thenReturn(100);
         
-        ViewPortModel viewPortDescriptor = new ViewPortModel.fromWindow(windowMock) ;
+        ViewPortModel viewPortDescriptor = new ViewPortModel.fromWindow(windowMock,false) ;
         
         new Timer(new Duration(milliseconds: 2000), (){
           expect( viewPortDescriptor.orientation  , equals(ScreenOrientation.LANDSCAPE)) ;

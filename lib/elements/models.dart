@@ -187,13 +187,18 @@ class ViewPortModel {
   num _windowHeight ;
   num _windowWidth ;
   num _devicePixelRatio ;
+  bool _isTouchDevice ;
 
-  ViewPortModel.fromWindow(Window window){
+  ViewPortModel.fromWindow(Window window, bool isTouchDevice){
     _windowHeight = window.innerHeight ;
     _windowWidth = window.innerWidth ;
     _devicePixelRatio = window.devicePixelRatio ;
+    _isTouchDevice = isTouchDevice;    
   }
-  ViewPortModel(this._windowHeight, this._windowWidth);
+  ViewPortModel(this._windowHeight, this._windowWidth, {num devicePixelRatio , bool isTouchDevice }){
+    _devicePixelRatio = devicePixelRatio ;
+    _isTouchDevice = isTouchDevice;
+  }
   
   num get windowHeight => _windowHeight ;
   num get windowWidth => _windowWidth ;
@@ -202,12 +207,14 @@ class ViewPortModel {
   
   ScreenOrientation get orientation => _windowHeight < _windowWidth ? ScreenOrientation.LANDSCAPE : ScreenOrientation.PORTRAIT;
       
+  bool get isTouchDevice => _isTouchDevice;
+  
   ViewPortModel clone(){
-    return new ViewPortModel(this._windowHeight, this._windowWidth);
+    return new ViewPortModel(this._windowHeight, this._windowWidth,devicePixelRatio:_devicePixelRatio,isTouchDevice:_isTouchDevice );
   }
   
   @override
-  String toString() => "ViewPortModel: windowHeight: ${_windowHeight}, windowWidth: ${_windowWidth}, devicePixelRatio: ${_devicePixelRatio}";
+  String toString() => "ViewPortModel: windowHeight: ${_windowHeight}, windowWidth: ${_windowWidth}, devicePixelRatio: ${_devicePixelRatio}, isTouchDevice: ${_isTouchDevice}";
   
   @override
   int get hashCode {
@@ -215,6 +222,7 @@ class ViewPortModel {
      result = 37 * result + _windowHeight.hashCode;
      result = 37 * result + _windowWidth.hashCode;
      result = 37 * result + _devicePixelRatio.hashCode;
+     result = 37 * result + _isTouchDevice.hashCode;
      return result;
   }
 

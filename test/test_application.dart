@@ -19,7 +19,7 @@ main() {
   TestApplication application4Toolbars ;
   TestApplication application2Toolbars ;
   
-  num toolBarPercentage = 0.20;
+  num toolBarPercentage = 0.12;
   num marginPercentage  = 0.2;
   
   group("Application", (){

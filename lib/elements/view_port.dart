@@ -1,6 +1,7 @@
 library gex_common_ui_elements.virtual_screen;
 
 import "dart:html";
+import 'dart:js' as js;
 import 'package:logging/logging.dart';
 import 'dart:async';
 import 'package:gex_common_ui_elements/common_ui_elements.dart';
@@ -33,7 +34,7 @@ class ViewPort extends Positionable with Showable, ApplicationEventPassenger {
   }
   
   void _updateViewPort(){
-    ViewPortModel newScreen = new ViewPortModel.fromWindow( window  ) ;
+    ViewPortModel newScreen = new ViewPortModel.fromWindow( window,hasTouchSupport  ) ;
     if (newScreen != _model  ){
       _model = newScreen ;
       log.info("ViewPort ${id} changed to ${_model}");
@@ -41,6 +42,14 @@ class ViewPort extends Positionable with Showable, ApplicationEventPassenger {
     }
     var wait = new Duration(milliseconds: 125);
     new Timer(wait, ()=> _updateViewPort());
+  }
+  
+  bool _hasTouchSupport;
+  bool get hasTouchSupport {
+    if(_hasTouchSupport == null) {
+      _hasTouchSupport = js.context.callMethod('hasTouchSupport');
+    }
+    return _hasTouchSupport;
   }
   
 }

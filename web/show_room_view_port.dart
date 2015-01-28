@@ -19,6 +19,7 @@ class ShowRoomViewPort extends Positionable with Showable {
   SpanElement viewPortDiagonal;
   SpanElement viewPortDevicePixelRatio;
   SpanElement viewPortOrientation;
+  SpanElement viewPortTouchDevice;
   
   ShowRoomViewPort.created() : super.created(){
   }
@@ -44,6 +45,7 @@ class ShowRoomViewPort extends Positionable with Showable {
     viewPortDevicePixelRatio = this.shadowRoot.querySelector("#viewPortDevicePixelRatio") as SpanElement ;
     viewPortDiagonal = this.shadowRoot.querySelector("#viewPortDiagonal") as SpanElement ;
     viewPortOrientation = this.shadowRoot.querySelector("#viewPortOrientation") as SpanElement ;
+    viewPortTouchDevice = this.shadowRoot.querySelector("#viewPortTouchDevice") as SpanElement ;
     
     viewPortSpace.style.backgroundColor = Color.BLUE_0082C8.veryLightColor;
     _viewPortChangeCallBack( new ViewPortChangeEvent(viewPort.model)) ;
@@ -62,6 +64,7 @@ class ShowRoomViewPort extends Positionable with Showable {
     viewPortDevicePixelRatio.innerHtml = viewPort.windowDevicePixelRatio.toString();
     viewPortHeight.innerHtml = viewPort.windowHeight.toString();
     viewPortOrientation.innerHtml = viewPort.orientation.toString();
+    viewPortTouchDevice.innerHtml = viewPort.isTouchDevice.toString();
   }
 
   void _initialPositionsForElements() {
