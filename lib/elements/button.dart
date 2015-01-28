@@ -61,6 +61,7 @@ class Button  extends Positionable with Showable, ApplicationEventPassenger {
     }
     if(_model.hasLabel){
       _labelSpan.innerHtml = _model.label;
+      _labelSpan.style.fontWeight = "bold"; 
       _labelSpan.style.color = _model.color.veryStrongColor; 
     }
     
