@@ -1,4 +1,4 @@
-library gex_common_ui_elements.test_bus;
+library gex_common_ui_elements.test_routing;
 
 import 'package:unittest/unittest.dart';
 import 'package:mockito/mockito.dart';
@@ -20,35 +20,22 @@ main() {
   TestApplication application ;
   ApplicationEventBus applicationEventBus  = new ApplicationEventBus() ;
   
-  group("Bus", (){
+  group("Routing", (){
 
     setUp((){
       if (application==null){
         application = querySelector("#application");
         application.moveTo( new Position(0,0, 1000,500, 100)  ) ;
         application.setApplicationEventBus(applicationEventBus);
-        applicationEventBus.fireApplicationEvent(  new ApplicationEvent(sender: applicationEventBus,  name: "event") ) ;
       }
     });
     
-    group('events propagation from bus', (){
+    group('load page from url', (){
 
-      test('to application', (){
-        new Timer(new Duration(milliseconds:1000), expectAsync(() => verify(application.dummyActionApplication.doSomething("event" )).called(1)));
+      test('simple page', (){
+        new Timer(new Duration(milliseconds:1000), expectAsync( (){assert(application.currentPageModel.name == "page2");} ) );
       });
       
-      test('to main toolbars', (){
-        new Timer(new Duration(milliseconds:1000), expectAsync(() =>verify(application.dummyActionToolBars.doSomething("event" )).called(2)));
-      });
-    
-      test('to main toolbars buttons', (){
-        new Timer(new Duration(milliseconds:1000), expectAsync(() =>verify(application.dummyActionToolBarsButtons.doSomething("event" )).called(3)));
-      });
-
-      test('to pages', (){
-        new Timer(new Duration(milliseconds:1000), expectAsync(() =>verify(( application.pages[0] as PageOne ).dummyActionPages.doSomething("event" )).called(1)));
-        
-      }); 
       
       
     });

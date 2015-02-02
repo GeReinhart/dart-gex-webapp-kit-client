@@ -1,4 +1,4 @@
-library gex_common_ui_elements.test_virtual_screen;
+library gex_common_ui_elements.test_application;
 
 import 'package:unittest/unittest.dart';
 import 'package:mockito/mockito.dart';

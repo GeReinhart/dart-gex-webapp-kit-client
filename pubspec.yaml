@@ -21,7 +21,8 @@ transformers:
       - test/test_toolbar.html      
       - test/test_view_port.html  
       - test/test_application.html  
-      - test/test_bus.html  
+      - test/test_bus.html
+      - test/test_routing.html      
 - $dart2js:
     commandLineOptions:
       - --enable-enum

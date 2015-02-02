@@ -342,5 +342,7 @@ class PageModel extends Object with ApplicationEventCallBackHolder{
   
   LayoutModel get layoutModel => _layoutModel.clone();
   
-  
+  PageModel clone(){
+    return new PageModel(name: _name,margin: _margin,layoutModel: layoutModel) ;
+  }
 }

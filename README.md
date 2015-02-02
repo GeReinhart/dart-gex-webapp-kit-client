@@ -15,7 +15,6 @@ Provide a set of common WebComponent and classes to be able to build Responsive 
 Full dart :
 - Polymer
 - Paper elements
-- Di
 
 ## Development guide lines
 - Write reusable code

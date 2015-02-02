@@ -25,6 +25,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   Element _pagesContainer ;
   List<Page> _pages = new List<Page>();
   Margin _margin = new Margin();
+  Page _currentPage ;
   
   Application.created() : super.created();
   
@@ -55,6 +56,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     return toolbars ;
   }
   
+  PageModel get currentPageModel => _currentPage == null ? null : _currentPage.model ;
   
   void fitWithWindow(){
      moveTo( new Position(0,0,viewPortModel.windowWidth,viewPortModel.windowHeight, 100)  );
@@ -111,6 +113,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
       _pages.forEach((p){ 
         if( p.name == pageName){
           p.show();
+          _currentPage = p;
         }
       }) ;
     }
