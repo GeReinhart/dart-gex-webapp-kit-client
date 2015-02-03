@@ -102,35 +102,42 @@ class ActionDescriptor{
   
 }
 
-
 class PageKey{
   String _name ;
   Parameters _params  ;
+  Parameters _resources  ;
   
-  PageKey({String name, Parameters params }){
+  PageKey({String name,  Parameters resources, Parameters params }){
     assert(name != null);
     _name = name ;
-    if (_params != null){
+    if (params != null){
       _params = params ;
     }else{
       _params = new Parameters(null);
     }
+    if (resources != null){
+      _resources = resources ;
+    }else{
+      _resources = new Parameters(null);
+    }    
   }
   
   PageKey clone(){
-    return new PageKey(name:_name,params:_params);
+    return new PageKey(name:_name,params:_params,resources:_resources);
   }
   
   String get name => _name;
   Parameters get params => _params.clone();
+  Parameters get resources => _resources.clone();
   
   @override
-  String toString() => "PageKey: name:${_name}, params:${_params}";
+  String toString() => "PageKey: name:${_name}, resources:${_resources}, params:${_params}";
   
   @override
   int get hashCode {
      int result = 17;
      result = 37 * result + _name.hashCode;
+     result = 37 * result + _resources.hashCode;
      result = 37 * result + _params.hashCode;
      return result;
   }

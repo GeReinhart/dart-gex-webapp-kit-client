@@ -12,4 +12,6 @@ part 'abilities.dart';
 part 'beans.dart';
 part 'bus.dart';
 part 'colors.dart';
+part 'routing.dart';
+
 part 'elements/models.dart';
