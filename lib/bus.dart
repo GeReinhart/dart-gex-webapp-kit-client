@@ -78,6 +78,16 @@ class PageBackEvent extends ApplicationEvent {
   }   
 }
 
+class PageIndexCallEvent extends ApplicationEvent {
+  PageIndexCallEvent({Object sender} ):
+      super(sender:sender, name: "PageIndexCallEvent");
+  
+  @override
+  String toString(){
+    return "PageIndexCallEvent: sender=${sender}, name=${name}, resources=${_resources}, params=${_params}" ;
+  }   
+}
+
 
 class ApplicationEventBus {
   StreamController<ApplicationEvent> _applicationEventStream = new StreamController<ApplicationEvent>.broadcast(sync: false);

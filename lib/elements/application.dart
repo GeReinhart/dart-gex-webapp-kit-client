@@ -100,11 +100,17 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
-     if (event is PageCallEvent){
+    if (event is PageIndexCallEvent){
+      String pageIndexName = _pages.first.name ;
+      _showPage(pageName:pageIndexName) ;
+      fireApplicationEvent(new PageDisplayedEvent(sender: this, pageName: pageIndexName) ) ;
+      return ;
+    }
+    if (event is PageCallEvent){
        _showPage(pageName:event.name,params: event.params ) ;
        fireApplicationEvent(new   PageDisplayedEvent(sender: this, pageName: event.name, params: event.params) ) ;
        return ;
-     }
+    }
   }
   
   void _showPage({ String pageName ,Parameters params}){

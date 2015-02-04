@@ -1,5 +1,5 @@
 name: gex_common_ui_elements
-version: 0.1.0+23
+version: 0.1.0+24
 description: A starter template for a polymer.dart web app.
 environment:
   sdk: '>=1.8.0 <2.0.0'
