@@ -57,12 +57,15 @@ function launch-test  {
 
 analyze-sources
 install-content_shell
+
 launch-test test_button.html
 launch-test test_toolbar.html
 launch-test test_view_port.html
 launch-test test_application.html
 launch-test test_bus.html
-launch-test test_routing.html#page2
+launch-test test_routing.html#PageTwo
+
+
 
 
 

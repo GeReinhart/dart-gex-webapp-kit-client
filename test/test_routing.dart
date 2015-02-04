@@ -20,6 +20,9 @@ main() {
   TestApplication application ;
   ApplicationEventBus applicationEventBus  = new ApplicationEventBus() ;
   PageKeyUrlConverter pageKeyUrlConverter = new PageKeyUrlConverter();
+  PageKeyUrlConverterMock pageKeyUrlConverterMock = new PageKeyUrlConverterMock();
+  Router router = new Router(pageKeyUrlConverterMock);
+  router.setApplicationEventBus(applicationEventBus) ;
   
   group("PageKeyUrlConverter", (){
 
@@ -47,7 +50,7 @@ main() {
       expect ( pageKeyUrlConverter.convertToPageKey("http://connecting.dartisans.net/#${name}").toString(), equals(expectedPageKey)  );      
       expect ( pageKeyUrlConverter.convertToPageKey("https://dartisans.net/#${name}").toString(), equals(expectedPageKey)  );
       expect ( pageKeyUrlConverter.convertToPageKey("https://connecting.dartisans.net/#${name}").toString(), equals(expectedPageKey)  );   
-      expect ( pageKeyUrlConverter.convertToPageKey("/#${name}").toString(), equals(expectedPageKey)  );  
+      expect ( pageKeyUrlConverter.convertToPageKey("/#${name}").toString(), equals(expectedPageKey)  ); 
 
     });
       
@@ -61,17 +64,19 @@ main() {
         application = querySelector("#application");
         application.moveTo( new Position(0,0, 1000,500, 100)  ) ;
         application.setApplicationEventBus(applicationEventBus);
+        
+        PageKey pageKey = new PageKey(name:"PageTwo");
+        when(pageKeyUrlConverterMock.convertToPageKey(argThat(endsWith("#PageTwo")))).thenReturn(pageKey);
+        
+        router.init() ;
       }
     });
     
     group('load page from url', (){
-
       test('simple page', (){
-       // new Timer(new Duration(milliseconds:1000), expectAsync( (){assert(application.currentPageModel.name == "page2");} ) );
+        new Timer(new Duration(milliseconds:1000), expectAsyncUntil( (){assert(application.currentPageModel.name == "PageTwo");}, 
+                                                                     (){return application.currentPageModel != null; }) );
       });
-      
-      
-      
     });
       
     
@@ -82,6 +87,7 @@ main() {
   
   pollForDone(testCases);  
 }
+
 
 
 
@@ -96,9 +102,5 @@ pollForDone(List tests) {
 }
 
 
-class DummyAction{
-  void doSomething(String eventName){
-  }
-}
 
-class DummyActionMock extends Mock implements DummyAction{}
+class PageKeyUrlConverterMock extends Mock implements PageKeyUrlConverter{}

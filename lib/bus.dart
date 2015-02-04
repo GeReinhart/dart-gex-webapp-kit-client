@@ -6,8 +6,9 @@ class ApplicationEvent {
   Object _sender;
   String _name ;
   Parameters _params;
+  Parameters _resources;
   
-  ApplicationEvent({Object sender, String name, Parameters params} ){
+  ApplicationEvent({Object sender, String name, Parameters resources, Parameters params} ){
     assert( sender != null );
     assert( name != null );
     
@@ -18,11 +19,17 @@ class ApplicationEvent {
     }else{
       _params = params;
     }
+    if (resources == null){
+      _resources = new Parameters(null);
+    }else{
+      _resources = resources;
+    }    
   }
   
   Object get sender => _sender ;
   String get name => _name ;
-  Parameters get params => _params;
+  Parameters get params => _params.clone();
+  Parameters get resources => _resources.clone();  
   
   bool iAmTheSender(Object other){
     return identical(this, other);
@@ -30,28 +37,34 @@ class ApplicationEvent {
   
   @override
   String toString(){
-    return "ApplicationEvent: sender=${sender}, name=${name}, params=${params}" ;
+    return "ApplicationEvent: sender=${sender}, name=${name}, resources=${_resources}, params=${_params}" ;
   }
   
 }
 
 class PageCallEvent extends ApplicationEvent {
-  PageCallEvent({Object sender, String pageName, Parameters params} ):
-      super(sender:sender, name: pageName  , params: params);
+  PageCallEvent({Object sender, String pageName, Parameters resources, Parameters params} ):
+      super(sender:sender, name: pageName,resources:resources, params: params);
+
+  PageCallEvent.fromPageKey(Object sender, PageKey pageKey):
+      super(sender:sender, name: pageKey.name,resources:pageKey.resources, params: pageKey.params);
   
   @override
   String toString(){
-    return "PageCallEvent: sender=${sender}, name=${name}, params=${params}" ;
+    return "PageCallEvent: sender=${sender}, name=${name}, resources=${_resources}, params=${_params}" ;
   }
 }
 
 class PageDisplayedEvent extends ApplicationEvent {
-  PageDisplayedEvent({Object sender, String pageName, Parameters params} ):
-      super(sender:sender, name: pageName  , params: params);
+  PageDisplayedEvent({Object sender, String pageName, Parameters resources, Parameters params} ):
+      super(sender:sender, name: pageName,resources:resources  , params: params);
+  
+  PageDisplayedEvent.fromPageKey(Object sender, PageKey pageKey):
+      super(sender:sender, name: pageKey.name,resources:pageKey.resources, params: pageKey.params);  
   
   @override
   String toString(){
-    return "PageDisplayedEvent: sender=${sender}, name=${name}, params=${params}" ;
+    return "PageDisplayedEvent: sender=${sender}, name=${name}, resources=${_resources}, params=${_params}" ;
   }  
 }
 
@@ -61,7 +74,7 @@ class PageBackEvent extends ApplicationEvent {
   
   @override
   String toString(){
-    return "PageBackEvent: sender=${sender}, name=${name}, params=${params}" ;
+    return "PageBackEvent: sender=${sender}, name=${name}, resources=${_resources}, params=${_params}" ;
   }   
 }
 

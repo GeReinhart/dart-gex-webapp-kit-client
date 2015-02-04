@@ -103,7 +103,7 @@ class Button  extends Positionable with Showable, ApplicationEventPassenger {
   void _targetAction(){
     if (_model.type == ButtonType.PAGE_LAUNCHER){
       if(_model.targetPageKey != null){
-        fireApplicationEvent(new PageCallEvent( sender: this,  pageName:_model.targetPageKey.name, params: _model.targetPageKey.params )  );
+        fireApplicationEvent(new PageCallEvent.fromPageKey(this, _model.targetPageKey )  );
       }
       return ;
     }

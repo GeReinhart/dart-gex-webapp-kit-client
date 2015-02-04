@@ -75,6 +75,7 @@ class TestApplication  extends Application{
   
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
+    super.recieveApplicationEvent(event);
     dummyActionApplication.doSomething(event.name);
   }
   

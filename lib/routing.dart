@@ -38,6 +38,21 @@ class PageKeyUrlConverter{
     return new PageKey( name: pageName);
   }
   
+}
+
+class Router extends Object with ApplicationEventPassenger{
   
+  PageKeyUrlConverter _pageKeyUrlConverter ;
+  
+  Router(this._pageKeyUrlConverter);
+  
+  void init(){
+    
+    PageKey pageKey = _pageKeyUrlConverter.convertToPageKey(window.location.href) ;
+    if (pageKey != null){
+      fireApplicationEvent(new PageCallEvent.fromPageKey(this,pageKey )  );
+    }
+    
+  }
   
 }
