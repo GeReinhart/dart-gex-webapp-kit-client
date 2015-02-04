@@ -55,4 +55,17 @@ class Router extends Object with ApplicationEventPassenger{
     
   }
   
+  @override
+  void recieveApplicationEvent(ApplicationEvent event) {
+     if (event is PageDisplayedEvent){
+       PageDisplayedEvent pageDisplayedEvent = event ;
+       String url = window.location.href;
+       if (url.contains("#")){
+         url=url.substring( 0, url.indexOf("#")  ) ; 
+       }
+       window.location.href = "${url}#${event.name}" ; 
+       return ;
+     }
+  }  
+  
 }

@@ -65,8 +65,10 @@ main() {
         application.moveTo( new Position(0,0, 1000,500, 100)  ) ;
         application.setApplicationEventBus(applicationEventBus);
         
-        PageKey pageKey = new PageKey(name:"PageTwo");
-        when(pageKeyUrlConverterMock.convertToPageKey(argThat(endsWith("#PageTwo")))).thenReturn(pageKey);
+        PageKey pageKey1 = new PageKey(name:"PageOne");
+        when(pageKeyUrlConverterMock.convertToPageKey(argThat(endsWith("#PageOne")))).thenReturn(pageKey1);
+        PageKey pageKey2 = new PageKey(name:"PageTwo");
+        when(pageKeyUrlConverterMock.convertToPageKey(argThat(endsWith("#PageTwo")))).thenReturn(pageKey2);
         
         router.init() ;
       }
@@ -78,7 +80,17 @@ main() {
                                                                      (){return application.currentPageModel != null; }) );
       });
     });
-      
+
+    group('update window location', (){
+      test('when change page', (){
+        applicationEventBus.fireApplicationEvent(new   PageDisplayedEvent(sender: applicationEventBus, pageName: "PageOne") ) ;
+        
+        new Timer(new Duration(milliseconds:1000), expectAsyncUntil( (){assert(window.location.href.endsWith("#PageOne")  );}, 
+                                                                             (){return window.location.href.endsWith("#PageOne"); }) );
+       
+      });
+    });
+    
     
   });
   
