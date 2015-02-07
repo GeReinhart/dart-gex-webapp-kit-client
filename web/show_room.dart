@@ -35,6 +35,7 @@ void main() {
       applicationEventLogger.setApplicationEventBus(applicationEventBus);
       
       router.init();
+      application.init();
     });
     
     
@@ -71,8 +72,8 @@ class ShowRoomApplication  extends Application{
     
     
     List<ButtonModel> bottomToolbar = new List<ButtonModel>();
-    bottomToolbar.add( new ButtonModel(label: "Events", image:new Image(mainImageUrl:"images/button/tv21.png"),type: ButtonType.PAGE_LAUNCHER , targetPageKey: new PageKey(name: PageBus.NAME))  );
-    bottomToolbar.add( new ButtonModel(label: "ViewPort", image:new Image(mainImageUrl:"images/button/vehicle12.png"),type: ButtonType.PAGE_LAUNCHER , targetPageKey: new PageKey(name: PageViewPort.NAME))  );
+    bottomToolbar.add( new ButtonModel(label: "Events", image:new Image(mainImageUrl:"images/button/vehicle12.png"),type: ButtonType.PAGE_LAUNCHER , targetPageKey: new PageKey(name: PageBus.NAME))  );
+    bottomToolbar.add( new ButtonModel(label: "ViewPort", image:new Image(mainImageUrl:"images/button/tv21.png"),type: ButtonType.PAGE_LAUNCHER , targetPageKey: new PageKey(name: PageViewPort.NAME))  );
     ToolbarModel bottomToolbarModel = new ToolbarModel(buttons:bottomToolbar, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT );
     addToolbar(bottomToolbarModel);    
   }

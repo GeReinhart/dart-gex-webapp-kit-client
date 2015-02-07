@@ -15,21 +15,23 @@ class ViewPort extends Positionable with Showable, ApplicationEventPassenger {
   
   final Logger log = new Logger('ViewPort');
   
-  ViewPortModel _model  ;
+  ViewPortModel _model = new ViewPortModel(0,0) ;
   
   ViewPort.created() : super.created(){
-    _model = new ViewPortModel.fromWindow( window,hasTouchSupport  );
+    _model = new ViewPortModel.fromWindow( window,hasTouchSupport  ) ;
   }
   
-  
- 
   @override
   void setApplicationEventBus (ApplicationEventBus value){
     super.setApplicationEventBus(value);
-    _updateViewPort();    
   }
   
   ViewPortModel get model => _model.clone();
+  
+  void init(){
+    fireApplicationEvent(new ViewPortChangeEvent(this,_model));
+    _updateViewPort();
+  }
   
   void _updateViewPort(){
     ViewPortModel newScreen = new ViewPortModel.fromWindow( window,hasTouchSupport  ) ;

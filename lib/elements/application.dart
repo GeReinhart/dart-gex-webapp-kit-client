@@ -39,6 +39,10 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     _setAttributes();
   }
   
+  void init(){
+    _viewPort.init();
+  }
+  
   void _setAttributes() {
     _viewPort = $["viewPort"] as ViewPort;
     _toolbarsContainer = $["toolBars"] ;
