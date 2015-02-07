@@ -1,41 +1,35 @@
-<!--
-  Copyright (c) 2014, <your name>. All rights reserved. Use of this source code
-  is governed by a BSD-style license that can be found in the LICENSE file.
--->
-
 <!-- import polymer-element's definition -->
 <link rel="import" href="../../packages/polymer/polymer.html">
-
+<link rel="import" href="../../packages/gex_common_ui_elements/elements/application.html">
 <link rel="import" href="../../packages/gex_common_ui_elements/elements/space.html">
 <link rel="import" href="../../packages/gex_common_ui_elements/elements/button.html">
 <link rel="import" href="../../packages/gex_common_ui_elements/elements/toolbar.html">
 <link rel="import" href="../../packages/gex_common_ui_elements/elements/view_port.html">
 
-<link rel="import" href="show_room_button.html">
-<link rel="import" href="show_room_toolbar.html">
-<link rel="import" href="show_room_view_port.html">
-<link rel="import" href="show_room_layout.html">
-<link rel="import" href="app/show_room_application.html">
+<link rel="import" href="show_room.html">
 
-<polymer-element name="gex-show-room">
+<link rel="import" href="pages/bus.html">
+<link rel="import" href="pages/buttons.html">
+<link rel="import" href="pages/home.html">
+<link rel="import" href="pages/view_port.html">
+
+
+<polymer-element name="show-room-app" extends="gex-application">
+  <style shim-shadowdom>
+      body /deep/ h1 {
+        font-size: xx-large;
+        font-weight: bold;
+        font-family: "Roboto, arial, sans-serif";
+      }
+      body /deep/ span {
+        font-family: "Roboto, arial, sans-serif;";
+      }
+      :host {
+        overflow: hidden;
+      }
+  </style>       
   <template>
-    <gex-space id="space">
-      <gex-button id="buttonSpaceButton" ></gex-button>
-      <gex-button id="buttonSpaceToolbar"></gex-button>
-      <gex-button id="buttonViewPort"></gex-button>
-      <gex-button id="buttonLayout"></gex-button>
-      <gex-toolbar id="showRoomLayoutToolbar"   ></gex-toolbar>
-      <gex-button id="buttonApplication"></gex-button>
-  
-      <gex-show-room-button  id="showRoomButton" ></gex-show-room-button>
-      <gex-show-room-toolbar id="showRoomToolbar" ></gex-show-room-toolbar>
-      <gex-show-room-view-port id="showRoomViewPort" ></gex-show-room-view-port>
-      
-      <gex-view-port id="showRoomLayoutViewPort"  ></gex-view-port>
-      
-      <gex-show-room-application  id="showRoomApplication"  ></gex-show-room-application>
-      
-    </gex-space>
+    <shadow></shadow>
   </template>
   <script type="application/dart" src="show_room.dart"></script>
 </polymer-element>

@@ -1,0 +1,23 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../packages/gex_common_ui_elements/elements/layout.html">
+
+<polymer-element name="page-view-port"  >
+  <template>
+    <gex-layout id="layout">
+         <h1>View port</h1>
+         
+         
+          <ul>
+           <li><span>Width: </span><span id="viewPortWidth" ></span></li>
+           <li><span>Height: </span><span id="viewPortHeight" ></span></li>
+           <li><span>Orientation: </span><span id="viewPortOrientation" ></span></li>
+           <li><span>Diagonal: </span><span id="viewPortDiagonal" ></span></li>
+           <li><span>DevicePixelRatio: </span><span id="viewPortDevicePixelRatio" ></span></li>
+           <li><span>Touch screen: </span><span id="viewPortTouchDevice" ></span></li>
+         </ul> 
+         
+    </gex-layout>
+  </template>
+  <script type="application/dart" src="view_port.dart"></script>
+</polymer-element>

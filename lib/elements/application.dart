@@ -26,6 +26,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   List<Page> _pages = new List<Page>();
   Margin _margin = new Margin();
   Page _currentPage ;
+  bool _fitWithWindow = true ;
   
   Application.created() : super.created();
   
@@ -45,10 +46,6 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   }
 
  
-  void subscribeViewPortChange( ViewPortChangeCallBack callBack  ){
-    _viewPort.subscribeViewPortChange(callBack);
-  }
-  
   ViewPortModel get viewPortModel => _viewPort.model;
   List<ToolbarModel> get toolbarModels {
     List<ToolbarModel> toolbars = new List<ToolbarModel> ();
@@ -58,18 +55,21 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   
   PageModel get currentPageModel => _currentPage == null ? null : _currentPage.model ;
   
-  void fitWithWindow(){
-     moveTo( new Position(0,0,viewPortModel.windowWidth,viewPortModel.windowHeight, 100)  );
-     subscribeViewPortChange( (event){
-         moveTo( new Position(0,0,viewPortModel.windowWidth,viewPortModel.windowHeight, 100)  );
-     }) ;
+  set fitWithWindow(bool value){
+    _fitWithWindow= value ;
   }
+
   
   @override
   void setApplicationEventBus (ApplicationEventBus value){
     super.setApplicationEventBus(value);
+    _viewPort.setApplicationEventBus(value);
     _toolbars.forEach((t)=> t.setApplicationEventBus(value));
     _pages.forEach((p)=> p.setApplicationEventBus(value));
+    
+    if(_fitWithWindow){
+      moveTo( new Position(0,0,_viewPort.model.windowWidth,_viewPort.model.windowHeight, 100)  );
+    }
   }
 
   
@@ -110,6 +110,9 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
        _showPage(pageName:event.name,params: event.params ) ;
        fireApplicationEvent(new   PageDisplayedEvent(sender: this, pageName: event.name, params: event.params) ) ;
        return ;
+    }
+    if(event is ViewPortChangeEvent && _fitWithWindow){
+      moveTo( new Position(0,0,event.viewPortModel.windowWidth,event.viewPortModel.windowHeight, 100)  );
     }
   }
   

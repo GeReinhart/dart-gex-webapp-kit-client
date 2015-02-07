@@ -15,30 +15,28 @@ class ViewPort extends Positionable with Showable, ApplicationEventPassenger {
   
   final Logger log = new Logger('ViewPort');
   
-  ViewPortModel _model ;
-  StreamController<ViewPortChangeEvent> _viewPortChangeEventStream ;
+  ViewPortModel _model  ;
   
-  ViewPort.created() : super.created();
+  ViewPort.created() : super.created(){
+    _model = new ViewPortModel.fromWindow( window,hasTouchSupport  );
+  }
   
+  
+ 
   @override
-  void ready() {
-    super.ready();
-    _viewPortChangeEventStream = new StreamController<ViewPortChangeEvent>.broadcast(sync: false);
-    _updateViewPort(); 
+  void setApplicationEventBus (ApplicationEventBus value){
+    super.setApplicationEventBus(value);
+    _updateViewPort();    
   }
   
   ViewPortModel get model => _model.clone();
-  
-  void subscribeViewPortChange( ViewPortChangeCallBack callBack  ){
-    _viewPortChangeEventStream.stream.listen((ViewPortChangeEvent event) => callBack(event.clone()));
-  }
   
   void _updateViewPort(){
     ViewPortModel newScreen = new ViewPortModel.fromWindow( window,hasTouchSupport  ) ;
     if (newScreen != _model  ){
       _model = newScreen ;
       log.info("ViewPort ${id} changed to ${_model}");
-      _viewPortChangeEventStream.add( new ViewPortChangeEvent(_model) ) ;
+      fireApplicationEvent(new ViewPortChangeEvent(this,_model));
     }
     var wait = new Duration(milliseconds: 125);
     new Timer(wait, ()=> _updateViewPort());

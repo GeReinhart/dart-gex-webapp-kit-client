@@ -53,6 +53,11 @@ class Layout extends Positionable with Showable, ApplicationEventPassenger {
     _adaptElement(position);    
   }
   
+  set color (Color color){
+      _model.color=color;
+      this.style.background = color.mainColor;   
+  }
+  
   @override
   void moveTo(Position position) {
       if(_model == null){

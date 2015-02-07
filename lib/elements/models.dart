@@ -169,18 +169,7 @@ class ToolbarModel extends Object with ApplicationEventCallBackHolder{
 
 typedef void ViewPortChangeCallBack(ViewPortChangeEvent event);
 
-class ViewPortChangeEvent{
-  ViewPortModel _viewPortModel ;
-  
-  ViewPortChangeEvent(this._viewPortModel);
-  
-  ViewPortModel get viewPortModel => _viewPortModel.clone();
-  
-  ViewPortChangeEvent clone(){
-    return new ViewPortChangeEvent(this._viewPortModel.clone());
-  }
-  
-}
+
 
 class ViewPortModel {
   
@@ -270,6 +259,9 @@ class LayoutModel{
   set margin(Margin margin){
     _margin=margin;
   }
+  set color(Color color){
+    _color=color;
+  }  
   
   num leftMarginInPx(Position position){
     if ( position.width > _big   ){

@@ -88,6 +88,23 @@ class PageIndexCallEvent extends ApplicationEvent {
   }   
 }
 
+class ViewPortChangeEvent  extends ApplicationEvent{
+  ViewPortModel _viewPortModel ;
+  
+  ViewPortChangeEvent(Object sender ,this._viewPortModel): super(sender:sender,name:"ViewPortChangeEvent");
+  
+  ViewPortModel get viewPortModel => _viewPortModel.clone();
+  
+  ViewPortChangeEvent clone(){
+    return new ViewPortChangeEvent(this.sender ,this._viewPortModel.clone());
+  }
+  
+  @override
+  String toString(){
+    return "ViewPortChangeEvent: ${_viewPortModel}" ;
+  }
+}
+
 
 class ApplicationEventBus {
   StreamController<ApplicationEvent> _applicationEventStream = new StreamController<ApplicationEvent>.broadcast(sync: false);
