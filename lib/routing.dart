@@ -74,4 +74,9 @@ class Router extends Object with ApplicationEventPassenger{
     return baseUrl ;
   }
   
+  @override
+  String toString(){
+    return "Router" ;
+  }   
+  
 }

@@ -17,6 +17,8 @@ class PageBus extends Page with Showable {
   Color mainColor = Color.BLUE_0082C8 ;
   
   Layout layout ;
+  HtmlElement  table ;
+  TableRowElement  eventRow ;
   
   PageBus.created() : super.created() ;
   
@@ -31,7 +33,27 @@ class PageBus extends Page with Showable {
      LayoutModel layoutModel = new LayoutModel(color: mainColor);
      PageModel model = new PageModel(name:NAME, layoutModel:layoutModel);
      this.init(model) ;
+     
+     table = $["event-table-body"]  ;
+     eventRow = $["event"]  as TableRowElement;
+          
   }
   
 
+  @override
+  void recieveApplicationEvent(ApplicationEvent event) {
+
+    
+    TableRowElement newEventRow = eventRow.clone(true) ;
+  
+    newEventRow.cells[0].innerHtml = event.type ;
+    newEventRow.cells[1].innerHtml = event.sender.toString() ;
+    newEventRow.cells[2].innerHtml = event.toString() ;
+        
+    
+    table.insertBefore(newEventRow, eventRow);
+    eventRow = newEventRow ;
+  
+  }
+  
 }

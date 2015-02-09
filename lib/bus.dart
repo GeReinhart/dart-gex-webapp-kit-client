@@ -4,6 +4,7 @@ typedef void ApplicationEventCallBack(ApplicationEvent event);
 
 class ApplicationEvent {
   Object _sender;
+  String _type = "ApplicationEvent" ;
   String _name ;
   Parameters _params;
   Parameters _resources;
@@ -28,6 +29,7 @@ class ApplicationEvent {
   
   Object get sender => _sender ;
   String get name => _name ;
+  String get type => _type ;
   Parameters get params => _params.clone();
   Parameters get resources => _resources.clone();  
   
@@ -43,11 +45,16 @@ class ApplicationEvent {
 }
 
 class PageCallEvent extends ApplicationEvent {
+  
   PageCallEvent({Object sender, String pageName, Parameters resources, Parameters params} ):
-      super(sender:sender, name: pageName,resources:resources, params: params);
+      super(sender:sender, name: pageName,resources:resources, params: params){
+    _type = "PageCallEvent" ;
+  }
 
   PageCallEvent.fromPageKey(Object sender, PageKey pageKey):
-      super(sender:sender, name: pageKey.name,resources:pageKey.resources, params: pageKey.params);
+      super(sender:sender, name: pageKey.name,resources:pageKey.resources, params: pageKey.params){
+        _type = "PageCallEvent" ;
+ }
   
   @override
   String toString(){
@@ -57,10 +64,14 @@ class PageCallEvent extends ApplicationEvent {
 
 class PageDisplayedEvent extends ApplicationEvent {
   PageDisplayedEvent({Object sender, String pageName, Parameters resources, Parameters params} ):
-      super(sender:sender, name: pageName,resources:resources  , params: params);
+      super(sender:sender, name: pageName,resources:resources  , params: params){
+        _type = "PageDisplayedEvent" ;
+  }
   
   PageDisplayedEvent.fromPageKey(Object sender, PageKey pageKey):
-      super(sender:sender, name: pageKey.name,resources:pageKey.resources, params: pageKey.params);  
+      super(sender:sender, name: pageKey.name,resources:pageKey.resources, params: pageKey.params){
+        _type = "PageDisplayedEvent" ;
+  }  
   
   @override
   String toString(){
@@ -70,7 +81,9 @@ class PageDisplayedEvent extends ApplicationEvent {
 
 class PageBackEvent extends ApplicationEvent {
   PageBackEvent({Object sender} ):
-      super(sender:sender, name: "PageBackEvent");
+      super(sender:sender, name: "PageBackEvent"){
+        _type = "PageBackEvent" ;
+  }
   
   @override
   String toString(){
@@ -80,7 +93,9 @@ class PageBackEvent extends ApplicationEvent {
 
 class PageIndexCallEvent extends ApplicationEvent {
   PageIndexCallEvent({Object sender} ):
-      super(sender:sender, name: "PageIndexCallEvent");
+      super(sender:sender, name: "PageIndexCallEvent"){
+        _type = "PageIndexCallEvent" ;
+  }
   
   @override
   String toString(){
@@ -91,7 +106,9 @@ class PageIndexCallEvent extends ApplicationEvent {
 class ViewPortChangeEvent  extends ApplicationEvent{
   ViewPortModel _viewPortModel ;
   
-  ViewPortChangeEvent(Object sender ,this._viewPortModel): super(sender:sender,name:"ViewPortChangeEvent");
+  ViewPortChangeEvent(Object sender ,this._viewPortModel): super(sender:sender,name:"ViewPortChangeEvent"){
+    _type = "ViewPortChangeEvent" ;
+  }
   
   ViewPortModel get viewPortModel => _viewPortModel.clone();
   
