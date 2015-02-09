@@ -24,6 +24,8 @@ class PageButtons extends Page with Showable {
   Button button3 ;
   Button button4;
   
+  num buttonBasicSize  = 300 ;
+  
   PageButtons.created() : super.created() ;
   
   
@@ -31,8 +33,7 @@ class PageButtons extends Page with Showable {
     super.ready();
     _setAttributesPage();
     _setAttributesButtons();    
-    _initialPositionsForElements();
-    _cloneAndMoveButtons();    
+    _moveButtons();
   }
   
   void _setAttributesPage(){
@@ -42,63 +43,51 @@ class PageButtons extends Page with Showable {
      this.init(model) ;
   }
   
+  @override
+  void recieveApplicationEvent(ApplicationEvent event) {
+    if(event is ViewPortChangeEvent ){
+      buttonBasicSize = event.viewPortModel.windowHeight < event.viewPortModel.windowWidth ?  event.viewPortModel.windowHeight / 3 : event.viewPortModel.windowWidth / 3 ;
+      _moveButtons();
+    }    
+  }
+  
   
   void _setAttributesButtons(){
     button1 = $["button1"] as Button ;
-    button1.init(new ButtonModel(color:Color.WHITE, image: new Image(mainImageUrl:"images/button/info24.png"),label: "Action 1" , action: action1));
+    button1.init(new ButtonModel(color:Color.GREY_858585, image: new Image(mainImageUrl:"images/button/info24.png"),label: "Action 1" , action: action1));
     
     button2 = $["button2"] as Button ;
     button2.init(new ButtonModel(color:Color.GREEN_07CC00, image: new Image(mainImageUrl:"images/button/list23.png"),label: "Action 2", action: action2 ));
     
     button3 = $["button3"] as Button ;
-    button3.init(new ButtonModel(color:Color.GREY_858585, image: new Image(mainImageUrl:"images/button/save29.png"),label: "Action 3", action: action3 ));
+    button3.init(new ButtonModel(color:Color.GREEN_07CC00.inverse(), image: new Image(mainImageUrl:"images/button/save29.png"),label: "Action 3", action: action3 ));
     
     button4 = $["button4"] as Button ; 
     button4.init(new ButtonModel(color:Color.BLUE_0082C8, image: new Image(mainImageUrl:  "/images/button/save29.png",mainImageUrl2:"/images/button/map32.png" ),label: "Action 4", action: action4 ));
-    button4.status = ButtonStatus.HIGHLIGHTED;
     
   }
 
 
-  void _initialPositionsForElements() {
-    button2.moveTo( new Position(150, 100, 150, 120, 101));
-    button3.moveTo( new Position(300, 100, 150, 120, 101));
-    button4.moveTo( new Position(600, 100, 250, 120, 101));
-    button1.moveTo( new Position(850, 100, 150, 120, 101));
+  void _moveButtons() {
+    button1.moveTo( new Position(buttonBasicSize * 2 / 3   , buttonBasicSize * 2 / 3, buttonBasicSize * 2 / 3, buttonBasicSize * 2 / 3, 101));
+    button2.moveTo( new Position(buttonBasicSize * 2 / 3   , buttonBasicSize * 5 / 3, buttonBasicSize * 3 / 3, buttonBasicSize * 3 / 3, 101));
+    button3.moveTo( new Position(buttonBasicSize * 6 / 3   , buttonBasicSize * 2 / 3, buttonBasicSize * 1 / 3, buttonBasicSize * 1 / 3, 101));
+    button4.moveTo( new Position(buttonBasicSize * 6 / 3   , buttonBasicSize * 6 / 3, buttonBasicSize * 4 / 4, buttonBasicSize * 2 / 4, 101));
   }
   
 
   action1(Parameters params){
-    layout.color =Color.WHITE.lightColorAsColor ;
+    layout.color =Color.GREY_858585.lightColorAsColor ;
   }
   action2(Parameters params){
     layout.color =Color.GREEN_07CC00.lightColorAsColor ;
   }
   action3(Parameters params){
-    layout.color =Color.GREY_858585.lightColorAsColor ;
+    layout.color =Color.GREEN_07CC00.inverse().lightColorAsColor ;
   }
   action4(Parameters params){
     layout.color =Color.BLUE_0082C8.lightColorAsColor ;
   }
   
-  
-  void _cloneAndMoveButtons() {
-    _cloneAndMove(button2,new Position(150, 300, 150, 120, 102));
-    _cloneAndMove(button3,new Position(300, 300, 150, 120, 102));
-    _cloneAndMove(button4,new Position(600, 300, 150, 120, 102));
-    _cloneAndMove(button1,new Position(850, 300, 150, 120, 102));
-    
-    _cloneAndMove(button2,new Position(150, 500, 50, 50, 102));
-    _cloneAndMove(button3,new Position(500, 300, 50, 50, 102));
-    _cloneAndMove(button4,new Position(600, 500, 50, 50, 102));
-    _cloneAndMove(button1,new Position(850, 500, 50, 50, 102));
-    
-    _cloneAndMove(button2,new Position(150, 600, 250, 120, 103));
-    _cloneAndMove(button3,new Position(600, 600, 300, 200, 103));
-  }
-  
-  void _cloneAndMove(Button button,Position position){
-    layout.append(button.cloneAndMove(position));
-  }  
 
 }
