@@ -9,6 +9,8 @@ import 'package:gex_common_ui_elements/elements/page.dart' ;
 import 'package:gex_common_ui_elements/elements/button.dart' ;
 
 
+import 'bus.dart';
+
 @CustomTag('page-buttons')
 class PageButtons extends Page with Showable {
   
@@ -63,7 +65,7 @@ class PageButtons extends Page with Showable {
     button3.init(new ButtonModel(color:Color.GREEN_07CC00.inverse(), image: new Image(mainImageUrl:"images/button/save29.png"),label: "Action 3", action: action3 ));
     
     button4 = $["button4"] as Button ; 
-    button4.init(new ButtonModel(color:Color.BLUE_0082C8, image: new Image(mainImageUrl:  "/images/button/save29.png",mainImageUrl2:"/images/button/map32.png" ),label: "Action 4", action: action4 ));
+    button4.init(new ButtonModel(color:Color.BLUE_0082C8, image: new Image(mainImageUrl:  "/images/button/save29.png",mainImageUrl2:"/images/button/vehicle12.png" ),label: "Call bus page", action: action4 ));
     
   }
 
@@ -87,6 +89,8 @@ class PageButtons extends Page with Showable {
   }
   action4(Parameters params){
     layout.color =Color.BLUE_0082C8.lightColorAsColor ;
+    
+    fireApplicationEvent(new PageCallEvent.fromPageKey(this, new PageKey(name: PageBus.NAME))   );
   }
   
 
