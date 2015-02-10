@@ -11,6 +11,7 @@ import 'package:gex_webapp_kit_client/elements/application.dart';
 
 import 'pages/home.dart';
 import 'pages/bus.dart';
+import 'pages/login.dart';
 import 'pages/view_port.dart';
 import 'pages/buttons.dart';
 
@@ -50,6 +51,7 @@ class ShowRoomApplication extends Application {
 
   void _setAttributes() {
     addPage(new Element.tag('page-home'));
+    addPage(new Element.tag('page-login'));
     addPage(new Element.tag('page-buttons'));
     addPage(new Element.tag('page-bus'));
     addPage(new Element.tag('page-view-port'));
@@ -70,6 +72,11 @@ class ShowRoomApplication extends Application {
     addToolbar(toolbarModel);
 
     List<ButtonModel> bottomToolbar = new List<ButtonModel>();
+    bottomToolbar.add(new ButtonModel(
+        label: "Login",
+        image: new Image(mainImageUrl: "images/button/login.png"),
+        type: ButtonType.PAGE_LAUNCHER,
+        targetPageKey: new PageKey(name: PageLogin.NAME)));
     bottomToolbar.add(new ButtonModel(
         label: "Events",
         image: new Image(mainImageUrl: "images/button/vehicle12.png"),
