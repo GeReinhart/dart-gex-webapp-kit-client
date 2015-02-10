@@ -1,4 +1,6 @@
-part of gex_common_ui_elements;
+// Copyright (c) 2015, Gérald Reinhart. All rights reserved. Use of this source code
+// is governed by a BSD-style license that can be found in the LICENSE file.
+part of gex_webapp_kit_client;
 
 typedef void LaunchAction(Parameters params);
 

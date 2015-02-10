@@ -1,13 +1,15 @@
-library gex_common_ui_elements.test_extensible_button;
+// Copyright (c) 2015, Gérald Reinhart. All rights reserved. Use of this source code
+// is governed by a BSD-style license that can be found in the LICENSE file.
+library gex_webapp_kit_client.test_button;
 
 import 'package:unittest/unittest.dart';
 import 'package:mockito/mockito.dart';
 import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
-import 'package:gex_common_ui_elements/common_ui_elements.dart';
-import 'package:gex_common_ui_elements/elements/space.dart';
-import 'package:gex_common_ui_elements/elements/button.dart';
+import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
+import 'package:gex_webapp_kit_client/elements/space.dart';
+import 'package:gex_webapp_kit_client/elements/button.dart';
 
 main() {
   initPolymer();

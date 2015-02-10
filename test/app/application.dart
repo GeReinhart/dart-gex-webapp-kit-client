@@ -1,10 +1,12 @@
-library gex_common_ui_elements.test_app;
+// Copyright (c) 2015, Gérald Reinhart. All rights reserved. Use of this source code
+// is governed by a BSD-style license that can be found in the LICENSE file.
+library gex_webapp_kit_client.test_app;
 
 import 'dart:html';
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
-import 'package:gex_common_ui_elements/common_ui_elements.dart';
-import 'package:gex_common_ui_elements/elements/application.dart';
+import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
+import 'package:gex_webapp_kit_client/elements/application.dart';
 import '../test_bus.dart';
 
 @CustomTag('gex-test-application')

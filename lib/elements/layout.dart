@@ -1,12 +1,14 @@
-library gex_common_ui_elements.layout;
+// Copyright (c) 2015, Gérald Reinhart. All rights reserved. Use of this source code
+// is governed by a BSD-style license that can be found in the LICENSE file.
+library gex_webapp_kit_client.layout;
 
 import "dart:html";
 import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 
-import 'package:gex_common_ui_elements/common_ui_elements.dart';
+import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 
-import 'package:gex_common_ui_elements/elements/toolbar.dart';
+import 'package:gex_webapp_kit_client/elements/toolbar.dart';
 
 /**
  * Create a workspace inside the available space.

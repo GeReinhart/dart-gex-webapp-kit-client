@@ -1,4 +1,4 @@
-name: gex_common_ui_elements
+name: gex_webapp_kit_client
 version: 0.1.0+24
 description: A starter template for a polymer.dart web app.
 environment:
@@ -11,18 +11,18 @@ dependencies:
   shelf: '>=0.5.6 <0.6.0'
   shelf_static: '>=0.2.1 <0.3.0'
 dev_dependencies:
-  unittest: ">=0.11.4 <0.12.0" 
-  mockito: ">=0.8.1 <0.9.0"  
+  mockito: '>=0.8.1 <0.9.0'
+  unittest: '>=0.11.4 <0.12.0'
 transformers:
 - polymer:
     entry_points:
-      - web/index.html
-      - test/test_button.html
-      - test/test_toolbar.html      
-      - test/test_view_port.html  
-      - test/test_application.html  
-      - test/test_bus.html
-      - test/test_routing.html      
+    - web/index.html
+    - test/test_button.html
+    - test/test_toolbar.html
+    - test/test_view_port.html
+    - test/test_application.html
+    - test/test_bus.html
+    - test/test_routing.html
 - $dart2js:
     commandLineOptions:
-      - --enable-enum
+    - --enable-enum

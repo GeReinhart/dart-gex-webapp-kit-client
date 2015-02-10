@@ -1,15 +1,16 @@
-library gex_common_ui_elements.application;
+// Copyright (c) 2015, Gérald Reinhart. All rights reserved. Use of this source code
+// is governed by a BSD-style license that can be found in the LICENSE file.
+library gex_webapp_kit_client.application;
 
 import "dart:html" hide ScreenOrientation;
 import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
-import 'dart:async';
 
-import 'package:gex_common_ui_elements/common_ui_elements.dart';
+import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 
-import 'package:gex_common_ui_elements/elements/toolbar.dart';
-import 'package:gex_common_ui_elements/elements/view_port.dart';
-import 'package:gex_common_ui_elements/elements/page.dart';
+import 'package:gex_webapp_kit_client/elements/toolbar.dart';
+import 'package:gex_webapp_kit_client/elements/view_port.dart';
+import 'package:gex_webapp_kit_client/elements/page.dart';
 
 /**
  * Listen to the screen/window changes and broadcast ViewPort change events.

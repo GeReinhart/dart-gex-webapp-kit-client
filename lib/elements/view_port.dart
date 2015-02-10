@@ -1,10 +1,12 @@
-library gex_common_ui_elements.virtual_screen;
+// Copyright (c) 2015, Gérald Reinhart. All rights reserved. Use of this source code
+// is governed by a BSD-style license that can be found in the LICENSE file.
+library gex_webapp_kit_client.virtual_screen;
 
 import "dart:html";
 import 'dart:js' as js;
 import 'package:logging/logging.dart';
 import 'dart:async';
-import 'package:gex_common_ui_elements/common_ui_elements.dart';
+import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:polymer/polymer.dart';
 
 /**

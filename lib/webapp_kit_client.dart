@@ -1,4 +1,6 @@
-library gex_common_ui_elements;
+// Copyright (c) 2015, Gérald Reinhart. All rights reserved. Use of this source code
+// is governed by a BSD-style license that can be found in the LICENSE file.
+library gex_webapp_kit_client;
 
 import 'package:polymer/polymer.dart';
 import "dart:html";
