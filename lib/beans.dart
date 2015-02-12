@@ -222,6 +222,3 @@ class Image {
     return clone;
   }
 }
-
-
-

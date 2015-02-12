@@ -120,12 +120,6 @@ class ViewPortChangeEvent extends ApplicationEvent {
   }
 }
 
-
-
-
-
-
-
 class ApplicationEventBus {
   StreamController<ApplicationEvent> _applicationEventStream =
       new StreamController<ApplicationEvent>.broadcast(sync: false);
@@ -171,9 +165,6 @@ class ApplicationEventCallBackHolder {
 class ApplicationEventLogger extends Object with ApplicationEventPassenger {
   final Logger log = new Logger('ApplicationEventLogger');
 
-
-  
-  
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
     log.info(event.toString());
