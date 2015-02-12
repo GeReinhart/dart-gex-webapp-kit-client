@@ -6,10 +6,12 @@ import 'package:logging/logging.dart';
 
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:gex_webapp_kit_client/elements/layout.dart';
+import 'package:gex_webapp_kit_client/elements/application.dart';
 
 abstract class Page extends Positionable with Showable, ApplicationEventPassenger {
   final Logger log = new Logger('Page');
 
+  Application _application ; 
   Layout _layout;
   PageModel _model;
 
@@ -24,6 +26,11 @@ abstract class Page extends Positionable with Showable, ApplicationEventPassenge
   PageModel get model => _model.clone();
   String get name => _model.name;
 
+  set application ( Application value){
+    _application = value;
+  }
+  get application => _application;
+  
   void _setAttributes() {
     _layout = $["layout"] as Layout;
   }

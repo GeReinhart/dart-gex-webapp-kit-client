@@ -203,6 +203,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   void addPage(Page page) {
     _pagesContainer.append(page);
     _pages.add(page);
+    page.application = this;
     page.hide();
     page.moveTo(position);
   }

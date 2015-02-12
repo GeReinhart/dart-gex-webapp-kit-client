@@ -18,17 +18,26 @@ import 'pages/buttons.dart';
 void main() {
   initPolymer().run(() {
     Polymer.onReady.then((_) {
+      
+      
+      Logger.root.level = Level.ALL;
+      Logger.root.onRecord.listen((LogRecord rec) {
+        print('${rec.level.name}: ${rec.time}: ${rec.message}');
+      });
+      
       ShowRoomApplication application = querySelector("#application") as ShowRoomApplication;
+      
       ApplicationEventBus applicationEventBus = new ApplicationEventBus();
       PageKeyUrlConverter pageKeyUrlConverter = new PageKeyUrlConverter();
-      ApplicationEventLogger applicationEventLogger = new ApplicationEventLogger();
-
       Router router = new Router(pageKeyUrlConverter);
-
+      ApplicationEventLogger applicationEventLogger = new ApplicationEventLogger();
+      Authenticator authenticator = new GoogleAuthenticator("765376678220-21161f3h7quqp1l57mh96sopdjndhntl.apps.googleusercontent.com");
+      
+      authenticator.setApplicationEventBus(applicationEventBus);
       router.setApplicationEventBus(applicationEventBus);
       application.setApplicationEventBus(applicationEventBus);
       applicationEventLogger.setApplicationEventBus(applicationEventBus);
-
+      
       router.init();
       application.init();
     });

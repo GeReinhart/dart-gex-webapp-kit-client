@@ -111,7 +111,7 @@ class ViewPortChangeEvent extends ApplicationEvent {
   ViewPortModel get viewPortModel => _viewPortModel.clone();
 
   ViewPortChangeEvent clone() {
-    return new ViewPortChangeEvent(this.sender, this._viewPortModel.clone());
+    return new ViewPortChangeEvent(this.sender, this.viewPortModel);
   }
 
   @override
@@ -119,6 +119,12 @@ class ViewPortChangeEvent extends ApplicationEvent {
     return "ViewPortChangeEvent: ${_viewPortModel}";
   }
 }
+
+
+
+
+
+
 
 class ApplicationEventBus {
   StreamController<ApplicationEvent> _applicationEventStream =
@@ -165,6 +171,9 @@ class ApplicationEventCallBackHolder {
 class ApplicationEventLogger extends Object with ApplicationEventPassenger {
   final Logger log = new Logger('ApplicationEventLogger');
 
+
+  
+  
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
     log.info(event.toString());

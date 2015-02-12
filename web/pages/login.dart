@@ -4,6 +4,8 @@ library gex_webapp_kit_client.show_room.login;
 
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
+
+
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:gex_webapp_kit_client/elements/layout.dart';
 import 'package:gex_webapp_kit_client/elements/page.dart';
@@ -23,7 +25,7 @@ class PageLogin extends Page with Showable {
     super.ready();
     _setAttributes();
   }
-
+  
   void _setAttributes() {
     layout = $["layout"] as Layout;
 
@@ -44,9 +46,10 @@ class PageLogin extends Page with Showable {
   }
 
   login(Parameters params) {
-    // TODO Login
+    fireApplicationEvent( new CallUserAuthEvent(this));
   }
-
+  
+  
   cancel(Parameters params) {
     // TODO cancel
   }
