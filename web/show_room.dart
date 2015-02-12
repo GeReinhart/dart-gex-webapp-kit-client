@@ -29,8 +29,8 @@ void main() {
       PageKeyUrlConverter pageKeyUrlConverter = new PageKeyUrlConverter();
       Router router = new Router(pageKeyUrlConverter);
       ApplicationEventLogger applicationEventLogger = new ApplicationEventLogger();
-      Authenticator authenticator =
-          new GoogleAuthenticator("765376678220-21161f3h7quqp1l57mh96sopdjndhntl.apps.googleusercontent.com");
+
+      Authenticator authenticator = new GoogleAuthenticator(clientId());
 
       authenticator.setApplicationEventBus(applicationEventBus);
       router.setApplicationEventBus(applicationEventBus);
@@ -41,6 +41,17 @@ void main() {
       application.init();
     });
   });
+}
+
+String clientId() {
+  if (window.location.hostname == "localhost") {
+    return "765376678220-21161f3h7quqp1l57mh96sopdjndhntl.apps.googleusercontent.com";
+  }
+  if (window.location.hostname == "gex-webapp-kit.herokuapp.com") {
+    return "765376678220-i7rcrl0nsqgafsh9fcjhc8kr4q6gefk7.apps.googleusercontent.com";
+  }
+
+  return "";
 }
 
 @CustomTag('show-room-app')
