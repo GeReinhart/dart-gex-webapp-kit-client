@@ -128,7 +128,16 @@ class GoogleAuthenticator extends Authenticator {
           log.warning("login failed with immediate: false, onlyLoadToken: true");
           _auth.login(immediate: false, onlyLoadToken: false).then(_oauthReady).catchError((e) {
             log.warning("login failed with immediate: false, onlyLoadToken: false");
-            fireApplicationEvent(new UserAuthFailEvent(this, e.toString()));
+            if ( e.toString().contains("User closed the window") ){
+              log.warning("User closed the window... wait and retry");
+              new Timer(new Duration(milliseconds: 2000),(){
+                _auth.login(immediate: true).then(_oauthReady).catchError((e) {
+                  fireApplicationEvent(new UserAuthFailEvent(this, e.toString()));
+                });
+              });
+            }else{
+              fireApplicationEvent(new UserAuthFailEvent(this, e.toString()));
+            }
           });
         });
       });
