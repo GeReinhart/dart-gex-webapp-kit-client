@@ -118,7 +118,7 @@ class GoogleAuthenticator extends Authenticator {
 
   @override
   void login() {
-    _auth.login(immediate: true, onlyLoadToken: false).then(_oauthReady).catchError((e) {
+    _auth.login().then(_oauthReady).catchError((e) {
       fireApplicationEvent(new UserAuthFailEvent(this, e.toString()));
     });
   }
