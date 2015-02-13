@@ -2,6 +2,7 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 library gex_webapp_kit_client.show_room.login;
 
+import "dart:html";
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
 
@@ -17,7 +18,12 @@ class PageLogin extends Page with Showable {
   Color mainColor = Color.BLUE_0082C8;
 
   Layout layout;
-
+  SpanElement openIdSpan;
+  SpanElement emailSpan;
+  SpanElement displayNameSpan;
+  ImageElement avatarImg;  
+  
+  
   PageLogin.created() : super.created();
 
   ready() {
@@ -26,6 +32,11 @@ class PageLogin extends Page with Showable {
   }
 
   void _setAttributes() {
+    openIdSpan = this.shadowRoot.querySelector("#openId") as SpanElement;
+    emailSpan = this.shadowRoot.querySelector("#email") as SpanElement;
+    displayNameSpan = this.shadowRoot.querySelector("#displayName") as SpanElement;
+    avatarImg = this.shadowRoot.querySelector("#avatar") as ImageElement;    
+    
     layout = $["layout"] as Layout;
 
     List<ButtonModel> buttonModels = new List<ButtonModel>();
@@ -42,12 +53,27 @@ class PageLogin extends Page with Showable {
     LayoutModel layoutModel = new LayoutModel(toolbarModel: toolbarModel, color: mainColor);
     PageModel model = new PageModel(name: NAME, layoutModel: layoutModel);
     this.init(model);
+    
+    
+    
   }
 
   login(Parameters params) {
     fireApplicationEvent(new CallUserAuthEvent(this));
   }
-
+  @override
+  void recieveApplicationEvent(ApplicationEvent event) {
+    super.recieveApplicationEvent(event);
+    if (event is UserAuthEvent){
+      openIdSpan.innerHtml = event.user.openId ;
+      emailSpan.innerHtml = event.user.email ;
+      displayNameSpan.innerHtml = event.user.displayName ;
+      avatarImg.src = event.user.imageUrl ;
+    }
+    
+  }
+  
+  
   cancel(Parameters params) {
     // TODO cancel
   }

@@ -3,16 +3,16 @@
 part of gex_webapp_kit_client;
 
 class User {
-  String _userId;
+  String _openId;
   String _email;
   String _displayName;
   String _familyName;
   String _givenName;
   String _imageUrl;
 
-  User({String userId, String email, String displayName, String givenName, String familyName, String imageUrl}) {
-    assert(userId != null);
-    _userId = userId;
+  User({String openId, String email, String displayName, String givenName, String familyName, String imageUrl}) {
+    assert(openId != null);
+    _openId = openId;
     _email = email;
     _displayName = displayName;
     _familyName = familyName;
@@ -20,20 +20,20 @@ class User {
     _imageUrl = imageUrl;
   }
 
-  String get userId => _userId;
+  String get openId => _openId;
   String get email => _email;
-  String get displayName => _displayName;
+  String get displayName => _displayName != null ? _displayName : "${_givenName} ${_familyName}" ;
   String get familyName => _familyName;
   String get givenName => _givenName;
   String get imageUrl => _imageUrl;
 
   @override
   String toString() =>
-      "User: userId:${_userId}, email:${_email}, displayName:${_displayName}, givenName:${_givenName}, familyName:${_familyName}, imageUrl:${_imageUrl}";
+      "User: openId:${_openId}, email:${_email}, displayName:${_displayName}, givenName:${_givenName}, familyName:${_familyName}, imageUrl:${_imageUrl}";
 
   User clone() {
     return new User(
-        userId: _userId,
+        openId: _openId,
         email: _email,
         displayName: _displayName,
         familyName: _familyName,
@@ -63,7 +63,7 @@ class UserAuthEvent extends ApplicationEvent {
   UserAuthEvent(Object sender, User user) : super(sender: sender, name: "UserAuthEvent") {
     _user = user;
     List<Parameter> parameters = new List<Parameter>();
-    parameters.add(new Parameter("userId", _user.userId));
+    parameters.add(new Parameter("userId", _user.openId));
     _params = new Parameters(parameters);
     _type = "UserAuthEvent";
   }
@@ -159,7 +159,7 @@ class GoogleAuthenticator extends Authenticator {
         String imageUrl = data["image"] == null ? null : data["image"]["url"];
 
         User user = new User(
-            userId: token.userId,
+            openId: token.userId,
             email: token.email,
             displayName: displayName,
             givenName: givenName,
