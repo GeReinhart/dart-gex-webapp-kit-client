@@ -8,16 +8,16 @@ class User {
   String _displayName;
   String _familyName;
   String _givenName;
-  String _imageUrl;
+  String _avatarUrl;
 
-  User({String openId, String email, String displayName, String givenName, String familyName, String imageUrl}) {
+  User({String openId, String email, String displayName, String givenName, String familyName, String avatarUrl}) {
     assert(openId != null);
     _openId = openId;
     _email = email;
     _displayName = displayName;
     _familyName = familyName;
     _givenName = givenName;
-    _imageUrl = imageUrl;
+    _avatarUrl = avatarUrl;
   }
 
   String get openId => _openId;
@@ -25,11 +25,11 @@ class User {
   String get displayName => _displayName != null ? _displayName : "${_givenName} ${_familyName}" ;
   String get familyName => _familyName;
   String get givenName => _givenName;
-  String get imageUrl => _imageUrl;
+  String get avatarUrl => _avatarUrl;
 
   @override
   String toString() =>
-      "User: openId:${_openId}, email:${_email}, displayName:${_displayName}, givenName:${_givenName}, familyName:${_familyName}, imageUrl:${_imageUrl}";
+      "User: openId:${_openId}, email:${_email}, displayName:${_displayName}, givenName:${_givenName}, familyName:${_familyName}, imageUrl:${_avatarUrl}";
 
   User clone() {
     return new User(
@@ -38,7 +38,7 @@ class User {
         displayName: _displayName,
         familyName: _familyName,
         givenName: _givenName,
-        imageUrl: _imageUrl);
+        avatarUrl: _avatarUrl);
   }
 }
 
@@ -164,7 +164,7 @@ class GoogleAuthenticator extends Authenticator {
             displayName: displayName,
             givenName: givenName,
             familyName: familyName,
-            imageUrl: imageUrl);
+            avatarUrl: imageUrl);
 
         fireApplicationEvent(new UserAuthEvent(this, user));
       } else {

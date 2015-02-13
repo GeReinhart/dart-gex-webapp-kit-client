@@ -9,10 +9,10 @@
          
          
           <ul>
-           <li><span>OpenId: </span><span id="openId" ></span></li>
-           <li><span>Email: </span><span id="email" ></span></li>
-           <li><span>Display name: </span><span id="displayName" ></span></li>
-           <li><span>Avatar: </span><span><img id="avatar" /></span></li>
+           <li><span>OpenId: </span><span  >{{user.openId}}</span></li>
+           <li><span>Email: </span><span>{{user.email}}</span></li>
+           <li><span>Display name: </span><span>{{user.displayName}}</span></li>
+           <li><span>Avatar: </span><span><img src="{{user.avatarUrl}}"  /></span></li>
          </ul> 
          
     </gex-layout>
