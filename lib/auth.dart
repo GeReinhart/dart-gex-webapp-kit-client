@@ -102,6 +102,8 @@ abstract class Authenticator extends Object with ApplicationEventPassenger {
 }
 
 class GoogleAuthenticator extends Authenticator {
+  final Logger log = new Logger('GoogleAuthenticator');
+  
   String _clientId;
   GoogleOAuth2 _auth;
 
@@ -118,8 +120,18 @@ class GoogleAuthenticator extends Authenticator {
 
   @override
   void login() {
-    _auth.login().then(_oauthReady).catchError((e) {
-      fireApplicationEvent(new UserAuthFailEvent(this, e.toString()));
+    _auth.login(immediate: true,onlyLoadToken: true).then(_oauthReady).catchError((e) {
+      log.warning("login failed with immediate: true,onlyLoadToken: true");
+      _auth.login(immediate: true, onlyLoadToken: false).then(_oauthReady).catchError((e) {
+        log.warning("login failed with immediate: true, onlyLoadToken: false");
+        _auth.login(immediate: false, onlyLoadToken: true).then(_oauthReady).catchError((e) {
+          log.warning("login failed with immediate: false, onlyLoadToken: true");
+          _auth.login(immediate: false, onlyLoadToken: false).then(_oauthReady).catchError((e) {
+            log.warning("login failed with immediate: false, onlyLoadToken: false");
+            fireApplicationEvent(new UserAuthFailEvent(this, e.toString()));
+          });
+        });
+      });
     });
   }
 

@@ -178,18 +178,6 @@ class Button extends Positionable with Showable, ApplicationEventPassenger {
     _imageElement2.style.zIndex = "${position.zIndex +1 }";
     _button.style.zIndex = "${position.zIndex +2 }";
     _colorElement.style.zIndex = "${position.zIndex -1}";
-
-    try {
-      Element internalButton = _button.shadowRoot.querySelector('div');
-      internalButton.style
-        ..position = "absolute"
-        ..left = "0px"
-        ..top = "0px"
-        ..width = "${position.width}px"
-        ..height = "${position.height}px";
-    } catch (exception) {
-      log.fine("Unable to change size of the internal button of ExtensibleButton ${id}");
-    }
   }
 
   @override
