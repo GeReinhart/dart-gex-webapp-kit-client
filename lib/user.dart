@@ -114,6 +114,26 @@ class LoginUserEvent extends ApplicationEvent {
   }
 }
 
+class LogoutUserEvent extends ApplicationEvent {
+  User _user;
+
+  LogoutUserEvent(Object sender, User user) : super(sender) {
+    _user = user;
+    _type = "LogoutUserEvent";
+  }
+
+  User get user => _user.clone();
+
+  LogoutUserEvent clone() {
+    return new LogoutUserEvent(this.sender, this.user);
+  }
+
+  @override
+  String toString() {
+    return "LogoutUserEvent: ${_user}";
+  }
+}
+
 class CallRegisterUserEvent extends ApplicationEvent {
   User _user;
 

@@ -104,6 +104,16 @@ class Button extends Positionable with Showable, ApplicationEventPassenger {
       }
       return;
     }
+    if (_model.type == ButtonType.LOGIN_PROFILE) {
+      if (_model.hasUser) {
+        if (_model.targetPageKey != null) {
+          fireApplicationEvent(new PageCallEvent.fromPageKey(this, _model.targetPageKey));
+        }
+      } else {
+        fireApplicationEvent(new CallUserAuthEvent(this));
+      }
+      return;
+    }
     if (_model.action != null) {
       _model.action(null);
     }
@@ -122,7 +132,10 @@ class Button extends Positionable with Showable, ApplicationEventPassenger {
       return;
     }
     super.moveTo(position);
+    _moveButtonTo(position);
+  }
 
+  void _moveButtonTo(Position position) {
     Position fullButtonPosition = new Position(0, 0, position.width, position.height, 100);
     moveAnElementTo(_mainElement, fullButtonPosition);
     moveAnElementTo(_shadow, fullButtonPosition);
@@ -192,7 +205,6 @@ class Button extends Positionable with Showable, ApplicationEventPassenger {
     if (_model.type == ButtonType.PAGE_LAUNCHER) {
       if (_model.targetPageKey != null) {
         if (event is PageDisplayedEvent) {
-          PageDisplayedEvent pageDisplayed = event;
           if (event.pageName == _model.targetPageKey.name) {
             this.status = ButtonStatus.HIGHLIGHTED;
           } else {
@@ -202,6 +214,20 @@ class Button extends Positionable with Showable, ApplicationEventPassenger {
       }
       return;
     }
+    if (_model.type == ButtonType.LOGIN_PROFILE) {
+      if (event is LoginUserEvent) {
+        _model.user = event.user;
+        _labelSpan.innerHtml = _model.label;
+        _imageElement.src = _model.image.mainImageUrl;
+      }
+      if (event is LogoutUserEvent) {
+        _model.user = null;
+        _labelSpan.innerHtml = _model.label;
+        _imageElement.src = _model.image.mainImageUrl;
+      }
+      return;
+    }
+
     _model.recieveApplicationEvent(event);
   }
 

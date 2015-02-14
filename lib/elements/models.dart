@@ -9,23 +9,29 @@ enum ButtonStatus {
 
 enum ButtonType {
   PAGE_LAUNCHER,
+  LOGIN_PROFILE,
   CUSTOM
 }
 
 class ButtonModel extends Object with ApplicationEventCallBackHolder {
   Color _color;
   Image _image;
+  Image _originalImage;
   String _label;
+  String _originalLabel;
   ButtonStatus _status = ButtonStatus.NORMAL;
   ButtonType _type = ButtonType.CUSTOM;
   PageKey _targetPageKey;
   LaunchAction _action;
+  User _user;
 
   ButtonModel({Color color, Image image, String label, ButtonType type, PageKey targetPageKey, LaunchAction action,
       ApplicationEventCallBack applicationEventCallBack}) {
     this.color = color;
     _image = image;
+    _originalImage = image;
     _label = label;
+    _originalLabel = label;
     _type = type;
     _targetPageKey = targetPageKey;
     _action = action;
@@ -40,6 +46,19 @@ class ButtonModel extends Object with ApplicationEventCallBackHolder {
       _color = value;
     }
   }
+
+  bool get hasUser => _user != null;
+  set user(User value) {
+    _user = value;
+    if (value == null) {
+      _image = _originalImage;
+      _label = _originalLabel;
+    } else {
+      _image = new Image(mainImageUrl: value.avatarUrl);
+      _label = value.displayName;
+    }
+  }
+  User get user => _user;
 
   ButtonStatus get status => _status;
   set status(ButtonStatus value) {
@@ -58,6 +77,12 @@ class ButtonModel extends Object with ApplicationEventCallBackHolder {
   LaunchAction get action => _action;
   set action(LaunchAction action) {
     _action = action;
+  }
+  set image(Image image) {
+    _image = image;
+  }
+  set label(String label) {
+    _label = label;
   }
 
   ActionDescriptor get actionDescriptor => new ActionDescriptor(name: _label, launchAction: _action);

@@ -10,9 +10,9 @@ import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:gex_webapp_kit_client/elements/layout.dart';
 import 'package:gex_webapp_kit_client/elements/page.dart';
 
-@CustomTag('page-login')
-class PageLogin extends Page with Showable {
-  static final String NAME = "login";
+@CustomTag('page-profile')
+class PageProfile extends Page with Showable {
+  static final String NAME = "profile";
   final Logger log = new Logger(NAME);
 
   Color mainColor = Color.BLUE_0082C8;
@@ -21,7 +21,7 @@ class PageLogin extends Page with Showable {
 
   @observable User user;
 
-  PageLogin.created() : super.created();
+  PageProfile.created() : super.created();
 
   ready() {
     super.ready();
@@ -33,9 +33,7 @@ class PageLogin extends Page with Showable {
 
     List<ButtonModel> buttonModels = new List<ButtonModel>();
     buttonModels.add(
-        new ButtonModel(label: "Login", action: login, image: new Image(mainImageUrl: "/images/button/login.png")));
-    buttonModels.add(
-        new ButtonModel(label: "Cancel", action: cancel, image: new Image(mainImageUrl: "/images/button/back57.png")));
+        new ButtonModel(label: "Logout", action: logout, image: new Image(mainImageUrl: "/images/button/logout.png")));
     ToolbarModel toolbarModel = new ToolbarModel(
         buttons: buttonModels,
         color: mainColor,
@@ -47,7 +45,7 @@ class PageLogin extends Page with Showable {
     this.init(model);
   }
 
-  login(Parameters params) {
+  void login(Parameters params) {
     fireApplicationEvent(new CallUserAuthEvent(this));
   }
   @override
@@ -58,7 +56,8 @@ class PageLogin extends Page with Showable {
     }
   }
 
-  cancel(Parameters params) {
+  void logout(Parameters params) {
+    fireApplicationEvent(new LogoutUserEvent(this, user));
     user = null;
   }
 }
