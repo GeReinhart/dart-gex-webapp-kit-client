@@ -106,8 +106,8 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
       return;
     }
     if (event is PageCallEvent) {
-      _showPage(pageName: event.name, params: event.params);
-      fireApplicationEvent(new PageDisplayedEvent(sender: this, pageName: event.name, params: event.params));
+      _showPage(pageName: event.pageName, params: event.params);
+      fireApplicationEvent(new PageDisplayedEvent(sender: this, pageName: event.pageName, params: event.params));
       return;
     }
     if (event is ViewPortChangeEvent && _fitWithWindow) {

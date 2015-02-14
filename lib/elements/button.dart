@@ -193,7 +193,7 @@ class Button extends Positionable with Showable, ApplicationEventPassenger {
       if (_model.targetPageKey != null) {
         if (event is PageDisplayedEvent) {
           PageDisplayedEvent pageDisplayed = event;
-          if (event.name == _model.targetPageKey.name) {
+          if (event.pageName == _model.targetPageKey.name) {
             this.status = ButtonStatus.HIGHLIGHTED;
           } else {
             this.status = ButtonStatus.NORMAL;

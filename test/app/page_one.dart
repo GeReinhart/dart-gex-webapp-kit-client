@@ -54,6 +54,6 @@ class PageOne extends Page with Showable {
   }
 
   void recieveApplicationEventPages(ApplicationEvent event) {
-    dummyActionPages.doSomething(event.name);
+    dummyActionPages.doSomething(event.type);
   }
 }

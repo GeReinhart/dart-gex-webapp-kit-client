@@ -7,33 +7,14 @@ typedef void ApplicationEventCallBack(ApplicationEvent event);
 class ApplicationEvent {
   Object _sender;
   String _type = "ApplicationEvent";
-  String _name;
-  Parameters _params;
-  Parameters _resources;
 
-  ApplicationEvent({Object sender, String name, Parameters resources, Parameters params}) {
+  ApplicationEvent(Object sender) {
     assert(sender != null);
-    assert(name != null);
-
     _sender = sender;
-    _name = name;
-    if (params == null) {
-      _params = new Parameters(null);
-    } else {
-      _params = params;
-    }
-    if (resources == null) {
-      _resources = new Parameters(null);
-    } else {
-      _resources = resources;
-    }
   }
 
   Object get sender => _sender;
-  String get name => _name;
   String get type => _type;
-  Parameters get params => _params.clone();
-  Parameters get resources => _resources.clone();
 
   bool iAmTheSender(Object other) {
     return identical(this, other);
@@ -41,70 +22,94 @@ class ApplicationEvent {
 
   @override
   String toString() {
-    return "ApplicationEvent: sender=${sender}, name=${name}, resources=${_resources}, params=${_params}";
+    return "ApplicationEvent: sender=${sender}";
   }
 }
 
 class PageCallEvent extends ApplicationEvent {
-  PageCallEvent({Object sender, String pageName, Parameters resources, Parameters params})
-      : super(sender: sender, name: pageName, resources: resources, params: params) {
+  String _pageName;
+  Parameters _params;
+  Parameters _resources;
+
+  PageCallEvent({Object sender, String pageName, Parameters resources, Parameters params}) : super(sender) {
+    _pageName = pageName;
+    _resources = resources == null ? new Parameters(null) : resources;
+    _params = params == null ? new Parameters(null) : params;
     _type = "PageCallEvent";
   }
 
-  PageCallEvent.fromPageKey(Object sender, PageKey pageKey)
-      : super(sender: sender, name: pageKey.name, resources: pageKey.resources, params: pageKey.params) {
+  PageCallEvent.fromPageKey(Object sender, PageKey pageKey) : super(sender) {
+    _pageName = pageKey.name;
+    _resources = pageKey.resources;
+    _params = pageKey.params;
     _type = "PageCallEvent";
   }
+
+  String get pageName => _pageName;
+  Parameters get params => _params.clone();
+  Parameters get resources => _resources.clone();
 
   @override
   String toString() {
-    return "PageCallEvent: sender=${sender}, name=${name}, resources=${_resources}, params=${_params}";
+    return "PageCallEvent: sender=${sender}, pageName=${_pageName}, resources=${_resources}, params=${_params}";
   }
 }
 
 class PageDisplayedEvent extends ApplicationEvent {
-  PageDisplayedEvent({Object sender, String pageName, Parameters resources, Parameters params})
-      : super(sender: sender, name: pageName, resources: resources, params: params) {
-    _type = "PageDisplayedEvent";
+  String _pageName;
+  Parameters _params;
+  Parameters _resources;
+
+  PageDisplayedEvent({Object sender, String pageName, Parameters resources, Parameters params}) : super(sender) {
+    _pageName = pageName;
+    _resources = resources == null ? new Parameters(null) : resources;
+    _params = params == null ? new Parameters(null) : params;
+    _type = "PageCallEvent";
   }
 
-  PageDisplayedEvent.fromPageKey(Object sender, PageKey pageKey)
-      : super(sender: sender, name: pageKey.name, resources: pageKey.resources, params: pageKey.params) {
-    _type = "PageDisplayedEvent";
+  PageDisplayedEvent.fromPageKey(Object sender, PageKey pageKey) : super(sender) {
+    _pageName = pageKey.name;
+    _resources = pageKey.resources;
+    _params = pageKey.params;
+    _type = "PageCallEvent";
   }
+
+  String get pageName => _pageName;
+  Parameters get params => _params.clone();
+  Parameters get resources => _resources.clone();
 
   @override
   String toString() {
-    return "PageDisplayedEvent: sender=${sender}, name=${name}, resources=${_resources}, params=${_params}";
+    return "PageCallEvent: sender=${sender}, pageName=${_pageName}, resources=${_resources}, params=${_params}";
   }
 }
 
 class PageBackEvent extends ApplicationEvent {
-  PageBackEvent({Object sender}) : super(sender: sender, name: "PageBackEvent") {
+  PageBackEvent(Object sender) : super(sender) {
     _type = "PageBackEvent";
   }
 
   @override
   String toString() {
-    return "PageBackEvent: sender=${sender}, name=${name}, resources=${_resources}, params=${_params}";
+    return "PageBackEvent: sender=${sender}";
   }
 }
 
 class PageIndexCallEvent extends ApplicationEvent {
-  PageIndexCallEvent({Object sender}) : super(sender: sender, name: "PageIndexCallEvent") {
+  PageIndexCallEvent(Object sender) : super(sender) {
     _type = "PageIndexCallEvent";
   }
 
   @override
   String toString() {
-    return "PageIndexCallEvent: sender=${sender}, name=${name}, resources=${_resources}, params=${_params}";
+    return "PageIndexCallEvent: sender=${sender}";
   }
 }
 
 class ViewPortChangeEvent extends ApplicationEvent {
   ViewPortModel _viewPortModel;
 
-  ViewPortChangeEvent(Object sender, this._viewPortModel) : super(sender: sender, name: "ViewPortChangeEvent") {
+  ViewPortChangeEvent(Object sender, this._viewPortModel) : super(sender) {
     _type = "ViewPortChangeEvent";
   }
 

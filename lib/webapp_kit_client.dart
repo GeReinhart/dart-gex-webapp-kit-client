@@ -11,7 +11,7 @@ import 'package:logging/logging.dart';
 import "package:google_oauth2_client/google_oauth2_browser.dart";
 
 part 'abilities.dart';
-part 'auth.dart';
+part 'user.dart';
 part 'beans.dart';
 part 'bus.dart';
 part 'colors.dart';

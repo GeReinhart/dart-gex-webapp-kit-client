@@ -22,7 +22,7 @@ class User {
 
   String get openId => _openId;
   String get email => _email;
-  String get displayName => _displayName != null ? _displayName : "${_givenName} ${_familyName}" ;
+  String get displayName => _displayName != null ? _displayName : "${_givenName} ${_familyName}";
   String get familyName => _familyName;
   String get givenName => _givenName;
   String get avatarUrl => _avatarUrl;
@@ -43,7 +43,7 @@ class User {
 }
 
 class CallUserAuthEvent extends ApplicationEvent {
-  CallUserAuthEvent(Object sender) : super(sender: sender, name: "CallUserAuthEvent") {
+  CallUserAuthEvent(Object sender) : super(sender) {
     _type = "CallUserAuthEvent";
   }
 
@@ -60,11 +60,8 @@ class CallUserAuthEvent extends ApplicationEvent {
 class UserAuthEvent extends ApplicationEvent {
   User _user;
 
-  UserAuthEvent(Object sender, User user) : super(sender: sender, name: "UserAuthEvent") {
+  UserAuthEvent(Object sender, User user) : super(sender) {
     _user = user;
-    List<Parameter> parameters = new List<Parameter>();
-    parameters.add(new Parameter("userId", _user.openId));
-    _params = new Parameters(parameters);
     _type = "UserAuthEvent";
   }
 
@@ -82,7 +79,7 @@ class UserAuthEvent extends ApplicationEvent {
 
 class UserAuthFailEvent extends ApplicationEvent {
   String _errorMessage;
-  UserAuthFailEvent(Object sender, String errorMessage) : super(sender: sender, name: "UserAuthFailEvent") {
+  UserAuthFailEvent(Object sender, String errorMessage) : super(sender) {
     _errorMessage = errorMessage;
     _type = "UserAuthFailEvent";
   }
@@ -97,13 +94,98 @@ class UserAuthFailEvent extends ApplicationEvent {
   }
 }
 
+class LoginUserEvent extends ApplicationEvent {
+  User _user;
+
+  LoginUserEvent(Object sender, User user) : super(sender) {
+    _user = user;
+    _type = "LoginUserEvent";
+  }
+
+  User get user => _user.clone();
+
+  LoginUserEvent clone() {
+    return new LoginUserEvent(this.sender, this.user);
+  }
+
+  @override
+  String toString() {
+    return "LoginUserEvent: ${_user}";
+  }
+}
+
+class CallRegisterUserEvent extends ApplicationEvent {
+  User _user;
+
+  CallRegisterUserEvent(Object sender, User user) : super(sender) {
+    _user = user;
+    _type = "CallRegisterUserEvent";
+  }
+
+  User get user => _user.clone();
+
+  CallRegisterUserEvent clone() {
+    return new CallRegisterUserEvent(this.sender, this.user);
+  }
+
+  @override
+  String toString() {
+    return "LoginUserEvent: ${_user}";
+  }
+}
+
+/**
+ * From a CallUserAuthEvent the flow ends either with UserAuthFailEvent or LoginUserEvent or CallRegisterUserEvent.
+ */
+class LoginFlow extends Object with ApplicationEventPassenger {
+  Authenticator _authenticator;
+  UserChecker _userChecker;
+
+  LoginFlow(this._authenticator, this._userChecker);
+
+  @override
+  void recieveApplicationEvent(ApplicationEvent event) {
+    if (event is CallUserAuthEvent) {
+      _authenticator.login();
+      return;
+    }
+    if (event is UserAuthEvent) {
+      if (_userChecker.knownUser(event.user)) {
+        fireApplicationEvent(new LoginUserEvent(this, _userChecker.decorateUser(event.user)));
+      } else {
+        fireApplicationEvent(new CallRegisterUserEvent(this, event.user));
+      }
+    }
+  }
+}
+
+class UserChecker {
+
+  /**
+   * Check if an authenticated user an actual user of the application
+   */
+  bool knownUser(User user) {
+    return true;
+  }
+
+  /**
+   * Get more information on the connected user than just authentication information
+   */
+  User decorateUser(User user) {
+    return user;
+  }
+}
+
+/**
+ * Authenticate an anonymous user and send either UserAuthEvent or UserAuthFailEvent event.
+ */
 abstract class Authenticator extends Object with ApplicationEventPassenger {
   void login();
 }
 
 class GoogleAuthenticator extends Authenticator {
   final Logger log = new Logger('GoogleAuthenticator');
-  
+
   String _clientId;
   GoogleOAuth2 _auth;
 
@@ -112,15 +194,8 @@ class GoogleAuthenticator extends Authenticator {
   }
 
   @override
-  void recieveApplicationEvent(ApplicationEvent event) {
-    if (event is CallUserAuthEvent) {
-      login();
-    }
-  }
-
-  @override
   void login() {
-    _auth.login(immediate: true,onlyLoadToken: true).then(_oauthReady).catchError((e) {
+    _auth.login(immediate: true, onlyLoadToken: true).then(_oauthReady).catchError((e) {
       log.warning("login failed with immediate: true,onlyLoadToken: true");
       _auth.login(immediate: true, onlyLoadToken: false).then(_oauthReady).catchError((e) {
         log.warning("login failed with immediate: true, onlyLoadToken: false");
@@ -128,14 +203,14 @@ class GoogleAuthenticator extends Authenticator {
           log.warning("login failed with immediate: false, onlyLoadToken: true");
           _auth.login(immediate: false, onlyLoadToken: false).then(_oauthReady).catchError((e) {
             log.warning("login failed with immediate: false, onlyLoadToken: false");
-            if ( e.toString().contains("User closed the window") ){
+            if (e.toString().contains("User closed the window")) {
               log.warning("User closed the window... wait and retry");
-              new Timer(new Duration(milliseconds: 2000),(){
+              new Timer(new Duration(milliseconds: 2000), () {
                 _auth.login(immediate: true).then(_oauthReady).catchError((e) {
                   fireApplicationEvent(new UserAuthFailEvent(this, e.toString()));
                 });
               });
-            }else{
+            } else {
               fireApplicationEvent(new UserAuthFailEvent(this, e.toString()));
             }
           });
@@ -156,7 +231,7 @@ class GoogleAuthenticator extends Authenticator {
         String displayName = data["displayName"];
         String familyName = data["name"] == null ? null : data["name"]["familyName"];
         String givenName = data["name"] == null ? null : data["name"]["givenName"];
-        String imageUrl = data["image"] == null ? null : data["image"]["url"];
+        String imageUrl = data["image"] == null ? null : data["image"]["url"].toString().replaceAll("sz=50", "sz=150");
 
         User user = new User(
             openId: token.userId,

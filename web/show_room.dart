@@ -31,7 +31,9 @@ void main() {
       ApplicationEventLogger applicationEventLogger = new ApplicationEventLogger();
 
       Authenticator authenticator = new GoogleAuthenticator(clientId());
+      LoginFlow loginFlow = new LoginFlow(authenticator, new UserChecker());
 
+      loginFlow.setApplicationEventBus(applicationEventBus);
       authenticator.setApplicationEventBus(applicationEventBus);
       router.setApplicationEventBus(applicationEventBus);
       application.setApplicationEventBus(applicationEventBus);

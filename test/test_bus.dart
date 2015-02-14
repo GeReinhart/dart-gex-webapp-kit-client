@@ -23,29 +23,29 @@ main() {
         application = querySelector("#application");
         application.moveTo(new Position(0, 0, 1000, 500, 100));
         application.setApplicationEventBus(applicationEventBus);
-        applicationEventBus.fireApplicationEvent(new ApplicationEvent(sender: applicationEventBus, name: "event"));
+        applicationEventBus.fireApplicationEvent(new ApplicationEvent(applicationEventBus));
       }
     });
 
     group('events propagation from bus', () {
       test('to application', () {
         new Timer(new Duration(milliseconds: 1000),
-            expectAsync(() => verify(application.dummyActionApplication.doSomething("event")).called(1)));
+            expectAsync(() => verify(application.dummyActionApplication.doSomething("ApplicationEvent")).called(1)));
       });
 
       test('to main toolbars', () {
         new Timer(new Duration(milliseconds: 1000),
-            expectAsync(() => verify(application.dummyActionToolBars.doSomething("event")).called(2)));
+            expectAsync(() => verify(application.dummyActionToolBars.doSomething("ApplicationEvent")).called(2)));
       });
 
       test('to main toolbars buttons', () {
-        new Timer(new Duration(milliseconds: 1000),
-            expectAsync(() => verify(application.dummyActionToolBarsButtons.doSomething("event")).called(3)));
+        new Timer(new Duration(milliseconds: 1000), expectAsync(
+            () => verify(application.dummyActionToolBarsButtons.doSomething("ApplicationEvent")).called(3)));
       });
 
       test('to pages', () {
-        new Timer(new Duration(milliseconds: 1000), expectAsync(
-            () => verify((application.pages[0] as PageOne).dummyActionPages.doSomething("event")).called(1)));
+        new Timer(new Duration(milliseconds: 1000), expectAsync(() =>
+            verify((application.pages[0] as PageOne).dummyActionPages.doSomething("ApplicationEvent")).called(1)));
       });
     });
   });

@@ -18,9 +18,9 @@ class PageLogin extends Page with Showable {
   Color mainColor = Color.BLUE_0082C8;
 
   Layout layout;
-  
-  @observable User user ;
-  
+
+  @observable User user;
+
   PageLogin.created() : super.created();
 
   ready() {
@@ -45,9 +45,6 @@ class PageLogin extends Page with Showable {
     LayoutModel layoutModel = new LayoutModel(toolbarModel: toolbarModel, color: mainColor);
     PageModel model = new PageModel(name: NAME, layoutModel: layoutModel);
     this.init(model);
-    
-    
-    
   }
 
   login(Parameters params) {
@@ -56,14 +53,12 @@ class PageLogin extends Page with Showable {
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
     super.recieveApplicationEvent(event);
-    if (event is UserAuthEvent){
-      user = event.user ;
+    if (event is UserAuthEvent) {
+      user = event.user;
     }
-    
   }
-  
-  
+
   cancel(Parameters params) {
-    user= null;
+    user = null;
   }
 }

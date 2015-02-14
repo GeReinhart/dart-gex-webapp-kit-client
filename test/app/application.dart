@@ -95,14 +95,14 @@ class TestApplication extends Application {
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
     super.recieveApplicationEvent(event);
-    dummyActionApplication.doSomething(event.name);
+    dummyActionApplication.doSomething(event.type);
   }
 
   void recieveApplicationEventToolBar(ApplicationEvent event) {
-    dummyActionToolBars.doSomething(event.name);
+    dummyActionToolBars.doSomething(event.type);
   }
 
   void recieveApplicationEventToolBarButtons(ApplicationEvent event) {
-    dummyActionToolBarsButtons.doSomething(event.name);
+    dummyActionToolBarsButtons.doSomething(event.type);
   }
 }
