@@ -11,6 +11,7 @@ import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:gex_webapp_kit_client/elements/toolbar.dart';
 import 'package:gex_webapp_kit_client/elements/view_port.dart';
 import 'package:gex_webapp_kit_client/elements/page.dart';
+import 'package:gex_webapp_kit_client/elements/spinner.dart';
 
 /**
  * Listen to the screen/window changes and broadcast ViewPort change events.
@@ -26,6 +27,10 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   List<Page> _pages = new List<Page>();
   Margin _margin = new Margin();
   Page _currentPage;
+
+  Spinner _spinner;
+  bool _loading = false;
+
   bool _fitWithWindow = true;
 
   Application.created() : super.created();
@@ -44,6 +49,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   }
 
   void _setAttributes() {
+    _spinner = $["spinner"] as Spinner;
     _viewPort = $["viewPort"] as ViewPort;
     _toolbarsContainer = $["toolBars"];
     _pagesContainer = $["pages"];
@@ -60,6 +66,11 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
 
   set fitWithWindow(bool value) {
     _fitWithWindow = value;
+  }
+
+  set loading(bool value) {
+    _loading = value;
+    _moveLoading(position);
   }
 
   @override
@@ -83,6 +94,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
 
     _moveToolBars(subElementPosition, position.orientation);
     _movePages(subElementPosition);
+    _moveLoading(position);
   }
 
   @override
@@ -112,6 +124,13 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     }
     if (event is ViewPortChangeEvent && _fitWithWindow) {
       moveTo(new Position(0, 0, event.viewPortModel.windowWidth, event.viewPortModel.windowHeight, 100));
+    }
+
+    if (event is CallUserAuthEvent) {
+      loading = true;
+    }
+    if (event is UserAuthFailEvent || event is LoginUserEvent || event is CallRegisterUserEvent) {
+      loading = false;
     }
   }
 
@@ -213,5 +232,12 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
       page.margin = _margin;
       page.moveTo(position);
     }
+  }
+
+  void _moveLoading(Position position) {
+    num zIndex = _loading ? 10000 : 0;
+    _spinner.size = position.smallerSection / 3;
+    _spinner
+        .moveTo(new Position(position.width / 3, position.height / 3, position.width / 3, position.height / 3, zIndex));
   }
 }

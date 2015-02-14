@@ -11,25 +11,22 @@ import 'package:polymer/polymer.dart';
 class Spinner extends Positionable with Showable {
   final Logger log = new Logger('ViewPort');
 
-  
   @observable
-  num mainSize ;
-  
-  @observable
-  num wBallSize ;
-  
-  @observable
-  num wInnerBallSize ;
+  num mainSize;
 
-  Spinner.created() : super.created(){
+  @observable
+  num wBallSize;
+
+  @observable
+  num wInnerBallSize;
+
+  Spinner.created() : super.created() {
     size = 100;
   }
-  
-  
-  set size(num value){
-    mainSize=value;
-    wBallSize=value * 86/90;
-    wInnerBallSize=value * 11/90;
-  }     
 
+  set size(num value) {
+    mainSize = value;
+    wBallSize = value * 86 / 90;
+    wInnerBallSize = value * 11 / 90;
+  }
 }

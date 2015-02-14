@@ -11,12 +11,14 @@
 <link rel="import" href="../../../packages/gex_webapp_kit_client/elements/toolbar.html">
 <link rel="import" href="../../../packages/gex_webapp_kit_client/elements/view_port.html">
 <link rel="import" href="../../../packages/gex_webapp_kit_client/elements/layout.html">
+<link rel="import" href="../../../packages/gex_webapp_kit_client/elements/spinner.html">
 
 <polymer-element name="gex-application">
   <template>
     <gex-view-port id="viewPort">
       <div id="toolBars" ></div>
       <div id="pages" ></div>
+      <gex-spinner id="spinner" ></gex-spinner>
       <content></content>
     </gex-view-port>
   </template>
