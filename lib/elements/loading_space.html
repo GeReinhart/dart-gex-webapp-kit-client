@@ -1,0 +1,24 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../packages/gex_webapp_kit_client/elements/spinner.html">
+
+<polymer-element name="gex-loading-space">
+  <template>
+    <style>
+      :host {
+          position: absolute;
+          overflow-x: hidden;
+          overflow-y: hidden;
+          margin: 0px; 
+          padding: 0px; 
+          width: 100%;
+          height: 100%;
+          background:rgb(192,196,188);
+          background:rgba(192,196,188,0.5);
+          z-index: 100000;
+       }
+    </style>
+      <gex-spinner id="spinner" ></gex-spinner>
+      <div id="message">{{message}}</div>
+  </template>
+  <script type="application/dart" src="loading_space.dart"></script>
+</polymer-element>

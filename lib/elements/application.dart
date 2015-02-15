@@ -12,6 +12,7 @@ import 'package:gex_webapp_kit_client/elements/toolbar.dart';
 import 'package:gex_webapp_kit_client/elements/view_port.dart';
 import 'package:gex_webapp_kit_client/elements/page.dart';
 import 'package:gex_webapp_kit_client/elements/spinner.dart';
+import 'package:gex_webapp_kit_client/elements/loading_space.dart';
 
 /**
  * Listen to the screen/window changes and broadcast ViewPort change events.
@@ -28,8 +29,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   Margin _margin = new Margin();
   Page _currentPage;
 
-  Spinner _spinner;
-  bool _loading = false;
+  LoadingSpace _loadingSpace;  
 
   bool _fitWithWindow = true;
 
@@ -49,7 +49,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   }
 
   void _setAttributes() {
-    _spinner = $["spinner"] as Spinner;
+    _loadingSpace= $["loadingSpace"] as LoadingSpace;
     _viewPort = $["viewPort"] as ViewPort;
     _toolbarsContainer = $["toolBars"];
     _pagesContainer = $["pages"];
@@ -68,9 +68,12 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     _fitWithWindow = value;
   }
 
-  set loading(bool value) {
-    _loading = value;
-    _moveLoading(position);
+  void showLoadingMessage(String message) {
+    _loadingSpace.showLoadingSpace( message );
+  }
+  
+  void hideLoadingMessage() {
+    _loadingSpace.hide();
   }
 
   @override
@@ -94,7 +97,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
 
     _moveToolBars(subElementPosition, position.orientation);
     _movePages(subElementPosition);
-    _moveLoading(position);
+    _loadingSpace.moveTo(new Position(position.left, position.top, position.width, position.height, position.zIndex+10));
   }
 
   @override
@@ -127,10 +130,10 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     }
 
     if (event is CallUserAuthEvent) {
-      loading = true;
+      showLoadingMessage("Login process on going...");
     }
     if (event is UserAuthFailEvent || event is LoginUserEvent || event is CallRegisterUserEvent) {
-      loading = false;
+      hideLoadingMessage();
     }
   }
 
@@ -234,10 +237,4 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     }
   }
 
-  void _moveLoading(Position position) {
-    num zIndex = _loading ? 10000 : 0;
-    _spinner.size = position.smallerSection / 3;
-    _spinner
-        .moveTo(new Position(position.width / 3, position.height / 3, position.width / 3, position.height / 3, zIndex));
-  }
 }
