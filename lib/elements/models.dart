@@ -267,6 +267,7 @@ class ViewPortModel {
 }
 
 class LayoutModel {
+  num buffer = 10;
   num _small = 500;
   num _big = 2000;
   num incompressible = 18;
@@ -322,7 +323,7 @@ class LayoutModel {
     return _margin.bottomInPx;
   }
   num spaceWidth(Position position) {
-    return position.width - leftMarginInPx(position) - rightMarginInPx(position);
+    return position.width - leftMarginInPx(position) - rightMarginInPx(position) - buffer;
   }
 
   num toolBarHeight(Position position) {
