@@ -23,6 +23,12 @@ class LoadingSpace extends Positionable with Showable {
   LoadingSpace.created() : super.created();
   
   @override
+  void ready() {
+    hide();
+  }
+  
+  
+  @override
   void moveTo(Position position) {
         super.moveTo(position);
         _spinner.size = position.smallerSection / 3;
