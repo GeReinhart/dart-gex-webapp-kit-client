@@ -12,5 +12,4 @@ import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 @CustomTag('gex-space')
 class Space extends Positionable with Showable {
   Space.created() : super.created();
-  
 }

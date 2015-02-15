@@ -29,6 +29,6 @@ class Spinner extends Positionable with Showable {
     wBallSize = value * 86 / 90;
     wInnerBallSize = innerBallSize;
   }
-  
-  get innerBallSize => mainSize * 11 / 90 ;
+
+  get innerBallSize => mainSize * 11 / 90;
 }

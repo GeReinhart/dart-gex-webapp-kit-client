@@ -29,7 +29,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   Margin _margin = new Margin();
   Page _currentPage;
 
-  LoadingSpace _loadingSpace;  
+  LoadingSpace _loadingSpace;
 
   bool _fitWithWindow = true;
 
@@ -49,7 +49,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   }
 
   void _setAttributes() {
-    _loadingSpace= $["loadingSpace"] as LoadingSpace;
+    _loadingSpace = $["loadingSpace"] as LoadingSpace;
     _viewPort = $["viewPort"] as ViewPort;
     _toolbarsContainer = $["toolBars"];
     _pagesContainer = $["pages"];
@@ -69,9 +69,9 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   }
 
   void showLoadingMessage(String message) {
-    _loadingSpace.showLoadingSpace( message );
+    _loadingSpace.showLoadingSpace(message);
   }
-  
+
   void hideLoadingMessage() {
     _loadingSpace.hide();
   }
@@ -97,7 +97,8 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
 
     _moveToolBars(subElementPosition, position.orientation);
     _movePages(subElementPosition);
-    _loadingSpace.moveTo(new Position(position.left, position.top, position.width, position.height, position.zIndex+10));
+    _loadingSpace
+        .moveTo(new Position(position.left, position.top, position.width, position.height, position.zIndex + 10));
   }
 
   @override
@@ -236,5 +237,4 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
       page.moveTo(position);
     }
   }
-
 }

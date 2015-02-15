@@ -13,34 +13,32 @@ import 'package:gex_webapp_kit_client/elements/spinner.dart';
  */
 @CustomTag('gex-loading-space')
 class LoadingSpace extends Positionable with Showable {
-  
   Spinner get _spinner => $["spinner"] as Spinner;
   DivElement get _messageElement => $["message"] as DivElement;
 
   @observable
-  String message = "Loading..." ;
-  
+  String message = "Loading...";
+
   LoadingSpace.created() : super.created();
-  
+
   @override
   void ready() {
     hide();
   }
-  
-  
+
   @override
   void moveTo(Position position) {
-        super.moveTo(position);
-        _spinner.size = position.smallerSection / 3;
-        _spinner.moveTo(new Position(position.width / 3, position.height / 3, position.width / 3, position.height / 3, 101));
-        moveAnElementTo(_messageElement, new Position(position.width / 3 + _spinner.innerBallSize, position.height / 3, position.width / 3, position.height / 3, 100));
-        _messageElement.style.fontSize = "${_spinner.innerBallSize * 2/3}px" ; 
+    super.moveTo(position);
+    _spinner.size = position.smallerSection / 3;
+    _spinner
+        .moveTo(new Position(position.width / 3, position.height / 3, position.width / 3, position.height / 3, 101));
+    moveAnElementTo(_messageElement, new Position(position.width / 3 + _spinner.innerBallSize, position.height / 3,
+        position.width / 3, position.height / 3, 100));
+    _messageElement.style.fontSize = "${_spinner.innerBallSize * 2/3}px";
   }
-  
-  
-  void showLoadingSpace(String message){
+
+  void showLoadingSpace(String message) {
     this.message = message;
     this.show();
   }
-  
 }

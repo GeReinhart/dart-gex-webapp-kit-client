@@ -111,6 +111,5 @@ class ShowRoomApplication extends Application {
     ToolbarModel bottomToolbarModel =
         new ToolbarModel(buttons: bottomToolbar, color: mainColor, colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT);
     addToolbar(bottomToolbarModel);
-    
   }
 }
