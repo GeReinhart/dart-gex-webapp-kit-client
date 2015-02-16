@@ -209,12 +209,19 @@ class GoogleAuthenticator extends Authenticator {
   String _clientId;
   GoogleOAuth2 _auth;
 
-  GoogleAuthenticator(this._clientId) {
-    _auth = new GoogleOAuth2(_clientId, ["openid", "email"]);
+  GoogleAuthenticator() {
+    var request = HttpRequest.getString("/oauth/google/clientid").then((clientid) {
+      _clientId = clientid;
+      _auth = new GoogleOAuth2(_clientId, ["openid", "email"]);
+    });
   }
 
   @override
   void login() {
+    if (_auth == null) {
+      fireApplicationEvent(new UserAuthFailEvent(this, "GoogleOAuth2 object not initialized"));
+      return;
+    }
     _auth.login(immediate: true, onlyLoadToken: true).then(_oauthReady).catchError((e) {
       log.warning("login failed with immediate: true,onlyLoadToken: true");
       _auth.login(immediate: true, onlyLoadToken: false).then(_oauthReady).catchError((e) {

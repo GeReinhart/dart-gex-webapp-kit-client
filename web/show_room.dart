@@ -30,7 +30,7 @@ void main() {
       Router router = new Router(pageKeyUrlConverter);
       ApplicationEventLogger applicationEventLogger = new ApplicationEventLogger();
 
-      Authenticator authenticator = new GoogleAuthenticator(clientId());
+      Authenticator authenticator = new GoogleAuthenticator();
       LoginFlow loginFlow = new LoginFlow(authenticator, new UserChecker());
 
       loginFlow.setApplicationEventBus(applicationEventBus);
@@ -43,17 +43,6 @@ void main() {
       application.init();
     });
   });
-}
-
-String clientId() {
-  if (window.location.hostname == "localhost") {
-    return "765376678220-21161f3h7quqp1l57mh96sopdjndhntl.apps.googleusercontent.com";
-  }
-  if (window.location.hostname == "gex-webapp-kit.herokuapp.com") {
-    return "765376678220-i7rcrl0nsqgafsh9fcjhc8kr4q6gefk7.apps.googleusercontent.com";
-  }
-
-  return "";
 }
 
 @CustomTag('show-room-app')
