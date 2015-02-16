@@ -18,10 +18,18 @@ num serverPort() {
 
 String staticPathToServe() {
   var dartMode = Platform.environment['DART_MODE'];
-  var pathToServe = join(dirname(Platform.script.toFilePath()), '..', 'build/web');
   if (dartMode == "DEV") {
-    pathToServe = join(dirname(Platform.script.toFilePath()), '..', 'web');
+    return join(dirname(Platform.script.toFilePath()), '..', 'web');
+  } else {
+    return join(dirname(Platform.script.toFilePath()), '..', 'build/web');
   }
+}
 
-  return pathToServe;
+@app.Route("/oauth/google/clientid")
+String googleOAuthClientId() {
+  return Platform.environment['GEX_WEBAPP_KIT_GOOGLE_OAUTH_CLIENT_ID'];
+}
+
+String googleOAuthSecret() {
+  return Platform.environment['GEX_WEBAPP_KIT_GOOGLE_OAUTH_SECRET'];
 }
