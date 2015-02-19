@@ -9,7 +9,7 @@ import 'package:polymer/polymer.dart';
 
 @CustomTag('gex-spinner')
 class Spinner extends Positionable with Showable {
-  final Logger log = new Logger('ViewPort');
+  final Logger log = new Logger('Spinner');
 
   @observable
   num mainSize;

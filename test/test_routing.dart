@@ -85,7 +85,7 @@ main() {
     group('update window location', () {
       test('when change page', () {
         applicationEventBus
-            .fireApplicationEvent(new PageDisplayedEvent(sender: applicationEventBus, pageName: "PageOne"));
+            .fireApplicationEvent(new ApplicationEvent.pageDisplayed(applicationEventBus, "PageOne"));
 
         new Timer(new Duration(milliseconds: 1000), expectAsyncUntil(() {
           assert(window.location.href.endsWith("#PageOne"));

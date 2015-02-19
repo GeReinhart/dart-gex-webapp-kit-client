@@ -41,9 +41,8 @@ class PageBus extends Page with Showable {
   void recieveApplicationEvent(ApplicationEvent event) {
     TableRowElement newEventRow = eventRow.clone(true);
 
-    newEventRow.cells[0].innerHtml = event.type;
-    newEventRow.cells[1].innerHtml = event.sender.toString();
-    newEventRow.cells[2].innerHtml = event.toString();
+    newEventRow.cells[0].innerHtml = event.sender.toString();
+    newEventRow.cells[1].innerHtml = event.toString();
 
     table.insertBefore(newEventRow, eventRow);
     eventRow = newEventRow;

@@ -45,17 +45,17 @@ class Router extends Object with ApplicationEventPassenger {
   void init() {
     PageKey pageKey = _pageKeyUrlConverter.convertToPageKey(window.location.href);
     if (pageKey == null) {
-      fireApplicationEvent(new PageIndexCallEvent(this));
+      fireApplicationEvent(new ApplicationEvent.callIndexPage(this));
     } else {
-      fireApplicationEvent(new PageCallEvent.fromPageKey(this, pageKey));
+      fireApplicationEvent(new ApplicationEvent.callPageWithKey(this, pageKey  ));
     }
   }
 
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
-    if (event is PageDisplayedEvent) {
+    if (event.isPageDisplayed) {
       String baseUrl = _baseUrl(window.location.href);
-      window.location.href = "${baseUrl}#${event.pageName}";
+      window.location.href = "${baseUrl}#${event.pageKey.name}";
       return;
     }
   }

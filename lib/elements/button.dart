@@ -100,17 +100,17 @@ class Button extends Positionable with Showable, ApplicationEventPassenger {
   void _targetAction() {
     if (_model.type == ButtonType.PAGE_LAUNCHER) {
       if (_model.targetPageKey != null) {
-        fireApplicationEvent(new PageCallEvent.fromPageKey(this, _model.targetPageKey));
+        fireApplicationEvent(new ApplicationEvent.callPageWithKey(this, _model.targetPageKey));
       }
       return;
     }
     if (_model.type == ButtonType.LOGIN_PROFILE) {
       if (_model.hasUser) {
         if (_model.targetPageKey != null) {
-          fireApplicationEvent(new PageCallEvent.fromPageKey(this, _model.targetPageKey));
+          fireApplicationEvent(new ApplicationEvent.callPageWithKey(this, _model.targetPageKey));
         }
       } else {
-        fireApplicationEvent(new CallUserAuthEvent(this));
+        fireApplicationEvent(new ApplicationEvent.callUserAuth(this));
       }
       return;
     }
@@ -204,8 +204,8 @@ class Button extends Positionable with Showable, ApplicationEventPassenger {
   void recieveApplicationEvent(ApplicationEvent event) {
     if (_model.type == ButtonType.PAGE_LAUNCHER) {
       if (_model.targetPageKey != null) {
-        if (event is PageDisplayedEvent) {
-          if (event.pageName == _model.targetPageKey.name) {
+        if (event.isPageDisplayed) {
+          if (event.pageKey.name == _model.targetPageKey.name) {
             this.status = ButtonStatus.HIGHLIGHTED;
           } else {
             this.status = ButtonStatus.NORMAL;
@@ -215,12 +215,12 @@ class Button extends Positionable with Showable, ApplicationEventPassenger {
       return;
     }
     if (_model.type == ButtonType.LOGIN_PROFILE) {
-      if (event is LoginUserEvent) {
+      if (event.isLoginSuccess || event.isRegisterSuccess) {
         _model.user = event.user;
         _labelSpan.innerHtml = _model.label;
         _imageElement.src = _model.image.mainImageUrl;
       }
-      if (event is LogoutUserEvent) {
+      if (event.isLogoutSuccess) {
         _model.user = null;
         _labelSpan.innerHtml = _model.label;
         _imageElement.src = _model.image.mainImageUrl;

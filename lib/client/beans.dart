@@ -193,7 +193,6 @@ class Image {
   List<String> _alternativeImageUrls;
 
   Image({String mainImageUrl, String mainImageUrl2, String alternativeImageUrl, String alternativeImageUrl2}) {
-    assert(mainImageUrl != null);
     _mainImageUrls = new List<String>();
     _alternativeImageUrls = new List<String>();
 

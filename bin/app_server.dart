@@ -2,8 +2,14 @@ import 'dart:io' show Platform;
 import 'package:path/path.dart' show join, dirname;
 import 'package:redstone/server.dart' as app;
 import 'package:shelf_static/shelf_static.dart';
+import 'package:di/di.dart';
+import 'package:gex_webapp_kit_client/webapp_kit_server.dart';
 
 main() {
+  app.addModule(new Module()..bind(MongoDbPool, toValue: new MongoDbPool(dbUri(), poolSize())));
+
+  app.addPlugin(AuthorizationPlugin);
+
   app.setShelfHandler(
       createStaticHandler(staticPathToServe(), defaultDocument: "index.html", serveFilesOutsidePath: true));
   app.setupConsoleLog();
@@ -11,9 +17,11 @@ main() {
 }
 
 num serverPort() {
-  var portEnv = Platform.environment['PORT'];
-  var port = portEnv == null ? 9090 : int.parse(portEnv);
-  return port;
+  try {
+    return num.parse(Platform.environment['PORT']);
+  } catch (e) {
+    return 9090;
+  }
 }
 
 String staticPathToServe() {
@@ -32,4 +40,16 @@ String googleOAuthClientId() {
 
 String googleOAuthSecret() {
   return Platform.environment['GEX_WEBAPP_KIT_GOOGLE_OAUTH_SECRET'];
+}
+
+String dbUri() {
+  return Platform.environment['GEX_WEBAPP_KIT_DB_URI'];
+}
+
+num poolSize() {
+  try {
+    return num.parse(Platform.environment['GEX_WEBAPP_KIT_DB_POOL_SIZE']);
+  } catch (e) {
+    return 3;
+  }
 }

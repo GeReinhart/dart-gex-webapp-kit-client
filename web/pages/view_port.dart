@@ -35,7 +35,7 @@ class PageViewPort extends Page with Showable {
 
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
-    if (event is ViewPortChangeEvent) {
+    if (event.isViewPortChange) {
       _viewPortChangeCallBack(event);
     }
   }
@@ -55,8 +55,8 @@ class PageViewPort extends Page with Showable {
     this.init(model);
   }
 
-  void _viewPortChangeCallBack(ViewPortChangeEvent event) {
-    ViewPortModel viewPort = event.viewPortModel;
+  void _viewPortChangeCallBack(ApplicationEvent event) {
+    ViewPortModel viewPort = event.viewPort;
     viewPortWidth.innerHtml = viewPort.windowWidth.toString();
     viewPortHeight.innerHtml = viewPort.windowHeight.toString();
     viewPortDiagonal.innerHtml = viewPort.windowDiagonal.toString();

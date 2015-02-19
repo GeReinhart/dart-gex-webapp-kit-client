@@ -30,8 +30,8 @@ void main() {
       Router router = new Router(pageKeyUrlConverter);
       ApplicationEventLogger applicationEventLogger = new ApplicationEventLogger();
 
-      Authenticator authenticator = new GoogleAuthenticator();
-      LoginFlow loginFlow = new LoginFlow(authenticator, new UserChecker());
+      GoogleAuthenticator authenticator = new GoogleAuthenticator();
+      GoogleLoginFlow loginFlow = new GoogleLoginFlow(authenticator);
 
       loginFlow.setApplicationEventBus(applicationEventBus);
       authenticator.setApplicationEventBus(applicationEventBus);
@@ -65,6 +65,7 @@ class ShowRoomApplication extends Application {
     addPage(new Element.tag('page-buttons'));
     addPage(new Element.tag('page-bus'));
     addPage(new Element.tag('page-view-port'));
+    addPage(new Element.tag('page-register'));
 
     List<ButtonModel> buttonModels = new List<ButtonModel>();
     buttonModels.add(new ButtonModel(

@@ -30,7 +30,7 @@ class ViewPort extends Positionable with Showable, ApplicationEventPassenger {
   ViewPortModel get model => _model.clone();
 
   void init() {
-    fireApplicationEvent(new ViewPortChangeEvent(this, _model));
+    fireApplicationEvent(new ApplicationEvent.viewPortChange(this, _model));
     _updateViewPort();
   }
 
@@ -39,7 +39,7 @@ class ViewPort extends Positionable with Showable, ApplicationEventPassenger {
     if (newScreen != _model) {
       _model = newScreen;
       log.info("ViewPort ${id} changed to ${_model}");
-      fireApplicationEvent(new ViewPortChangeEvent(this, _model));
+      fireApplicationEvent(new ApplicationEvent.viewPortChange(this, _model));
     }
     var wait = new Duration(milliseconds: 125);
     new Timer(wait, () => _updateViewPort());

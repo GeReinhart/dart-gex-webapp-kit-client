@@ -45,10 +45,10 @@ class PageButtons extends Page with Showable {
 
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
-    if (event is ViewPortChangeEvent) {
-      buttonBasicSize = event.viewPortModel.windowHeight < event.viewPortModel.windowWidth
-          ? event.viewPortModel.windowHeight / 3
-          : event.viewPortModel.windowWidth / 3;
+    if (event.isViewPortChange) {
+      buttonBasicSize = event.viewPort.windowHeight < event.viewPort.windowWidth
+          ? event.viewPort.windowHeight / 3
+          : event.viewPort.windowWidth / 3;
       _moveButtons();
     }
   }
@@ -106,6 +106,6 @@ class PageButtons extends Page with Showable {
   action4(Parameters params) {
     layout.color = Color.BLUE_0082C8.lightColorAsColor;
 
-    fireApplicationEvent(new PageCallEvent.fromPageKey(this, new PageKey(name: PageBus.NAME)));
+    fireApplicationEvent(new ApplicationEvent.callPageWithKey(this, new PageKey(name: PageBus.NAME)));
   }
 }

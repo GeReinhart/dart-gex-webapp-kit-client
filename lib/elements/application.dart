@@ -11,7 +11,6 @@ import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:gex_webapp_kit_client/elements/toolbar.dart';
 import 'package:gex_webapp_kit_client/elements/view_port.dart';
 import 'package:gex_webapp_kit_client/elements/page.dart';
-import 'package:gex_webapp_kit_client/elements/spinner.dart';
 import 'package:gex_webapp_kit_client/elements/loading_space.dart';
 
 /**
@@ -115,26 +114,35 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
 
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
-    if (event is PageIndexCallEvent) {
+    if (event.isCallIndexPage) {
+      // TODO Find another way to define the index page
       String pageIndexName = _pages.first.name;
       _showPage(pageName: pageIndexName);
-      fireApplicationEvent(new PageDisplayedEvent(sender: this, pageName: pageIndexName));
+      fireApplicationEvent(new ApplicationEvent.callPage(this, pageIndexName));
       return;
     }
-    if (event is PageCallEvent) {
-      _showPage(pageName: event.pageName, params: event.params);
-      fireApplicationEvent(new PageDisplayedEvent(sender: this, pageName: event.pageName, params: event.params));
+    if (event.isCallPage) {
+      _showPage(pageName: event.pageKey.name, params: event.pageKey.params);
+      fireApplicationEvent(new ApplicationEvent.pageDisplayed(this, event.pageKey.name, params: event.pageKey.params));
       return;
     }
-    if (event is ViewPortChangeEvent && _fitWithWindow) {
-      moveTo(new Position(0, 0, event.viewPortModel.windowWidth, event.viewPortModel.windowHeight, 100));
+    if (event.isViewPortChange && _fitWithWindow) {
+      moveTo(new Position(0, 0, event.viewPort.windowWidth, event.viewPort.windowHeight, 100));
     }
 
-    if (event is CallUserAuthEvent) {
+    if (event.isCallUserAuth) {
       showLoadingMessage("Login process on going...");
     }
-    if (event is UserAuthFailEvent || event is LoginUserEvent || event is CallRegisterUserEvent) {
+    if (event.isUserAuthFail || event.isLoginSuccess || event.isCallRegisterPage) {
       hideLoadingMessage();
+    }
+    if (event.isCallRegisterPage) {
+      // TODO Find a way to define the register page
+      _showPage(pageName: "register");
+      fireApplicationEvent(new ApplicationEvent.callPage(this, "register"));
+    }
+    if (event.isLoginSuccess || event.isLogoutSuccess || event.isRegisterSuccess ) {
+      fireApplicationEvent(new ApplicationEvent.callIndexPage(this));
     }
   }
 

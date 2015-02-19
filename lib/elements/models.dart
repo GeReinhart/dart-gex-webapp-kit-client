@@ -210,7 +210,7 @@ class ToolbarModel extends Object with ApplicationEventCallBackHolder {
   }
 }
 
-typedef void ViewPortChangeCallBack(ViewPortChangeEvent event);
+typedef void ViewPortChangeCallBack(ApplicationEvent event);
 
 class ViewPortModel {
   num _windowHeight;
