@@ -26,6 +26,8 @@ class LoadingSpace extends Positionable with Showable {
     hide();
   }
 
+
+
   @override
   void moveTo(Position position) {
     super.moveTo(position);
@@ -37,8 +39,15 @@ class LoadingSpace extends Positionable with Showable {
     _messageElement.style.fontSize = "${_spinner.innerBallSize * 2/3}px";
   }
 
+  @override
+  void hide() {
+    super.hide();
+    _spinner.hide();
+  }
+
   void showLoadingSpace(String message) {
     this.message = message;
+    _spinner.show();
     this.show();
   }
 }
