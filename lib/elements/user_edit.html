@@ -16,13 +16,6 @@
       -webkit-tap-highlight-color: rgba(0,0,0,0);
       -webkit-touch-callout: none;
     }
-    section {
-      padding: 20px 0;
-    }
-    section > div {
-      padding: 14px;
-      font-size: 16px;
-    }
     paper-input {
       width: 80%;
     }
@@ -31,42 +24,6 @@
     }
     paper-input.narrow {
       width: 150px;
-    }
-    .custom /deep/ ::-webkit-input-placeholder {
-      color: #f4b400;
-    }
-    .custom /deep/ ::-moz-placeholder {
-      color: #f4b400;
-    }
-    .custom /deep/ :-ms-input-placeholder {
-      color: #f4b400;
-    }
-    .custom /deep/ .label-text,
-    .custom /deep/ .error {
-      color: #f4b400;
-    }
-    .custom /deep/ .unfocused-underline {
-      background-color: #f4b400;
-    }
-    .custom[focused] /deep/ .floated-label .label-text {
-      color: #0f9d58;
-    }
-    .custom /deep/ .focused-underline {
-      background-color: #0f9d58;
-    }
-    .custom /deep/ .cursor {
-      background-color: #1a237e;
-    }
-    .custom.invalid /deep/ .floated-label .label-text,
-    .custom /deep/ .error {
-      color: #f06292;
-    }
-    .custom.invalid /deep/ .focused-underline,
-    .custom.invalid /deep/ .cursor {
-      background-color: #f06292;
-    }
-    .custom {
-      color: #1a237e;
     }
     ul {
       list-style-type: none;
@@ -89,16 +46,16 @@
            <li><span>Email: </span><span>{{email}}</span></li>
            <li>
                <paper-input-decorator label="Given name" floatingLabel>
-                   <input is="core-input" value="{{givenName}}" >
+                   <input is="core-input" value="{{givenName}}" maxlength="100" >
                </paper-input-decorator>           
            &nbsp;
                <paper-input-decorator label="Family name" floatingLabel>
-                   <input is="core-input" value="{{familyName}}" >
+                   <input is="core-input" value="{{familyName}}" maxlength="100" >
                </paper-input-decorator>
            </li>                
            <li>
                <paper-input-decorator label="Display name" floatingLabel>
-                   <input is="core-input" value="{{displayName}}" >
+                   <input is="core-input" value="{{displayName}}" maxlength="100"  >
                </paper-input-decorator>     
            </li>
            <li>           

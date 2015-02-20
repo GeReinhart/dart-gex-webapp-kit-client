@@ -23,6 +23,12 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
    @observable String bio;
 
    UserEdit.created() : super.created();
+   
+   @override
+   void ready(){
+     bioTextArea.rows = 10 ;
+     bioTextArea.maxLength = 5000 ;
+   }
 
    set user(User user) {
      openId = user.openId;
