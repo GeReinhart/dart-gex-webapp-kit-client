@@ -10,7 +10,7 @@ enum EventStatus{
 }
 
 enum EventType{
-  VIEW_PORT,PAGE,AUTH,LOGIN,LOGOUT,USER_DETAILS,REGISTER,CUSTOM
+  VIEW_PORT,PAGE,AUTH,LOGIN,LOGOUT,USER_DETAILS,REGISTER,SAVE_USER,CUSTOM
 }
 
 enum EventError{
@@ -128,6 +128,12 @@ class ApplicationEvent {
       return new ApplicationEvent(sender,status: EventStatus.CHANGE, type: EventType.VIEW_PORT,  viewPortModel:viewPortModel   ) ;
   }  
   bool get isViewPortChange => _statusIs(EventStatus.CHANGE)  &&  _eventTypeIs(EventType.VIEW_PORT) && _viewPortModel!=null;   
+  
+  factory ApplicationEvent.callSaveUser(Object sender, User user){
+      return new ApplicationEvent(sender,status: EventStatus.CALL, type: EventType.SAVE_USER,  user:user  ) ;
+  }
+  bool get isCallSaveUser => _statusIs(EventStatus.CALL)  &&  _eventTypeIs(EventType.SAVE_USER) && _hasUser;     
+  
   
   Object get sender => _sender;
   EventStatus get status => _status;

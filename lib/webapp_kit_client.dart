@@ -18,6 +18,6 @@ part 'client/events.dart';
 part 'client/colors.dart';
 part 'client/requests.dart';
 part 'client/routing.dart';
-part 'client/login.dart';
+part 'client/user.dart';
 
 part 'elements/models.dart';

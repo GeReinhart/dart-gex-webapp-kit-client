@@ -2,6 +2,8 @@
 <link rel="import" href="../../../packages/polymer/polymer.html">
 <link rel="import" href="../../../packages/gex_webapp_kit_client/elements/layout.html">
 <link rel="import" href="../../../packages/paper_elements/paper_input.html">
+<link rel="import" href="../../../packages/paper_elements/paper_autogrow_textarea.html">
+<link rel="import" href="../../../packages/paper_elements/paper_input_decorator.html">
 
 <polymer-element name="page-register"  >
   <template>
@@ -28,8 +30,16 @@
            <li><img _src="{{user.avatarUrl}}"  /></li>
            <li><span>OpenId: </span><span  >{{user.openId}}</span></li>
            <li><span>Email: </span><span>{{user.email}}</span></li>
-           <li><paper-input label="Given name" >{{user.givenName}}</paper-input>&nbsp;<paper-input label="Family name" inputValue='{{user.familyName}}'></paper-input></li>
-           <li><paper-input label="Display name" >{{user.displayName}}</paper-input></li>
+           <li><paper-input label="Given name" inputValue='{{user.givenName}}' floatingLabel></paper-input>&nbsp;<paper-input label="Family name" inputValue='{{user.familyName}}' floatingLabel ></paper-input></li>
+           <li><paper-input label="Display name" inputValue='{{user.displayName}}' floatingLabel >{{user.displayName}}</paper-input></li>
+           <li>           
+                <paper-input-decorator inputValue='{{user.bio}}'  label="Bio" floatingLabel>
+                  <paper-autogrow-textarea>
+                    <textarea></textarea>
+                  </paper-autogrow-textarea>
+                </paper-input-decorator>
+          </li>                
+           
          </ul> 
          
     </gex-layout>

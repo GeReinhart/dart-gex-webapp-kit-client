@@ -27,6 +27,12 @@ class GoogleLoginFlow extends Object with ApplicationEventPassenger {
           (Map output) => registerSuccess(new User.loadJSON(output)), (status) => registerFailure(status));
       request.send(event.user);
     }
+    if (event.isCallSaveUser) {
+      PostJsonRequest request = new PostJsonRequest("/services/user",
+          (Map output) => saveUserSuccess(new User.loadJSON(output)), (status) => saveUserFailure(status));
+      request.send(event.user);
+    }
+  
   }
 
   void shouldRegisterSuccess(User user, Map output) {
@@ -62,6 +68,15 @@ class GoogleLoginFlow extends Object with ApplicationEventPassenger {
   void registerFailure(num status) {
     //TODO Send register fail event
   }
+  
+  void saveUserSuccess(User user) {
+    fireApplicationEvent(new ApplicationEvent.loginSuccess(this, user));
+  }
+
+  void saveUserFailure(num status) {
+    //TODO Send login fail event
+  }
+  
 }
 
 /**

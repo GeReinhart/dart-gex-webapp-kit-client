@@ -16,14 +16,39 @@ class PageProfile extends Page with Showable {
   static final String NAME = "profile";
   final Logger log = new Logger(NAME);
 
-  Color mainColor = Color.BLUE_0082C8;
+  Color mainColor = Color.WHITE;
 
   Layout layout;
 
-  @observable User user;
+  @observable String openId;
+  @observable String email;
+  @observable String displayName;
+  @observable String familyName;
+  @observable String givenName;
+  @observable String avatarUrl;
+  @observable String bio;
+  
 
   PageProfile.created() : super.created();
 
+  set user(User user) {
+    openId = user.openId;
+    email= user.email;
+    displayName= user.displayName;
+    familyName= user.familyName;
+    givenName= user.givenName;
+    avatarUrl= user.avatarUrl;
+    bio= user.bio;
+  }
+  User get user=> new User(
+                      openId: openId,
+                      email: email,
+                      displayName: displayName,
+                      familyName: familyName,
+                      givenName: givenName,
+                      avatarUrl: avatarUrl,
+                      bio:bio);
+    
   ready() {
     super.ready();
     _setAttributes();
@@ -34,10 +59,14 @@ class PageProfile extends Page with Showable {
 
     List<ButtonModel> buttonModels = new List<ButtonModel>();
     buttonModels.add(
+        new ButtonModel(label: "Save", action: save, image: new Image(mainImageUrl: "/images/button/save29.png")));
+    buttonModels.add(
         new ButtonModel(label: "Logout", action: logout, image: new Image(mainImageUrl: "/images/button/logout.png")));
+    buttonModels.add(
+        new ButtonModel(label: "Cancel", action: cancel, image: new Image(mainImageUrl: "/images/button/back57.png")));    
     ToolbarModel toolbarModel = new ToolbarModel(
         buttons: buttonModels,
-        color: mainColor,
+        color: Color.GREY_858585.lightColorAsColor,
         orientation: Orientation.est,
         colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT);
 
@@ -46,20 +75,28 @@ class PageProfile extends Page with Showable {
     this.init(model);
   }
 
-  void login(Parameters params) {
-    fireApplicationEvent( new ApplicationEvent.callUserAuth(this));
-  }
+  
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
     super.recieveApplicationEvent(event);
-    if (event.isUserAuthSuccess) {
+    if (event.isUserAuthSuccess || event.isLoginSuccess) {
       user = event.user;
     }
+    if (event.isLogoutSuccess) {
+      user =  new User();
+    }    
   }
 
+  void save(Parameters params) {
+    fireApplicationEvent( new ApplicationEvent.callSaveUser(this,user));
+  }
   void logout(Parameters params) {
     // TODO Should call logout first...
     fireApplicationEvent(new ApplicationEvent.logoutSuccess(this, user));
-    user = null;
+    user = new User();
   }
+  void cancel(Parameters params) {
+    fireApplicationEvent( new ApplicationEvent.callIndexPage(this));
+  }
+
 }

@@ -16,7 +16,7 @@ class PageRegister extends Page with Showable {
   static final String NAME = "register";
   final Logger log = new Logger(NAME);
 
-  Color mainColor = Color.BLUE_0082C8;
+  Color mainColor = Color.WHITE;
 
   Layout layout;
 
@@ -37,7 +37,7 @@ class PageRegister extends Page with Showable {
         label: "Register", action: register, image: new Image(mainImageUrl: "/images/button/create1.png")));
     ToolbarModel toolbarModel = new ToolbarModel(
         buttons: buttonModels,
-        color: mainColor,
+        color: Color.GREY_858585.lightColorAsColor,
         orientation: Orientation.est,
         colorUsage: ColorUsage.ALTERNATE_WITH_LIGHT);
 
