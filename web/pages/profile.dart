@@ -10,6 +10,7 @@ import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
 import 'package:gex_webapp_kit_client/elements/layout.dart';
 import 'package:gex_webapp_kit_client/elements/page.dart';
+import 'package:gex_webapp_kit_client/elements/user_edit.dart';
 
 @CustomTag('page-profile')
 class PageProfile extends Page with Showable {
@@ -19,34 +20,9 @@ class PageProfile extends Page with Showable {
   Color mainColor = Color.WHITE;
 
   Layout layout;
-
-  @observable String openId;
-  @observable String email;
-  @observable String displayName;
-  @observable String familyName;
-  @observable String givenName;
-  @observable String avatarUrl;
-  @observable String bio;
+  UserEdit userEdit ;
 
   PageProfile.created() : super.created();
-
-  set user(User user) {
-    openId = user.openId;
-    email = user.email;
-    displayName = user.displayName;
-    familyName = user.familyName;
-    givenName = user.givenName;
-    avatarUrl = user.avatarUrl;
-    bio = user.bio;
-  }
-  User get user => new User(
-      openId: openId,
-      email: email,
-      displayName: displayName,
-      familyName: familyName,
-      givenName: givenName,
-      avatarUrl: avatarUrl,
-      bio: bio);
 
   ready() {
     super.ready();
@@ -55,6 +31,7 @@ class PageProfile extends Page with Showable {
 
   void _setAttributes() {
     layout = $["layout"] as Layout;
+    userEdit = $["userEdit"] as UserEdit;    
 
     List<ButtonModel> buttonModels = new List<ButtonModel>();
     buttonModels
@@ -77,21 +54,21 @@ class PageProfile extends Page with Showable {
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
     super.recieveApplicationEvent(event);
-    if (event.isUserAuthSuccess || event.isLoginSuccess) {
-      user = event.user;
+    if (event.isUserAuthSuccess || event.isLoginSuccess || event.isRegisterSuccess) {
+      userEdit.user = event.user;
     }
     if (event.isLogoutSuccess) {
-      user = new User();
+      userEdit.user = new User();
     }
   }
 
   void save(Parameters params) {
-    fireApplicationEvent(new ApplicationEvent.callSaveUser(this, user));
+    fireApplicationEvent(new ApplicationEvent.callSaveUser(this, userEdit.user));
   }
   void logout(Parameters params) {
     // TODO Should call logout first...
-    fireApplicationEvent(new ApplicationEvent.logoutSuccess(this, user));
-    user = new User();
+    fireApplicationEvent(new ApplicationEvent.logoutSuccess(this, userEdit.user));
+    userEdit.user = new User();
   }
   void cancel(Parameters params) {
     fireApplicationEvent(new ApplicationEvent.callIndexPage(this));

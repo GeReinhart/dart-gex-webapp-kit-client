@@ -1,0 +1,115 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../packages/gex_webapp_kit_client/elements/layout.html">
+<link rel="import" href="../../../packages/paper_elements/paper_input.html">
+<link rel="import" href="../../../packages/paper_elements/paper_autogrow_textarea.html">
+<link rel="import" href="../../../packages/paper_elements/paper_input_decorator.html">
+
+
+<polymer-element name="gex-user-edit"  >
+  <template>
+    <style shim-shadowdom>
+    body {
+      font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+      margin: 0;
+      padding: 24px;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      -webkit-touch-callout: none;
+    }
+    section {
+      padding: 20px 0;
+    }
+    section > div {
+      padding: 14px;
+      font-size: 16px;
+    }
+    paper-input {
+      width: 80%;
+    }
+    paper-input-decorator {
+      max-width: 80%;
+    }
+    paper-input.narrow {
+      width: 150px;
+    }
+    .custom /deep/ ::-webkit-input-placeholder {
+      color: #f4b400;
+    }
+    .custom /deep/ ::-moz-placeholder {
+      color: #f4b400;
+    }
+    .custom /deep/ :-ms-input-placeholder {
+      color: #f4b400;
+    }
+    .custom /deep/ .label-text,
+    .custom /deep/ .error {
+      color: #f4b400;
+    }
+    .custom /deep/ .unfocused-underline {
+      background-color: #f4b400;
+    }
+    .custom[focused] /deep/ .floated-label .label-text {
+      color: #0f9d58;
+    }
+    .custom /deep/ .focused-underline {
+      background-color: #0f9d58;
+    }
+    .custom /deep/ .cursor {
+      background-color: #1a237e;
+    }
+    .custom.invalid /deep/ .floated-label .label-text,
+    .custom /deep/ .error {
+      color: #f06292;
+    }
+    .custom.invalid /deep/ .focused-underline,
+    .custom.invalid /deep/ .cursor {
+      background-color: #f06292;
+    }
+    .custom {
+      color: #1a237e;
+    }
+    ul {
+      list-style-type: none;
+    }
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .inputs > * {
+      display: inline-block;
+    }
+    .inputs > div {
+      display: block;
+    }
+    </style>   
+          <ul>
+           <li><img _src="{{avatarUrl}}"  /></li>
+           <li><span>OpenId: </span><span  >{{openId}}</span></li>
+           <li><span>Email: </span><span>{{email}}</span></li>
+           <li>
+               <paper-input-decorator label="Given name" floatingLabel>
+                   <input is="core-input" value="{{givenName}}" >
+               </paper-input-decorator>           
+           &nbsp;
+               <paper-input-decorator label="Family name" floatingLabel>
+                   <input is="core-input" value="{{familyName}}" >
+               </paper-input-decorator>
+           </li>                
+           <li>
+               <paper-input-decorator label="Display name" floatingLabel>
+                   <input is="core-input" value="{{displayName}}" >
+               </paper-input-decorator>     
+           </li>
+           <li>           
+                <paper-input-decorator   label="Bio" floatingLabel>
+                  <paper-autogrow-textarea>
+                    <textarea id="bioTextArea">{{bio}}</textarea>
+                  </paper-autogrow-textarea>
+                </paper-input-decorator>
+          </li>             
+         </ul> 
+         
+  </template>
+  <script type="application/dart" src="user_edit.dart"></script>
+</polymer-element>

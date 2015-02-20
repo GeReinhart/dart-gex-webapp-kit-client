@@ -9,6 +9,7 @@ import 'package:polymer/polymer.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
 import 'package:gex_webapp_kit_client/elements/layout.dart';
+import 'package:gex_webapp_kit_client/elements/user_edit.dart';
 import 'package:gex_webapp_kit_client/elements/page.dart';
 
 @CustomTag('page-register')
@@ -19,8 +20,8 @@ class PageRegister extends Page with Showable {
   Color mainColor = Color.WHITE;
 
   Layout layout;
-
-  @observable User user;
+  UserEdit userEdit ;
+  
 
   PageRegister.created() : super.created();
 
@@ -31,6 +32,7 @@ class PageRegister extends Page with Showable {
 
   void _setAttributes() {
     layout = $["layout"] as Layout;
+    userEdit = $["userEdit"] as UserEdit;
 
     List<ButtonModel> buttonModels = new List<ButtonModel>();
     buttonModels.add(new ButtonModel(
@@ -50,11 +52,11 @@ class PageRegister extends Page with Showable {
   void recieveApplicationEvent(ApplicationEvent event) {
     super.recieveApplicationEvent(event);
     if (event.isUserAuthSuccess) {
-      user = event.user;
+      userEdit.user = event.user;
     }
   }
 
   void register(Parameters params) {
-    fireApplicationEvent(new ApplicationEvent.callRegister(this, user));
+    fireApplicationEvent(new ApplicationEvent.callRegister(this, userEdit.user));
   }
 }
