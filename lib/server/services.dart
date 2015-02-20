@@ -16,11 +16,11 @@ getUser(@app.Attr() Db conn, @app.QueryParam("openId") String openId) {
   var userCollection = conn.collection("user");
   return userCollection.findOne({"openId": openId}).then((user) {
     if (user == null) {
-      throw new app.ErrorResponse(404,"WRONG_OPENID" ) ;
+      throw new app.ErrorResponse(404, "WRONG_OPENID");
     }
 
- //   var session = app.request.session;
- //   session["openid"] = user["openid"];
+    //   var session = app.request.session;
+    //   session["openid"] = user["openid"];
 
     return user;
   });
@@ -33,29 +33,26 @@ addUser(@app.Attr() Db conn, @app.Body(app.JSON) Map json) {
   var userCollection = conn.collection("user");
   return userCollection.findOne({"openId": user.openId}).then((value) {
     if (value != null) {
-      throw new app.ErrorResponse(403,"USER_EXISTS" ) ;
+      throw new app.ErrorResponse(403, "USER_EXISTS");
     }
 
     return userCollection.insert(user.toJSON()).then((resp) => user.toJSON());
   });
 }
 
-
 //A public service. Anyone can create a new user
 @app.Route("/services/user", methods: const [app.POST])
 saveUser(@app.Attr() Db conn, @app.Body(app.JSON) Map json) {
-User user = new User.loadJSON(json);
-var userCollection = conn.collection("user");
-return userCollection.findOne({"openId": user.openId}).then((value) {
-  if (value != null) {
-    return userCollection.insert(user.toJSON()).then((resp) => user.toJSON());
-  }else{
-    throw new app.ErrorResponse(403,"USER_DOES_NOT_EXIST" ) ;
-  }
-  
-});
+  User user = new User.loadJSON(json);
+  var userCollection = conn.collection("user");
+  return userCollection.findOne({"openId": user.openId}).then((value) {
+    if (value != null) {
+      return userCollection.update({"openId": user.openId}, user.toJSON()).then((resp) => user.toJSON());
+    } else {
+      throw new app.ErrorResponse(403, "USER_DOES_NOT_EXIST");
+    }
+  });
 }
-
 
 //A private service. Any authenticated user can execute 'echo'
 @app.Route("/services/private/echo/:arg")

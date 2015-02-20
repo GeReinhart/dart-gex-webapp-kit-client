@@ -16,8 +16,9 @@ class User implements Bean {
   String _givenName;
   String _avatarUrl;
   String _bio;
-  
-  User({String openId, String email, String displayName, String givenName, String familyName, String avatarUrl, String bio}) {
+
+  User({String openId, String email, String displayName, String givenName, String familyName, String avatarUrl,
+      String bio}) {
     _openId = openId;
     _email = email;
     _displayName = displayName;
@@ -27,10 +28,10 @@ class User implements Bean {
     _bio = bio;
   }
 
-  User.loadJSON(Map json){
+  User.loadJSON(Map json) {
     fromJSON(json);
   }
-  
+
   String get openId => _openId;
   String get email => _email;
   String get displayName => _displayName != null ? _displayName : "${_givenName} ${_familyName}";
@@ -38,7 +39,7 @@ class User implements Bean {
   String get givenName => _givenName;
   String get avatarUrl => _avatarUrl;
   String get bio => _bio;
-  
+
   @override
   String toString() =>
       "User: openId:${_openId}, email:${_email}, displayName:${_displayName}, givenName:${_givenName}, familyName:${_familyName}, imageUrl:${_avatarUrl}";
@@ -51,7 +52,7 @@ class User implements Bean {
         familyName: _familyName,
         givenName: _givenName,
         avatarUrl: _avatarUrl,
-        bio:_bio);
+        bio: _bio);
   }
 
   @override

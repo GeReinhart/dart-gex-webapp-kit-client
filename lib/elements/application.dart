@@ -141,7 +141,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
       _showPage(pageName: "register");
       fireApplicationEvent(new ApplicationEvent.callPage(this, "register"));
     }
-    if (event.isLoginSuccess || event.isLogoutSuccess || event.isRegisterSuccess ) {
+    if (event.isLoginSuccess || event.isLogoutSuccess || event.isRegisterSuccess) {
       fireApplicationEvent(new ApplicationEvent.callIndexPage(this));
     }
   }

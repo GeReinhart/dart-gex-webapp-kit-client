@@ -47,7 +47,7 @@ class Router extends Object with ApplicationEventPassenger {
     if (pageKey == null) {
       fireApplicationEvent(new ApplicationEvent.callIndexPage(this));
     } else {
-      fireApplicationEvent(new ApplicationEvent.callPageWithKey(this, pageKey  ));
+      fireApplicationEvent(new ApplicationEvent.callPageWithKey(this, pageKey));
     }
   }
 

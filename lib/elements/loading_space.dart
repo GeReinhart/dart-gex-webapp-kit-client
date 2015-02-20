@@ -26,8 +26,6 @@ class LoadingSpace extends Positionable with Showable {
     hide();
   }
 
-
-
   @override
   void moveTo(Position position) {
     super.moveTo(position);
