@@ -14,41 +14,39 @@ import 'package:polymer/polymer.dart';
 class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
   final Logger log = new Logger('UserEdit');
 
-   @observable String openId;
-   @observable String email;
-   @observable String displayName;
-   @observable String familyName;
-   @observable String givenName;
-   @observable String avatarUrl;
-   @observable String bio;
+  @observable String openId;
+  @observable String email;
+  @observable String displayName;
+  @observable String familyName;
+  @observable String givenName;
+  @observable String avatarUrl;
+  @observable String bio;
 
-   UserEdit.created() : super.created();
-   
-   @override
-   void ready(){
-     bioTextArea.rows = 10 ;
-     bioTextArea.maxLength = 5000 ;
-   }
+  UserEdit.created() : super.created();
 
-   set user(User user) {
-     openId = user.openId;
-     email = user.email;
-     displayName = user.displayName;
-     familyName = user.familyName;
-     givenName = user.givenName;
-     avatarUrl = user.avatarUrl;
-     bio = user.bio;
-   }
-   User get user => new User(
-       openId: openId,
-       email: email,
-       displayName: displayName,
-       familyName: familyName,
-       givenName: givenName,
-       avatarUrl: avatarUrl,
-       bio: bioTextArea.value);
+  @override
+  void ready() {
+    bioTextArea.rows = 10;
+    bioTextArea.maxLength = 5000;
+  }
 
-   TextAreaElement get bioTextArea => $["bioTextArea"] as TextAreaElement;  
+  set user(User user) {
+    openId = user.openId;
+    email = user.email;
+    displayName = user.displayName;
+    familyName = user.familyName;
+    givenName = user.givenName;
+    avatarUrl = user.avatarUrl;
+    bio = user.bio;
+  }
+  User get user => new User(
+      openId: openId,
+      email: email,
+      displayName: displayName,
+      familyName: familyName,
+      givenName: givenName,
+      avatarUrl: avatarUrl,
+      bio: bioTextArea.value);
 
-
+  TextAreaElement get bioTextArea => $["bioTextArea"] as TextAreaElement;
 }

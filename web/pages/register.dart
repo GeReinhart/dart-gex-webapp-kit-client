@@ -20,8 +20,7 @@ class PageRegister extends Page with Showable {
   Color mainColor = Color.WHITE;
 
   Layout layout;
-  UserEdit userEdit ;
-  
+  UserEdit userEdit;
 
   PageRegister.created() : super.created();
 

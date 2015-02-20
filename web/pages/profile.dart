@@ -20,7 +20,7 @@ class PageProfile extends Page with Showable {
   Color mainColor = Color.WHITE;
 
   Layout layout;
-  UserEdit userEdit ;
+  UserEdit userEdit;
 
   PageProfile.created() : super.created();
 
@@ -31,7 +31,7 @@ class PageProfile extends Page with Showable {
 
   void _setAttributes() {
     layout = $["layout"] as Layout;
-    userEdit = $["userEdit"] as UserEdit;    
+    userEdit = $["userEdit"] as UserEdit;
 
     List<ButtonModel> buttonModels = new List<ButtonModel>();
     buttonModels
