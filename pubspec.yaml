@@ -12,9 +12,10 @@ dependencies:
   shelf_static: '>=0.2.1 <0.3.0'
   google_oauth2_client: '>=0.3.4  <0.4.0' 
   redstone: '>=0.5.20  <0.6.0' 
+  redstone_mapper: '>=0.1.12  <0.2.0' 
+  redstone_mapper_mongo: '>= 0.1.2  <0.2.0'   
   mongo_dart: '0.1.45  <0.2.0' 
   connection_pool: '>=0.1.0+2  <0.2.0'
-  crypto: any  
 dev_dependencies:
   mockito: '>=0.8.1 <0.9.0'
   unittest: '>=0.11.4 <0.12.0'

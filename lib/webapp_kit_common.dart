@@ -3,5 +3,7 @@
 library gex_webapp_kit_common;
 
 import "dart:convert";
+import "package:redstone_mapper/mapper.dart";
+import "package:redstone_mapper_mongo/metadata.dart";
 
 part 'common/beans.dart';

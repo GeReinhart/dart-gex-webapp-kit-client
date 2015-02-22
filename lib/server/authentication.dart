@@ -10,7 +10,7 @@ authenticationFilter() {
     app.chain.next();
   }
 }
-
+/*
 @app.Route("/services/login", methods: const [app.POST])
 login(@app.Attr() Db conn, @app.Body(app.JSON) Map body) {
   var userCollection = conn.collection("user");
@@ -40,4 +40,4 @@ login(@app.Attr() Db conn, @app.Body(app.JSON) Map body) {
 logout() {
   app.request.session.destroy();
   return {"success": true};
-}
+}*/

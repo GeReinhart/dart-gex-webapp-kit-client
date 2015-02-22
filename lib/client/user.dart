@@ -18,46 +18,39 @@ class GoogleLoginFlow extends Object with ApplicationEventPassenger {
       return;
     }
     if (event.isUserAuthSuccess) {
-      PostJsonRequest request = new PostJsonRequest("/services/shouldregister",
-          (Map output) => shouldRegisterSuccess(event.user, output), (status) => shouldRegisterFailure(status));
+      PostJsonRequest request = new PostJsonRequest("/services/login/${event.user.openId}",
+          (Map output) => callLoginSuccess(event.user,output, 200),
+          (status) {
+            if (status == 404){
+              callLoginSuccess(event.user,null, status); 
+            }else{
+              loginFailure(status);
+            }
+          });
       request.send(event.user);
     }
     if (event.isCallRegister) {
-      PostJsonRequest request = new PostJsonRequest("/services/register",
+      PostJsonRequest request = new PostJsonRequest("/services/register/${event.user.openId}",
           (Map output) => registerSuccess(new User.loadJSON(output)), (status) => registerFailure(status));
       request.send(event.user);
     }
     if (event.isCallSaveUser) {
-      PostJsonRequest request = new PostJsonRequest("/services/user",
+      PostJsonRequest request = new PostJsonRequest("/services/user/${event.user.openId}",
           (Map output) => saveUserSuccess(new User.loadJSON(output)), (status) => saveUserFailure(status));
       request.send(event.user);
     }
   }
 
-  void shouldRegisterSuccess(User user, Map output) {
-    if (output["shouldregister"] == true) {
+  void callLoginSuccess(User user, Map output,  num status) {
+    if (status == 404) {
       fireApplicationEvent(new ApplicationEvent.callRegisterPage(this, user));
     } else {
-      decorateUser(user);
+      fireApplicationEvent(new ApplicationEvent.loginSuccess(this, new User.loadJSON(output)));
     }
   }
 
-  void shouldRegisterFailure(num status) {
+  void loginFailure(num status) {
     //TODO Send RegisterFailEvent
-  }
-
-  void decorateUser(User user) {
-    GetJsonRequest request = new GetJsonRequest("/services/user?openId=${user.openId}",
-        (Map output) => decorateUserSuccess(new User.loadJSON(output)), (status) => decorateUserFailure(status));
-    request.send();
-  }
-
-  void decorateUserSuccess(User user) {
-    fireApplicationEvent(new ApplicationEvent.loginSuccess(this, user));
-  }
-
-  void decorateUserFailure(num status) {
-    //TODO Send login fail event
   }
 
   void registerSuccess(User user) {
@@ -69,7 +62,7 @@ class GoogleLoginFlow extends Object with ApplicationEventPassenger {
   }
 
   void saveUserSuccess(User user) {
-    fireApplicationEvent(new ApplicationEvent.loginSuccess(this, user));
+    // TODO Send save user success
   }
 
   void saveUserFailure(num status) {
@@ -141,7 +134,7 @@ class GoogleAuthenticator extends Authenticator {
         String givenName = data["name"] == null ? null : data["name"]["givenName"];
         String imageUrl = data["image"] == null ? null : data["image"]["url"].toString().replaceAll("sz=50", "sz=150");
 
-        User user = new User(
+        User user = new User.fromFields(
             openId: token.userId,
             email: token.email,
             displayName: displayName,

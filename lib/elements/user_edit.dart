@@ -39,7 +39,7 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
     avatarUrl = user.avatarUrl;
     bio = user.bio;
   }
-  User get user => new User(
+  User get user => new User.fromFields(
       openId: openId,
       email: email,
       displayName: displayName,

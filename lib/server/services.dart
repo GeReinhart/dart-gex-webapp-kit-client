@@ -1,7 +1,7 @@
 // Copyright (c) 2015, Gérald Reinhart. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 part of gex_webapp_kit_server;
-
+/*
 @app.Route("/services/shouldregister", methods: const [app.POST])
 shouldRegister(@app.Attr() Db conn, @app.Body(app.JSON) Map json) {
   String openId = json["openId"].trim();
@@ -65,4 +65,4 @@ echo(String arg) => arg;
 listUsers(@app.Attr() Db conn) {
   var userCollection = conn.collection("user");
   return userCollection.find(where.excludeFields(const ["_id"])).toList();
-}
+}*/

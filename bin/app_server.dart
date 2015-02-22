@@ -2,16 +2,21 @@ import 'dart:io' show Platform;
 import 'package:path/path.dart' show join, dirname;
 import 'package:redstone/server.dart' as app;
 import 'package:shelf_static/shelf_static.dart';
-import 'package:di/di.dart';
-import 'package:gex_webapp_kit_client/webapp_kit_server.dart';
+import "package:redstone_mapper/plugin.dart";
+import "package:redstone_mapper_mongo/manager.dart";
+import 'package:gex_webapp_kit_client/webapp_kit_server.dart'  ;
+
 
 main() {
-  app.addModule(new Module()..bind(MongoDbPool, toValue: new MongoDbPool(dbUri(), poolSize())));
-
   app.addPlugin(AuthorizationPlugin);
 
+  MongoDbManager dbManager = new MongoDbManager(dbUri(),poolSize:poolSize());
+  app.addPlugin(getMapperPlugin(dbManager, "/services/.+"));
+  
   app.setShelfHandler(
-      createStaticHandler(staticPathToServe(), defaultDocument: "index.html", serveFilesOutsidePath: true));
+      createStaticHandler(staticPathToServe(), defaultDocument: "index.html", serveFilesOutsidePath: supportDartium()));
+  
+
   app.setupConsoleLog();
   app.start(port: serverPort());
 }
@@ -31,6 +36,11 @@ String staticPathToServe() {
   } else {
     return join(dirname(Platform.script.toFilePath()), '..', 'build/web');
   }
+}
+
+bool supportDartium() {
+  var dartMode = Platform.environment['DART_MODE'];
+  return dartMode == "DEV";
 }
 
 @app.Route("/oauth/google/clientid")
@@ -53,3 +63,6 @@ num poolSize() {
     return 3;
   }
 }
+
+
+
