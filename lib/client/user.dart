@@ -45,9 +45,9 @@ class GoogleLoginFlow extends Object with ApplicationEventPassenger {
       request.send(event.user);
     }
     if (event.isLoginSuccess && _userDetailsService != null) {
-      PostJsonRequest request = new PostJsonRequest("${_userDetailsService}/${event.user.openId}",
+      GetJsonRequest request = new GetJsonRequest("${_userDetailsService}/${event.user.openId}",
           (Map output) => callUserDetailsSuccess(event.user, output), (status) => callUserDetailsFailure(status));
-      request.send(event.user);
+      request.send();
     }
     if (event.isCallSaveUser) {
       PostJsonRequest request = new PostJsonRequest("/services/user/${event.user.openId}",
