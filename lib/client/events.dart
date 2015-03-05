@@ -141,6 +141,11 @@ class ApplicationEvent {
   }
   bool get isLoginSuccess => _statusIs(EventStatus.SUCCESS) && _eventTypeIs(EventType.LOGIN) && _hasUser;
 
+  factory ApplicationEvent.userDetailsSuccess(Object sender, User user) {
+    return new ApplicationEvent(sender, status: EventStatus.SUCCESS, type: EventType.USER_DETAILS, user: user);
+  }
+  bool get isUserDetailsSuccess => _statusIs(EventStatus.SUCCESS) && _eventTypeIs(EventType.USER_DETAILS) && _hasUser;
+
   factory ApplicationEvent.registerSuccess(Object sender, User user) {
     return new ApplicationEvent(sender, status: EventStatus.SUCCESS, type: EventType.REGISTER, user: user);
   }

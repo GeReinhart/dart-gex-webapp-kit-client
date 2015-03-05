@@ -17,12 +17,12 @@ class PostJsonRequest {
     request.onReadyStateChange.listen((_) {
       if (request.readyState == HttpRequest.DONE) {
         if (request.status == 200) {
-           Map json = JSON.decode(request.responseText);
-           if ( json.isEmpty ){
-             _failure(404);
-           }else{
+          Map json = JSON.decode(request.responseText);
+          if (json.isEmpty) {
+            _failure(404);
+          } else {
             _success(json);
-           }
+          }
         } else {
           _failure(request.status);
         }
@@ -47,10 +47,10 @@ class GetJsonRequest {
       if (request.readyState == HttpRequest.DONE) {
         if (request.status == 200) {
           Map json = JSON.decode(request.responseText);
-          if ( json.isEmpty ){
+          if (json.isEmpty) {
             _failure(404);
-          }else{
-           _success(json);
+          } else {
+            _success(json);
           }
         } else {
           _failure(request.status);

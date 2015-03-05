@@ -9,7 +9,6 @@ abstract class Bean {
 }
 
 class User implements Bean {
-  
   @Id() String id;
   @Field() String openId;
   @Field() String email;
@@ -19,17 +18,15 @@ class User implements Bean {
   @Field() String avatarUrl;
   @Field() String bio;
 
-  User([String this.id, String this.openId, String this.email, String this.displayName, String this.givenName, String this.familyName, String this.avatarUrl,
-      String this.bio]) ;
-  
-  User.fromFields({String this.id, String this.openId, String this.email, String this.displayName, String this.givenName, String this.familyName, String this.avatarUrl,
-      String this.bio}) {
-  }
+  User([String this.id, String this.openId, String this.email, String this.displayName, String this.givenName,
+      String this.familyName, String this.avatarUrl, String this.bio]);
+
+  User.fromFields({String this.id, String this.openId, String this.email, String this.displayName,
+      String this.givenName, String this.familyName, String this.avatarUrl, String this.bio}) {}
 
   User.loadJSON(Map json) {
     fromJSON(json);
   }
-
 
   @override
   String toString() =>
@@ -37,7 +34,7 @@ class User implements Bean {
 
   User clone() {
     return new User.fromFields(
-        id:id,
+        id: id,
         openId: openId,
         email: email,
         displayName: displayName,

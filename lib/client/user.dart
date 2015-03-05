@@ -2,6 +2,8 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 part of gex_webapp_kit_client;
 
+typedef User BuildUser(Map json);
+
 /**
  * From a CallUserAuthEvent the flow ends either with UserAuthFailEvent or LoginSuccessEvent or CallRegisterPageEvent.
  * From a CallRegisterEvent the flow ends either with RegisterFailEvent or RegisterSuccessEvent.
@@ -9,7 +11,16 @@ part of gex_webapp_kit_client;
 class GoogleLoginFlow extends Object with ApplicationEventPassenger {
   GoogleAuthenticator _authenticator;
 
-  GoogleLoginFlow(this._authenticator);
+  String _userDetailsService;
+  BuildUser _buildUser;
+
+  GoogleLoginFlow(this._authenticator, {String userDetailsService, BuildUser buildUser}) {
+    _userDetailsService = userDetailsService;
+    _buildUser = buildUser;
+    if (_userDetailsService != null) {
+      assert(_buildUser != null);
+    }
+  }
 
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
@@ -19,19 +30,23 @@ class GoogleLoginFlow extends Object with ApplicationEventPassenger {
     }
     if (event.isUserAuthSuccess) {
       PostJsonRequest request = new PostJsonRequest("/services/login/${event.user.openId}",
-          (Map output) => callLoginSuccess(event.user,output, 200),
-          (status) {
-            if (status == 404){
-              callLoginSuccess(event.user,null, status); 
-            }else{
-              loginFailure(status);
-            }
-          });
+          (Map output) => callLoginSuccess(event.user, output, 200), (status) {
+        if (status == 404) {
+          callLoginSuccess(event.user, null, status);
+        } else {
+          loginFailure(status);
+        }
+      });
       request.send(event.user);
     }
     if (event.isCallRegister) {
       PostJsonRequest request = new PostJsonRequest("/services/register/${event.user.openId}",
           (Map output) => registerSuccess(new User.loadJSON(output)), (status) => registerFailure(status));
+      request.send(event.user);
+    }
+    if (event.isLoginSuccess && _userDetailsService != null) {
+      PostJsonRequest request = new PostJsonRequest("${_userDetailsService}/${event.user.openId}",
+          (Map output) => callUserDetailsSuccess(event.user, output), (status) => callUserDetailsFailure(status));
       request.send(event.user);
     }
     if (event.isCallSaveUser) {
@@ -41,7 +56,7 @@ class GoogleLoginFlow extends Object with ApplicationEventPassenger {
     }
   }
 
-  void callLoginSuccess(User user, Map output,  num status) {
+  void callLoginSuccess(User user, Map output, num status) {
     if (status == 404) {
       fireApplicationEvent(new ApplicationEvent.callRegisterPage(this, user));
     } else {
@@ -50,6 +65,14 @@ class GoogleLoginFlow extends Object with ApplicationEventPassenger {
   }
 
   void loginFailure(num status) {
+    //TODO Send RegisterFailEvent
+  }
+
+  void callUserDetailsSuccess(User user, Map output) {
+    fireApplicationEvent(new ApplicationEvent.userDetailsSuccess(this, _buildUser(output)));
+  }
+
+  void callUserDetailsFailure(num status) {
     //TODO Send RegisterFailEvent
   }
 
