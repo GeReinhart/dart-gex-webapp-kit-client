@@ -1,5 +1,5 @@
 name: gex_webapp_kit_client
-version: 0.1.0+35
+version: 0.1.0+36
 description: Provide a set of common WebComponent and classes to be able to build responsive web applications.
 environment:
   sdk: '>=1.8.0 <2.0.0'

@@ -20,7 +20,6 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
   @observable String familyName;
   @observable String givenName;
   @observable String avatarUrl;
-  @observable String bio;
 
   UserEdit.created() : super.created();
 
@@ -37,7 +36,6 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
     familyName = user.familyName;
     givenName = user.givenName;
     avatarUrl = user.avatarUrl;
-    bio = user.bio;
   }
   User get user => new User.fromFields(
       openId: openId,

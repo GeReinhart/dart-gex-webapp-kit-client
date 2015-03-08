@@ -16,13 +16,12 @@ class User implements Bean {
   @Field() String familyName;
   @Field() String givenName;
   @Field() String avatarUrl;
-  @Field() String bio;
 
   User([String this.id, String this.openId, String this.email, String this.displayName, String this.givenName,
-      String this.familyName, String this.avatarUrl, String this.bio]);
+      String this.familyName, String this.avatarUrl]);
 
   User.fromFields({String this.id, String this.openId, String this.email, String this.displayName,
-      String this.givenName, String this.familyName, String this.avatarUrl, String this.bio}) {}
+      String this.givenName, String this.familyName, String this.avatarUrl}) {}
 
   User.loadJSON(Map json) {
     fromJSON(json);
@@ -40,8 +39,7 @@ class User implements Bean {
         displayName: displayName,
         familyName: familyName,
         givenName: givenName,
-        avatarUrl: avatarUrl,
-        bio: bio);
+        avatarUrl: avatarUrl);
   }
 
   @override
@@ -53,8 +51,7 @@ class User implements Bean {
       "displayName": displayName,
       "givenName": givenName,
       "familyName": familyName,
-      "avatarUrl": avatarUrl,
-      "bio": bio
+      "avatarUrl": avatarUrl
     };
   }
 
@@ -67,6 +64,5 @@ class User implements Bean {
     givenName = json["givenName"];
     familyName = json["familyName"];
     avatarUrl = json["avatarUrl"];
-    bio = json["bio"];
   }
 }
