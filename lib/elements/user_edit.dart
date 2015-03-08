@@ -2,10 +2,7 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 library gex_webapp_kit_client.user.edit;
 
-import "dart:html";
-import 'dart:js' as js;
 import 'package:logging/logging.dart';
-import 'dart:async';
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
 import 'package:polymer/polymer.dart';
@@ -23,11 +20,6 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
 
   UserEdit.created() : super.created();
 
-  @override
-  void ready() {
-    bioTextArea.rows = 10;
-    bioTextArea.maxLength = 5000;
-  }
 
   set user(User user) {
     openId = user.openId;
@@ -43,8 +35,6 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
       displayName: displayName,
       familyName: familyName,
       givenName: givenName,
-      avatarUrl: avatarUrl,
-      bio: bioTextArea.value);
+      avatarUrl: avatarUrl);
 
-  TextAreaElement get bioTextArea => $["bioTextArea"] as TextAreaElement;
 }
