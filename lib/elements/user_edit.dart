@@ -2,9 +2,11 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 library gex_webapp_kit_client.user.edit;
 
+import "dart:html";
 import 'package:logging/logging.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
+import 'package:gex_webapp_kit_client/elements/map_geo_location.dart';
 import 'package:polymer/polymer.dart';
 
 @CustomTag('gex-user-edit')
@@ -18,8 +20,15 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
   @observable String givenName;
   @observable String avatarUrl;
 
+  MapGeoLocation map;
+
   UserEdit.created() : super.created();
 
+  @override
+  void ready() {
+    map = new MapGeoLocation($["map"], 300, "images/button/location76.png", 50, 100);
+    ($["map"] as DivElement).style..height = "300px";
+  }
 
   set user(User user) {
     openId = user.openId;
@@ -36,5 +45,4 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
       familyName: familyName,
       givenName: givenName,
       avatarUrl: avatarUrl);
-
 }

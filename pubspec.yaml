@@ -16,6 +16,7 @@ dependencies:
   redstone_mapper_mongo: '>= 0.1.2  <0.2.0'   
   mongo_dart: '0.1.45  <0.2.0' 
   connection_pool: '>=0.1.0+2  <0.2.0'
+  google_maps: ">=2.0.0 <3.0.0"  
 dev_dependencies:
   mockito: '>=0.8.1 <0.9.0'
   unittest: '>=0.11.4 <0.12.0'
