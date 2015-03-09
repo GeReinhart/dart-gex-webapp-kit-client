@@ -57,11 +57,6 @@ class MapGeoLocation extends Object with Showable {
     if (window.navigator.geolocation != null) {
       window.navigator.geolocation.getCurrentPosition().then((position) {
         final pos = new LatLng(position.coords.latitude, position.coords.longitude);
-
-        final infowindow = new InfoWindow(new InfoWindowOptions()
-          ..position = pos
-          ..content = 'Location found using HTML5.');
-        infowindow.open(_googleMap);
         _googleMap.center = pos;
       }, onError: (error) {
         _handleNoGeolocation();
@@ -74,9 +69,6 @@ class MapGeoLocation extends Object with Showable {
 
   void _handleNoGeolocation() {
     final options = new InfoWindowOptions()..position = new LatLng(45.148609248398735, 5.729827880859428);
-
-    final infowindow = new InfoWindow(options);
-    infowindow.open(_googleMap);
     _googleMap.center = options.position;
   }
 }
