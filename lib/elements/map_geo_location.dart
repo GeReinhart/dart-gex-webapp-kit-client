@@ -71,4 +71,9 @@ class MapGeoLocation extends Object with Showable {
     final options = new InfoWindowOptions()..position = new LatLng(45.148609248398735, 5.729827880859428);
     _googleMap.center = options.position;
   }
+  
+  LatLng get location => _googleMap.center ;
+   set location(LatLng value ) => _googleMap.center = value ;
+  
+  
 }

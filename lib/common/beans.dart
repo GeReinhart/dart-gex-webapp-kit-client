@@ -16,12 +16,14 @@ class User implements Bean {
   @Field() String familyName;
   @Field() String givenName;
   @Field() String avatarUrl;
+  @Field() num locationLat;
+  @Field() num locationLng;
 
   User([String this.id, String this.openId, String this.email, String this.displayName, String this.givenName,
-      String this.familyName, String this.avatarUrl]);
+      String this.familyName, String this.avatarUrl, num this.locationLat, num this.locationLng]);
 
   User.fromFields({String this.id, String this.openId, String this.email, String this.displayName,
-      String this.givenName, String this.familyName, String this.avatarUrl}) {}
+      String this.givenName, String this.familyName, String this.avatarUrl, num this.locationLat, num this.locationLng}) {}
 
   User.loadJSON(Map json) {
     fromJSON(json);
@@ -39,7 +41,9 @@ class User implements Bean {
         displayName: displayName,
         familyName: familyName,
         givenName: givenName,
-        avatarUrl: avatarUrl);
+        avatarUrl: avatarUrl,
+        locationLat:locationLat,
+        locationLng:locationLng);
   }
 
   @override
@@ -51,7 +55,9 @@ class User implements Bean {
       "displayName": displayName,
       "givenName": givenName,
       "familyName": familyName,
-      "avatarUrl": avatarUrl
+      "avatarUrl": avatarUrl,
+      "locationLat":locationLat,
+      "locationLng":locationLng      
     };
   }
 
@@ -64,5 +70,7 @@ class User implements Bean {
     givenName = json["givenName"];
     familyName = json["familyName"];
     avatarUrl = json["avatarUrl"];
+    locationLat = json["locationLat"];
+    locationLng = json["locationLng"];
   }
 }

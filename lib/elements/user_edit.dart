@@ -7,6 +7,7 @@ import 'package:logging/logging.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
 import 'package:gex_webapp_kit_client/elements/map_geo_location.dart';
+import 'package:google_maps/google_maps.dart';
 import 'package:polymer/polymer.dart';
 
 @CustomTag('gex-user-edit')
@@ -37,6 +38,7 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
     familyName = user.familyName;
     givenName = user.givenName;
     avatarUrl = user.avatarUrl;
+    map.location = new LatLng(user.locationLat, user.locationLng);
   }
   User get user => new User.fromFields(
       openId: openId,
@@ -44,5 +46,8 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
       displayName: displayName,
       familyName: familyName,
       givenName: givenName,
-      avatarUrl: avatarUrl);
+      avatarUrl: avatarUrl,
+      locationLat:map.location.lat,
+      locationLng:map.location.lng
+      );
 }
