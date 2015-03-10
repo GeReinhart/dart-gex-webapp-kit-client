@@ -26,10 +26,7 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
   UserEdit.created() : super.created();
 
   @override
-  void ready() {
-    map = new MapGeoLocation($["map"], 300, "images/button/location76.png", 50, 100);
-    ($["map"] as DivElement).style..height = "300px";
-  }
+  void ready() {}
 
   set user(User user) {
     openId = user.openId;
@@ -38,7 +35,9 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
     familyName = user.familyName;
     givenName = user.givenName;
     avatarUrl = user.avatarUrl;
-    map.location = new LatLng(user.locationLat, user.locationLng);
+    if (map == null) {
+      map = new MapGeoLocation($["map"], 300, "images/button/location76.png", 50, user);
+    }
   }
   User get user => new User.fromFields(
       openId: openId,
@@ -47,7 +46,6 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
       familyName: familyName,
       givenName: givenName,
       avatarUrl: avatarUrl,
-      locationLat:map.location.lat,
-      locationLng:map.location.lng
-      );
+      locationLat: map.location.lat,
+      locationLng: map.location.lng);
 }

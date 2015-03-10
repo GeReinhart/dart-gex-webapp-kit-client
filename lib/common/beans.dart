@@ -23,7 +23,8 @@ class User implements Bean {
       String this.familyName, String this.avatarUrl, num this.locationLat, num this.locationLng]);
 
   User.fromFields({String this.id, String this.openId, String this.email, String this.displayName,
-      String this.givenName, String this.familyName, String this.avatarUrl, num this.locationLat, num this.locationLng}) {}
+      String this.givenName, String this.familyName, String this.avatarUrl, num this.locationLat,
+      num this.locationLng}) {}
 
   User.loadJSON(Map json) {
     fromJSON(json);
@@ -42,9 +43,11 @@ class User implements Bean {
         familyName: familyName,
         givenName: givenName,
         avatarUrl: avatarUrl,
-        locationLat:locationLat,
-        locationLng:locationLng);
+        locationLat: locationLat,
+        locationLng: locationLng);
   }
+
+  bool get hasLocation => locationLat != null;
 
   @override
   Map toJSON() {
@@ -56,8 +59,8 @@ class User implements Bean {
       "givenName": givenName,
       "familyName": familyName,
       "avatarUrl": avatarUrl,
-      "locationLat":locationLat,
-      "locationLng":locationLng      
+      "locationLat": locationLat,
+      "locationLng": locationLng
     };
   }
 
