@@ -3,7 +3,7 @@
 library gex_webapp_kit_client.map_geo_location;
 
 import "dart:html";
-
+import "dart:async";
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:google_maps/google_maps.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
@@ -13,55 +13,95 @@ import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
  * Requiered : define proper import in the main page: see https://github.com/a14n/dart-google-maps
  */
 class MapGeoLocation extends Object with Showable {
+  final LatLng defaultPosition = new LatLng(45.148609248398735, 5.729827880859428);
+
   DivElement map;
   num mapSize;
   String markerUrl;
-  User user;
+  User _user;
   num markerSize;
   num zindex;
   GMap _googleMap;
   Marker _marker;
+  DivElement mapPosition;
 
-  MapGeoLocation(this.map, this.mapSize, this.markerUrl, this.markerSize, this.user) {
+  MapGeoLocation(this.map, this.mapSize, this.markerUrl, this.markerSize) {
+    this.map.style
+      ..position = "relative"
+      ..visibility = null;
+    init();
+  }
+
+  set user(User value) {
+    _user = value;
+    if (_user.hasLocation) {
+      _setMarker(new LatLng(_user.locationLat, _user.locationLng));
+    }
+  }
+
+  void init() {
     DivElement mapCanvas = new DivElement();
     mapCanvas.style
       ..height = "${mapSize}px"
       ..width = "${mapSize}px"
       ..zIndex = "${zindex}";
 
-    DivElement mapPosition = new DivElement();
+    mapPosition = new DivElement();
 
     map.append(mapCanvas);
     map.append(mapPosition);
 
     final mapOptions = new MapOptions()
+      ..center = defaultPosition
       ..zoom = 6
       ..mapTypeId = MapTypeId.ROADMAP
       ..streetViewControl = false;
 
     _googleMap = new GMap(mapCanvas, mapOptions);
-
     _googleMap.onCenterChanged.listen((_) {
+      keepMarkerInCenter();
+    });
+    _googleMap.onMouseover.listen((_) {
+      _canKeepMarkerInCenter = true;
+    });
+    _googleMap.onDrag.listen((_) {
+      _canKeepMarkerInCenter = true;
+    });
+  }
+
+  @override
+  bool isShowed() {
+    return map.style.display != "hidden";
+  }
+
+  @override
+  void show() {
+    map.style.display = null;
+    event.trigger(_googleMap, 'resize', []);
+    if (_marker != null) {
+      _googleMap.panTo(_marker.position);
+    }
+  }
+
+  bool _canKeepMarkerInCenter = false;
+  void keepMarkerInCenter() {
+    if (_canKeepMarkerInCenter) {
       if (_marker != null) {
         _marker.position = _googleMap.center;
       }
       mapPosition.innerHtml = "${_googleMap.center.lat}, ${_googleMap.center.lng}";
-    });
-
-    if (user.hasLocation) {
-      _googleMap.center = new LatLng(user.locationLat, user.locationLng);
-      setMarker(_googleMap.center);
-    } else {
-      geoLocation();
     }
+  }
+
+  @override
+  void hide() {
+    map.style.display = "hidden";
   }
 
   void geoLocation() {
     if (window.navigator.geolocation != null) {
       window.navigator.geolocation.getCurrentPosition().then((position) {
-        final pos = new LatLng(position.coords.latitude, position.coords.longitude);
-        _googleMap.center = pos;
-        setMarker(pos);
+        _setMarker(new LatLng(position.coords.latitude, position.coords.longitude));
       }, onError: (error) {
         _handleNoGeolocation();
       });
@@ -72,15 +112,13 @@ class MapGeoLocation extends Object with Showable {
   }
 
   void _handleNoGeolocation() {
-    final options = new InfoWindowOptions()..position = new LatLng(45.148609248398735, 5.729827880859428);
-    _googleMap.center = options.position;
-    setMarker(options.position);
+    _googleMap.center = defaultPosition;
+    _setMarker(defaultPosition);
   }
 
   LatLng get location => _googleMap.center;
-  set location(LatLng value) => _googleMap.center = value;
 
-  void setMarker(LatLng location) {
+  void _setMarker(LatLng location) {
     // Add markers to the map
 
     // Marker sizes are expressed as a Size of X,Y
@@ -92,7 +130,7 @@ class MapGeoLocation extends Object with Showable {
     // the Y direction down.
     // TODO issue for MarkerImage deprecated
     final image = new Icon()
-      ..url = user.avatarUrl
+      ..url = _user.avatarUrl
       // This marker is 20 pixels wide by 32 pixels tall.
       ..size = new Size(20, 32)
       // The origin for this image is 0,0.
@@ -115,13 +153,20 @@ class MapGeoLocation extends Object with Showable {
     final shape = new MarkerShape()
       ..coords = [1, 1, 1, 20, 18, 20, 18, 1]
       ..type = MarkerShapeType.POLY;
-    var myLatLng = location;
-    _marker = new Marker(new MarkerOptions()
-      ..position = myLatLng
+
+    var markerOptions = new MarkerOptions()
+      ..position = location
       ..map = _googleMap
       //  ..shadow = shadow
       //  ..icon = image
       //  ..shape = shape
-      ..title = user.displayName);
+      ..title = _user.displayName;
+
+    if (_marker == null) {
+      _marker = new Marker(markerOptions);
+    } else {
+      _marker.options = markerOptions;
+    }
+    _googleMap.panTo(location);
   }
 }

@@ -99,8 +99,8 @@ class Showable {
   String initialDisplay = null;
 
   bool isShowed() {
-    assert(this is PolymerElement);
-    return (this as PolymerElement).style.display != "none";
+    assert(this is HtmlElement);
+    return (this as HtmlElement).style.display != "none";
   }
 
   bool isHidden() {
@@ -108,17 +108,17 @@ class Showable {
   }
 
   void show() {
-    assert(this is PolymerElement);
-    (this as PolymerElement).style.display = initialDisplay;
+    assert(this is HtmlElement);
+    (this as HtmlElement).style.display = initialDisplay;
   }
 
   void hide() {
-    assert(this is PolymerElement);
-    PolymerElement element = this as PolymerElement;
+    assert(this is HtmlElement);
+    PolymerElement element = this as HtmlElement;
     if (initialDisplay == null) {
       element.style.display = initialDisplay;
     }
-    (this as PolymerElement).style.display = "none";
+    (this as HtmlElement).style.display = "none";
   }
 
   bool _initialState;

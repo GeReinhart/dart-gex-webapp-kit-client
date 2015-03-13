@@ -32,7 +32,7 @@ class User implements Bean {
 
   @override
   String toString() =>
-      "User: openId:${openId}, email:${email}, displayName:${displayName}, givenName:${givenName}, familyName:${familyName}, imageUrl:${avatarUrl}";
+      "User: openId:${openId}, email:${email}, displayName:${displayName}, givenName:${givenName}, familyName:${familyName}, imageUrl:${avatarUrl}, locationLat:${locationLat}, locationLng:${locationLng}";
 
   User clone() {
     return new User.fromFields(

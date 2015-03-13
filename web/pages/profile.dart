@@ -54,12 +54,24 @@ class PageProfile extends Page with Showable {
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
     super.recieveApplicationEvent(event);
-    if (event.isUserAuthSuccess || event.isLoginSuccess || event.isRegisterSuccess) {
+    if (event.isLoginSuccess || event.isRegisterSuccess) {
       userEdit.user = event.user;
     }
     if (event.isLogoutSuccess) {
       userEdit.user = new User();
     }
+  }
+
+  @override
+  void show() {
+    super.show();
+    userEdit.show();
+  }
+
+  @override
+  void hide() {
+    super.hide();
+    userEdit.hide();
   }
 
   void save(Parameters params) {
