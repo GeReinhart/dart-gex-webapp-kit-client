@@ -71,17 +71,17 @@ class ApplicationEvent {
     _viewPortModel = viewPortModel;
   }
 
-  bool _statusIs(EventStatus param) => (status != null && status == param);
-  bool _eventTypeIs(EventType param) => (type != null && type == param);
-  bool _pageTypeIs(EventPageType param) => (pageType != null && pageType == param);
-  bool get _hasPageKey => _pageKey != null;
-  bool get _hasUser => _user != null;
+  bool statusIs(EventStatus param) => (status != null && status == param);
+  bool eventTypeIs(EventType param) => (type != null && type == param);
+  bool pageTypeIs(EventPageType param) => (pageType != null && pageType == param);
+  bool get hasPageKey => _pageKey != null;
+  bool get hasUser => _user != null;
 
   factory ApplicationEvent.callIndexPage(Object sender) {
     return new ApplicationEvent(sender, status: EventStatus.CALL, type: EventType.PAGE, pageType: EventPageType.INDEX);
   }
   bool get isCallIndexPage =>
-      _statusIs(EventStatus.CALL) && _eventTypeIs(EventType.PAGE) && _pageTypeIs(EventPageType.INDEX);
+      statusIs(EventStatus.CALL) && eventTypeIs(EventType.PAGE) && pageTypeIs(EventPageType.INDEX);
 
   factory ApplicationEvent.callPage(Object sender, String name, {Parameters resources, Parameters params}) {
     PageKey pageKey = new PageKey(name: name, resources: resources, params: params);
@@ -93,14 +93,14 @@ class ApplicationEvent {
         status: EventStatus.CALL, type: EventType.PAGE, pageType: EventPageType.CUSTOM, pageKey: pageKey);
   }
   bool get isCallPage =>
-      _statusIs(EventStatus.CALL) && _eventTypeIs(EventType.PAGE) && _pageTypeIs(EventPageType.CUSTOM) && _hasPageKey;
+      statusIs(EventStatus.CALL) && eventTypeIs(EventType.PAGE) && pageTypeIs(EventPageType.CUSTOM) && hasPageKey;
 
   factory ApplicationEvent.callRegisterPage(Object sender, User user) {
     return new ApplicationEvent(sender,
         status: EventStatus.CALL, type: EventType.PAGE, pageType: EventPageType.REGISTER, user: user);
   }
   bool get isCallRegisterPage =>
-      _statusIs(EventStatus.CALL) && _eventTypeIs(EventType.PAGE) && _pageTypeIs(EventPageType.REGISTER) && _hasUser;
+      statusIs(EventStatus.CALL) && eventTypeIs(EventType.PAGE) && pageTypeIs(EventPageType.REGISTER) && hasUser;
 
   factory ApplicationEvent.pageDisplayed(Object sender, String name, {Parameters resources, Parameters params}) {
     PageKey pageKey = new PageKey(name: name, resources: resources, params: params);
@@ -111,62 +111,62 @@ class ApplicationEvent {
     return new ApplicationEvent(sender,
         status: EventStatus.DISPLAYED, type: EventType.PAGE, pageType: EventPageType.CUSTOM, pageKey: pageKey);
   }
-  bool get isPageDisplayed => _statusIs(EventStatus.DISPLAYED) &&
-      _eventTypeIs(EventType.PAGE) &&
-      _pageTypeIs(EventPageType.CUSTOM) &&
-      _hasPageKey;
+  bool get isPageDisplayed => statusIs(EventStatus.DISPLAYED) &&
+      eventTypeIs(EventType.PAGE) &&
+      pageTypeIs(EventPageType.CUSTOM) &&
+      hasPageKey;
 
   factory ApplicationEvent.callUserAuth(Object sender) {
     return new ApplicationEvent(sender, status: EventStatus.CALL, type: EventType.AUTH);
   }
-  bool get isCallUserAuth => _statusIs(EventStatus.CALL) && _eventTypeIs(EventType.AUTH);
+  bool get isCallUserAuth => statusIs(EventStatus.CALL) && eventTypeIs(EventType.AUTH);
 
   factory ApplicationEvent.userAuthFail(Object sender, String errorDetails) {
     return new ApplicationEvent(sender, status: EventStatus.FAILURE, type: EventType.AUTH, errorDetails: errorDetails);
   }
-  bool get isUserAuthFail => _statusIs(EventStatus.FAILURE) && _eventTypeIs(EventType.AUTH);
+  bool get isUserAuthFail => statusIs(EventStatus.FAILURE) && eventTypeIs(EventType.AUTH);
 
   factory ApplicationEvent.userAuthSuccess(Object sender, User user) {
     return new ApplicationEvent(sender, status: EventStatus.SUCCESS, type: EventType.AUTH, user: user);
   }
-  bool get isUserAuthSuccess => _statusIs(EventStatus.SUCCESS) && _eventTypeIs(EventType.AUTH) && _hasUser;
+  bool get isUserAuthSuccess => statusIs(EventStatus.SUCCESS) && eventTypeIs(EventType.AUTH) && hasUser;
 
   factory ApplicationEvent.callRegister(Object sender, User user) {
     return new ApplicationEvent(sender, status: EventStatus.CALL, type: EventType.REGISTER, user: user);
   }
-  bool get isCallRegister => _statusIs(EventStatus.CALL) && _eventTypeIs(EventType.REGISTER) && _hasUser;
+  bool get isCallRegister => statusIs(EventStatus.CALL) && eventTypeIs(EventType.REGISTER) && hasUser;
 
   factory ApplicationEvent.loginSuccess(Object sender, User user) {
     return new ApplicationEvent(sender, status: EventStatus.SUCCESS, type: EventType.LOGIN, user: user);
   }
-  bool get isLoginSuccess => _statusIs(EventStatus.SUCCESS) && _eventTypeIs(EventType.LOGIN) && _hasUser;
+  bool get isLoginSuccess => statusIs(EventStatus.SUCCESS) && eventTypeIs(EventType.LOGIN) && hasUser;
 
   factory ApplicationEvent.userDetailsSuccess(Object sender, User user) {
     return new ApplicationEvent(sender, status: EventStatus.SUCCESS, type: EventType.USER_DETAILS, user: user);
   }
-  bool get isUserDetailsSuccess => _statusIs(EventStatus.SUCCESS) && _eventTypeIs(EventType.USER_DETAILS) && _hasUser;
+  bool get isUserDetailsSuccess => statusIs(EventStatus.SUCCESS) && eventTypeIs(EventType.USER_DETAILS) && hasUser;
 
   factory ApplicationEvent.registerSuccess(Object sender, User user) {
     return new ApplicationEvent(sender, status: EventStatus.SUCCESS, type: EventType.REGISTER, user: user);
   }
-  bool get isRegisterSuccess => _statusIs(EventStatus.SUCCESS) && _eventTypeIs(EventType.REGISTER) && _hasUser;
+  bool get isRegisterSuccess => statusIs(EventStatus.SUCCESS) && eventTypeIs(EventType.REGISTER) && hasUser;
 
   factory ApplicationEvent.logoutSuccess(Object sender, User user) {
     return new ApplicationEvent(sender, status: EventStatus.SUCCESS, type: EventType.LOGOUT, user: user);
   }
-  bool get isLogoutSuccess => _statusIs(EventStatus.SUCCESS) && _eventTypeIs(EventType.LOGOUT) && _hasUser;
+  bool get isLogoutSuccess => statusIs(EventStatus.SUCCESS) && eventTypeIs(EventType.LOGOUT) && hasUser;
 
   factory ApplicationEvent.viewPortChange(Object sender, ViewPortModel viewPortModel) {
     return new ApplicationEvent(sender,
         status: EventStatus.CHANGE, type: EventType.VIEW_PORT, viewPortModel: viewPortModel);
   }
   bool get isViewPortChange =>
-      _statusIs(EventStatus.CHANGE) && _eventTypeIs(EventType.VIEW_PORT) && _viewPortModel != null;
+      statusIs(EventStatus.CHANGE) && eventTypeIs(EventType.VIEW_PORT) && _viewPortModel != null;
 
   factory ApplicationEvent.callSaveUser(Object sender, User user) {
     return new ApplicationEvent(sender, status: EventStatus.CALL, type: EventType.SAVE_USER, user: user);
   }
-  bool get isCallSaveUser => _statusIs(EventStatus.CALL) && _eventTypeIs(EventType.SAVE_USER) && _hasUser;
+  bool get isCallSaveUser => statusIs(EventStatus.CALL) && eventTypeIs(EventType.SAVE_USER) && hasUser;
 
   Object get sender => _sender;
   EventStatus get status => _status;
