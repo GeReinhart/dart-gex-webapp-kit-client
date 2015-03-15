@@ -30,7 +30,7 @@ class PostJsonRequest {
     });
     request.open("POST", _path, async: true);
     request.setRequestHeader("content-type", "application/json");
-    request.send(JSON.encode(input.toJSON()));
+    request.send(JSON.encode(input.toJson()));
   }
 }
 

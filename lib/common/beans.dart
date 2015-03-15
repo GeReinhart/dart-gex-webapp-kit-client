@@ -3,9 +3,9 @@
 part of gex_webapp_kit_common;
 
 abstract class Bean {
-  Map toJSON();
+  Map toJson();
 
-  void fromJSON(Map json);
+  void fromJson(Map json);
 }
 
 class User implements Bean {
@@ -27,7 +27,7 @@ class User implements Bean {
       num this.locationLng}) {}
 
   User.loadJSON(Map json) {
-    fromJSON(json);
+    fromJson(json);
   }
 
   @override
@@ -50,7 +50,7 @@ class User implements Bean {
   bool get hasLocation => locationLat != null;
 
   @override
-  Map toJSON() {
+  Map toJson() {
     return {
       "id": id,
       "openId": openId,
@@ -65,7 +65,7 @@ class User implements Bean {
   }
 
   @override
-  void fromJSON(Map json) {
+  void fromJson(Map json) {
     id = json["id"];
     openId = json["openId"];
     email = json["email"];
