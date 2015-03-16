@@ -117,12 +117,12 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     if (event.isCallIndexPage) {
       // TODO Find another way to define the index page
       String pageIndexName = _pages.first.name;
-      _showPage(pageName: pageIndexName);
+      showPage(pageName: pageIndexName);
       fireApplicationEvent(new ApplicationEvent.callPage(this, pageIndexName));
       return;
     }
     if (event.isCallPage) {
-      _showPage(pageName: event.pageKey.name, params: event.pageKey.params);
+      showPage(pageName: event.pageKey.name, params: event.pageKey.params);
       fireApplicationEvent(new ApplicationEvent.pageDisplayed(this, event.pageKey.name, params: event.pageKey.params));
       return;
     }
@@ -138,7 +138,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     }
     if (event.isCallRegisterPage) {
       // TODO Find a way to define the register page
-      _showPage(pageName: "register");
+      showPage(pageName: "register");
       fireApplicationEvent(new ApplicationEvent.callPage(this, "register"));
     }
     if (event.isLoginSuccess || event.isLogoutSuccess || event.isRegisterSuccess) {
@@ -146,7 +146,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     }
   }
 
-  void _showPage({String pageName, Parameters params}) {
+  void showPage({String pageName, Parameters params}) {
     _pages.forEach((p) => p.hide());
     if (pageName != null) {
       _pages.forEach((p) {

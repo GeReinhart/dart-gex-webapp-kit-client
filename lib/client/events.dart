@@ -111,10 +111,8 @@ class ApplicationEvent {
     return new ApplicationEvent(sender,
         status: EventStatus.DISPLAYED, type: EventType.PAGE, pageType: EventPageType.CUSTOM, pageKey: pageKey);
   }
-  bool get isPageDisplayed => statusIs(EventStatus.DISPLAYED) &&
-      eventTypeIs(EventType.PAGE) &&
-      pageTypeIs(EventPageType.CUSTOM) &&
-      hasPageKey;
+  bool get isPageDisplayed =>
+      statusIs(EventStatus.DISPLAYED) && eventTypeIs(EventType.PAGE) && pageTypeIs(EventPageType.CUSTOM) && hasPageKey;
 
   factory ApplicationEvent.callUserAuth(Object sender) {
     return new ApplicationEvent(sender, status: EventStatus.CALL, type: EventType.AUTH);
