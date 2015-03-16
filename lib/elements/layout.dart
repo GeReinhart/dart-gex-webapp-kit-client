@@ -7,7 +7,7 @@ import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
-
+import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
 import 'package:gex_webapp_kit_client/elements/toolbar.dart';
 
 /**

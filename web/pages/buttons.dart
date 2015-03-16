@@ -5,6 +5,7 @@ library gex_webapp_kit_client.show_room.buttons;
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
+import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
 import 'package:gex_webapp_kit_client/elements/layout.dart';
 import 'package:gex_webapp_kit_client/elements/page.dart';
 import 'package:gex_webapp_kit_client/elements/button.dart';

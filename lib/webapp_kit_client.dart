@@ -13,7 +13,6 @@ import "package:google_oauth2_client/google_oauth2_browser.dart";
 import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
 
 part 'client/abilities.dart';
-part 'client/beans.dart';
 part 'client/events.dart';
 part 'client/colors.dart';
 part 'client/requests.dart';

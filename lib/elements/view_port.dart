@@ -7,6 +7,7 @@ import 'dart:js' as js;
 import 'package:logging/logging.dart';
 import 'dart:async';
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
+import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
 import 'package:polymer/polymer.dart';
 
 /**
