@@ -55,7 +55,15 @@ class Router extends Object with ApplicationEventPassenger {
   void recieveApplicationEvent(ApplicationEvent event) {
     if (event.isPageDisplayed) {
       String baseUrl = _baseUrl(window.location.href);
-      window.location.href = "${baseUrl}#${event.pageKey.name}";
+      String url = "${baseUrl}#${event.pageKey.name}";
+      if (event.pageKey.resources != null){
+        event.pageKey.resources.parameters.forEach( (p)=> url+= "/${p.key}/${p.value}" ) ;
+      }
+      if (event.pageKey.params != null){
+        url+= "?" ;
+        event.pageKey.resources.parameters.forEach( (p)=> url+= "${p.key}=${p.value}&" ) ;
+      }      
+      window.location.href = url;
       return;
     }
   }
