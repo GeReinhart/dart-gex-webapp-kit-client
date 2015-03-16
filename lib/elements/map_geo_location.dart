@@ -24,8 +24,9 @@ class MapGeoLocation extends Object with Showable {
   GMap _googleMap;
   Marker _marker;
   DivElement mapPosition;
+  bool editionMode = true;
 
-  MapGeoLocation(this.map, this.mapSize, this.markerUrl, this.markerSize) {
+  MapGeoLocation(this.map, this.mapSize, this.markerUrl, this.markerSize, {this.editionMode}) {
     this.map.style
       ..position = "relative"
       ..visibility = null;
@@ -59,7 +60,7 @@ class MapGeoLocation extends Object with Showable {
 
     _googleMap = new GMap(mapCanvas, mapOptions);
     _googleMap.onCenterChanged.listen((_) {
-      keepMarkerInCenter();
+      _keepMarkerInCenter();
     });
     _googleMap.onMouseover.listen((_) {
       _canKeepMarkerInCenter = true;
@@ -84,12 +85,12 @@ class MapGeoLocation extends Object with Showable {
   }
 
   bool _canKeepMarkerInCenter = false;
-  void keepMarkerInCenter() {
-    if (_canKeepMarkerInCenter) {
+  void _keepMarkerInCenter() {
+    if (_canKeepMarkerInCenter && editionMode) {
       if (_marker != null) {
         _marker.position = _googleMap.center;
+        mapPosition.innerHtml = "${_googleMap.center.lat}, ${_googleMap.center.lng}";
       }
-      mapPosition.innerHtml = "${_googleMap.center.lat}, ${_googleMap.center.lng}";
     }
   }
 
