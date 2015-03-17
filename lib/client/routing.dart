@@ -56,14 +56,14 @@ class Router extends Object with ApplicationEventPassenger {
     if (event.isPageDisplayed) {
       String baseUrl = _baseUrl(window.location.href);
       String url = "${baseUrl}#${event.pageKey.name}";
-      if (event.pageKey.resources != null){
-        event.pageKey.resources.parameters.forEach( (p)=> url+= "/${p.key}/${p.value}" ) ;
+      if (event.pageKey.resources != null) {
+        event.pageKey.resources.parameters.forEach((p) => url += "/${p.key}/${p.value}");
       }
-      if (event.pageKey.params != null && event.pageKey.params.parameters.isNotEmpty){
-        url+= "?" ;
-        event.pageKey.params.parameters.forEach( (p)=> url+= "${p.key}=${p.value}&" ) ;
-        url= url.substring(0, url.length -2) ;
-      }      
+      if (event.pageKey.params != null && event.pageKey.params.parameters.isNotEmpty) {
+        url += "?";
+        event.pageKey.params.parameters.forEach((p) => url += "${p.key}=${p.value}&");
+        url = url.substring(0, url.length - 2);
+      }
       window.location.href = url;
       return;
     }

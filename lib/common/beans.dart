@@ -13,18 +13,16 @@ class User implements Bean {
   @Field() String openId;
   @Field() String email;
   @Field() String displayName;
-  @Field() String familyName;
-  @Field() String givenName;
   @Field() String avatarUrl;
   @Field() num locationLat;
   @Field() num locationLng;
+  @Field() String locationAddress;
 
-  User([String this.id, String this.openId, String this.email, String this.displayName, String this.givenName,
-      String this.familyName, String this.avatarUrl, num this.locationLat, num this.locationLng]);
+  User([String this.id, String this.openId, String this.email, String this.displayName, String this.avatarUrl,
+      num this.locationLat, num this.locationLng, String this.locationAddress]);
 
   User.fromFields({String this.id, String this.openId, String this.email, String this.displayName,
-      String this.givenName, String this.familyName, String this.avatarUrl, num this.locationLat,
-      num this.locationLng}) {}
+      String this.avatarUrl, num this.locationLat, num this.locationLng, String this.locationAddress}) {}
 
   User.loadJSON(Map json) {
     fromJson(json);
@@ -32,7 +30,7 @@ class User implements Bean {
 
   @override
   String toString() =>
-      "User: openId:${openId}, email:${email}, displayName:${displayName}, givenName:${givenName}, familyName:${familyName}, imageUrl:${avatarUrl}, locationLat:${locationLat}, locationLng:${locationLng}";
+      "User: openId:${openId}, email:${email}, displayName:${displayName}, imageUrl:${avatarUrl}, locationLat:${locationLat}, locationLng:${locationLng}, locationAddress:${locationAddress}";
 
   User clone() {
     return new User.fromFields(
@@ -40,11 +38,10 @@ class User implements Bean {
         openId: openId,
         email: email,
         displayName: displayName,
-        familyName: familyName,
-        givenName: givenName,
         avatarUrl: avatarUrl,
         locationLat: locationLat,
-        locationLng: locationLng);
+        locationLng: locationLng,
+        locationAddress: locationAddress);
   }
 
   bool get hasLocation => locationLat != null;
@@ -56,11 +53,10 @@ class User implements Bean {
       "openId": openId,
       "email": email,
       "displayName": displayName,
-      "givenName": givenName,
-      "familyName": familyName,
       "avatarUrl": avatarUrl,
       "locationLat": locationLat,
-      "locationLng": locationLng
+      "locationLng": locationLng,
+      "locationAddress": locationAddress
     };
   }
 
@@ -70,11 +66,10 @@ class User implements Bean {
     openId = json["openId"];
     email = json["email"];
     displayName = json["displayName"];
-    givenName = json["givenName"];
-    familyName = json["familyName"];
     avatarUrl = json["avatarUrl"];
     locationLat = json["locationLat"];
     locationLng = json["locationLng"];
+    locationAddress = json["locationAddress"];
   }
 }
 
@@ -157,6 +152,8 @@ class Parameters {
     return (that.hashCode == this.hashCode);
   }
 }
+
+typedef void LaunchAction(Parameters params);
 
 class ActionDescriptor {
   String _name;

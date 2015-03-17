@@ -45,22 +45,12 @@
     </style>   
           <ul>
            <li><img _src="{{avatarUrl}}"  /></li>
-           <li><span>OpenId: </span><span  >{{openId}}</span></li>
-           <li><span>Email: </span><span>{{email}}</span></li>
-           <li>
-               <paper-input-decorator label="Given name" floatingLabel>
-                   <input is="core-input" value="{{givenName}}" maxlength="100" >
-               </paper-input-decorator>           
-           &nbsp;
-               <paper-input-decorator label="Family name" floatingLabel>
-                   <input is="core-input" value="{{familyName}}" maxlength="100" >
-               </paper-input-decorator>
-           </li>                
            <li>
                <paper-input-decorator label="Display name" floatingLabel>
                    <input is="core-input" value="{{displayName}}" maxlength="100"  >
                </paper-input-decorator>     
            </li>
+           <li><span>Email: </span><span>{{email}}</span></li>
            <li>
                <span>Location:</span>
                <div style="margin: 12px"  id="map"></div>

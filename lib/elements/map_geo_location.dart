@@ -21,15 +21,20 @@ class MapGeoLocation extends Object with Showable {
   User _user;
   num markerSize;
   num zindex;
+  Geocoder _geocoder;
   GMap _googleMap;
   Marker _marker;
   DivElement mapPosition;
-  bool editionMode = true;
+  DivElement mapAddress;
+  bool editionMode;
 
   MapGeoLocation(this.map, this.mapSize, this.markerUrl, this.markerSize, {this.editionMode}) {
     this.map.style
       ..position = "relative"
       ..visibility = null;
+    if (editionMode == null) {
+      editionMode = true;
+    }
     init();
   }
 
@@ -37,6 +42,8 @@ class MapGeoLocation extends Object with Showable {
     _user = value;
     if (_user.hasLocation) {
       _setMarker(new LatLng(_user.locationLat, _user.locationLng));
+      mapPosition.innerHtml = "${_googleMap.center.lat}, ${_googleMap.center.lng}";
+      _codeLatLng();
     }
   }
 
@@ -48,7 +55,9 @@ class MapGeoLocation extends Object with Showable {
       ..zIndex = "${zindex}";
 
     mapPosition = new DivElement();
+    mapAddress = new DivElement();
 
+    map.append(mapAddress);
     map.append(mapCanvas);
     map.append(mapPosition);
 
@@ -58,6 +67,7 @@ class MapGeoLocation extends Object with Showable {
       ..mapTypeId = MapTypeId.ROADMAP
       ..streetViewControl = false;
 
+    _geocoder = new Geocoder();
     _googleMap = new GMap(mapCanvas, mapOptions);
     _googleMap.onCenterChanged.listen((_) {
       _keepMarkerInCenter();
@@ -90,6 +100,7 @@ class MapGeoLocation extends Object with Showable {
       if (_marker != null) {
         _marker.position = _googleMap.center;
         mapPosition.innerHtml = "${_googleMap.center.lat}, ${_googleMap.center.lng}";
+        _codeLatLng();
       }
     }
   }
@@ -103,6 +114,8 @@ class MapGeoLocation extends Object with Showable {
     if (window.navigator.geolocation != null) {
       window.navigator.geolocation.getCurrentPosition().then((position) {
         _setMarker(new LatLng(position.coords.latitude, position.coords.longitude));
+        mapPosition.innerHtml = "${_googleMap.center.lat}, ${_googleMap.center.lng}";
+        _codeLatLng();
       }, onError: (error) {
         _handleNoGeolocation();
       });
@@ -115,9 +128,25 @@ class MapGeoLocation extends Object with Showable {
   void _handleNoGeolocation() {
     _googleMap.center = defaultPosition;
     _setMarker(defaultPosition);
+    mapPosition.innerHtml = "${_googleMap.center.lat}, ${_googleMap.center.lng}";
+    _codeLatLng();
   }
 
   LatLng get location => _googleMap.center;
+  String get address => mapAddress.innerHtml;
+
+  void _codeLatLng() {
+    final request = new GeocoderRequest()..location = location;
+    _geocoder.geocode(request, (List<GeocoderResult> results, GeocoderStatus status) {
+      if (status == GeocoderStatus.OK) {
+        if (results[1] != null) {
+          mapAddress.innerHtml = results[1].formattedAddress;
+        } else {
+          mapAddress.innerHtml = "";
+        }
+      }
+    });
+  }
 
   void _setMarker(LatLng location) {
     // Add markers to the map

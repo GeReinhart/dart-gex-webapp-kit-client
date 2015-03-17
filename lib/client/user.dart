@@ -157,13 +157,12 @@ class GoogleAuthenticator extends Authenticator {
         String givenName = data["name"] == null ? null : data["name"]["givenName"];
         String imageUrl = data["image"] == null ? null : data["image"]["url"].toString().replaceAll("sz=50", "sz=150");
 
+        if (displayName == null || displayName.isEmpty) {
+          displayName = givenName + " " + familyName;
+        }
+
         User user = new User.fromFields(
-            openId: token.userId,
-            email: token.email,
-            displayName: displayName,
-            givenName: givenName,
-            familyName: familyName,
-            avatarUrl: imageUrl);
+            openId: token.userId, email: token.email, displayName: displayName, avatarUrl: imageUrl);
 
         fireApplicationEvent(new ApplicationEvent.userAuthSuccess(this, user));
       } else {
