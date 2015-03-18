@@ -8,6 +8,7 @@ import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
+import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
 import 'package:gex_webapp_kit_client/elements/space.dart';
 import 'package:gex_webapp_kit_client/elements/button.dart';
 

@@ -44,7 +44,7 @@ class Router extends Object with ApplicationEventPassenger {
 
   void init() {
     PageKey pageKey = _pageKeyUrlConverter.convertToPageKey(window.location.href);
-    if (pageKey == null) {
+    if (pageKey == null || pageKey.isEmpty) {
       fireApplicationEvent(new ApplicationEvent.callIndexPage(this));
     } else {
       fireApplicationEvent(new ApplicationEvent.callPageWithKey(this, pageKey));

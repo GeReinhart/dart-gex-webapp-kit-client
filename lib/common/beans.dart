@@ -199,6 +199,8 @@ class PageKey {
     return new PageKey(name: _name, params: _params, resources: _resources);
   }
 
+  bool get isEmpty => _name == null || _name.length == 0;
+  
   String get name => _name;
   Parameters get params => _params.clone();
   Parameters get resources => _resources.clone();
