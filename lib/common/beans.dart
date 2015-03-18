@@ -120,6 +120,15 @@ class Parameters {
       _parameters = parameters;
     }
   }
+  
+  Parameters.empty(){
+    _parameters = new List<Parameter>();
+  }
+  
+  Parameters.withOneParam(  String key,  String value) {
+      _parameters = new List<Parameter>();
+      _parameters.add( new Parameter(key, value)) ;
+  }
 
   List<Parameter> get parameters {
     List<Parameter> parameters = new List<Parameter>();

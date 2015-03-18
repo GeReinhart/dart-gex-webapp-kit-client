@@ -57,6 +57,20 @@ main() {
           equals(expectedPageKey));
       expect(pageKeyUrlConverter.convertToPageKey("/#${name}").toString(), equals(expectedPageKey));
     });
+    
+    test('page  with one resource', () {
+      String name = "page1";
+      String key = "id";
+      String value = "123456";
+      Parameters resources = new Parameters.withOneParam(key,value);
+      Parameters params = new Parameters(null);
+      String expectedPageKey = "PageKey: name:${name}, resources:${resources}, params:${params}";
+      expect(pageKeyUrlConverter.convertToPageKey("http://connecting.dartisans.net/#${name}/${key}/${value}").toString(),
+          equals(expectedPageKey));
+      expect(pageKeyUrlConverter.convertToPageKey("http://connecting.dartisans.net/#${name}/${key}/${value}/").toString(),
+          equals(expectedPageKey));      
+    });
+    
   });
 
   group("Routing", () {

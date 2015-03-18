@@ -32,8 +32,24 @@ class PageKeyUrlConverter {
   }
 
   PageKey _convertToPageKey(String path) {
-    String pageName = path;
-    return new PageKey(name: pageName);
+    if ( !path.contains("/")){
+      return new PageKey(name: path);
+    }
+    String pageName = path.substring(0,path.indexOf("/"));
+    String resourcesInPath = path.substring(path.indexOf("/")+1,path.length);
+    
+    Parameters resources = new Parameters.empty();
+    var resourcesParts = resourcesInPath.split("/") ;
+    int i = 0 ;
+    while ( i + 1 < resourcesParts.length){
+      String key = resourcesParts[i];
+      String value = resourcesParts[i+1];
+      resources.add(key, value) ;
+      i += 2 ;
+    }
+    
+    
+    return new PageKey(name: pageName, resources: resources);
   }
 }
 
