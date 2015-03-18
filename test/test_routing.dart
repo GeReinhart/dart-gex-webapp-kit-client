@@ -32,6 +32,8 @@ main() {
       expect(
           pageKeyUrlConverter.convertToPageKey("http://connecting.dartisans.net/").toString(), equals(expectedPageKey));
       expect(
+          pageKeyUrlConverter.convertToPageKey("http://connecting.dartisans.net/#").toString(), equals(expectedPageKey));      
+      expect(
           pageKeyUrlConverter.convertToPageKey("http://connecting.dartisans.net").toString(), equals(expectedPageKey));
       expect(pageKeyUrlConverter.convertToPageKey("https://dartisans.net/").toString(), equals(expectedPageKey));
       expect(pageKeyUrlConverter.convertToPageKey("https://dartisans.net").toString(), equals(expectedPageKey));
