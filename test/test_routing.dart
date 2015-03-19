@@ -22,7 +22,7 @@ main() {
   router.setApplicationEventBus(applicationEventBus);
 
   group("PageKeyUrlConverter", () {
-  /*  test('no page', () {
+    /*  test('no page', () {
       expect(pageKeyUrlConverter.convertToPageKey("http://dartisans.net/"), equals(null));
       expect(pageKeyUrlConverter.convertToPageKey("http://dartisans.net"), equals(null));
       expect(pageKeyUrlConverter.convertToPageKey("http://connecting.dartisans.net/"), equals(null));
@@ -69,7 +69,7 @@ main() {
       String name = "page1";
       String key3 = "id3";
       String value3 = "12345678";
-      Parameters resources = new Parameters.withOneParam(key3, value3);      
+      Parameters resources = new Parameters.withOneParam(key3, value3);
       String key = "id";
       String value = "123456";
       String key2 = "id2";
@@ -77,12 +77,12 @@ main() {
       Parameters params = new Parameters.withOneParam(key, value);
       params.add(key2, value2);
       String expectedPageKey = "PageKey: name:${name}, resources:${resources}, params:${params}";
-      expect(
-          pageKeyUrlConverter.convertToPageKey("http://connecting.dartisans.net/#${name}/${key3}/${value3}?${key}=${value}&${key2}=${value2}").toString(),
-          equals(expectedPageKey));
+      expect(pageKeyUrlConverter
+          .convertToPageKey(
+              "http://connecting.dartisans.net/#${name}/${key3}/${value3}?${key}=${value}&${key2}=${value2}")
+          .toString(), equals(expectedPageKey));
+    });
 
-    });    
-    
     test('page  resources with params', () {
       String name = "page1";
       String key = "id";
@@ -93,12 +93,10 @@ main() {
       params.add(key2, value2);
       Parameters resources = new Parameters(null);
       String expectedPageKey = "PageKey: name:${name}, resources:${resources}, params:${params}";
-      expect(
-          pageKeyUrlConverter.convertToPageKey("http://connecting.dartisans.net/#${name}?${key}=${value}&${key2}=${value2}").toString(),
-          equals(expectedPageKey));
-
-    });    
-    
+      expect(pageKeyUrlConverter
+          .convertToPageKey("http://connecting.dartisans.net/#${name}?${key}=${value}&${key2}=${value2}")
+          .toString(), equals(expectedPageKey));
+    });
   });
 
   group("Routing", () {

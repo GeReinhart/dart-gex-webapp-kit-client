@@ -9,6 +9,7 @@ import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
 import 'package:gex_webapp_kit_client/elements/layout.dart';
 import 'package:gex_webapp_kit_client/elements/page.dart';
 import 'package:gex_webapp_kit_client/elements/button.dart';
+import 'package:gex_webapp_kit_client/elements/ternary_options.dart';
 
 import 'bus.dart';
 
@@ -25,6 +26,7 @@ class PageButtons extends Page with Showable {
   Button button2;
   Button button3;
   Button button4;
+  TernaryOptions options;
 
   num buttonBasicSize = 300;
 
@@ -55,6 +57,11 @@ class PageButtons extends Page with Showable {
   }
 
   void _setAttributesButtons() {
+    options = $["options"] as TernaryOptions;
+    options.init(new TernaryOptionsModel("Do you want more ?"));
+    TernaryOptions options2 = $["options2"] as TernaryOptions;
+    options2.init(new TernaryOptionsModel("Do you want more and more ?"));
+
     button1 = $["button1"] as Button;
     button1.init(new ButtonModel(
         color: Color.GREY_858585,
@@ -86,7 +93,7 @@ class PageButtons extends Page with Showable {
 
   void _moveButtons() {
     button1.moveTo(new Position(
-        buttonBasicSize * 2 / 3, buttonBasicSize * 2 / 3, buttonBasicSize * 2 / 3, buttonBasicSize * 2 / 3, 101));
+        buttonBasicSize * 4 / 3, buttonBasicSize * 2 / 3, buttonBasicSize * 2 / 3, buttonBasicSize * 2 / 3, 101));
     button2.moveTo(new Position(
         buttonBasicSize * 2 / 3, buttonBasicSize * 5 / 3, buttonBasicSize * 3 / 3, buttonBasicSize * 3 / 3, 101));
     button3.moveTo(new Position(

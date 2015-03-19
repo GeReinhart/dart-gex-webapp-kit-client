@@ -1,0 +1,24 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../packages/gex_webapp_kit_client/elements/button.html">
+<link rel="import" href="../../../packages/core_elements/core_label.html">
+
+<polymer-element name="gex-ternary-options" >
+  <template>
+    <style>
+      :host {
+          text-align:left;
+       }
+    </style>
+         <div id="buttonsContainerRelative" style="position: relative;">
+            <div  id="buttonsContainer" style="position: absolute; top:0px ; left:0px">
+              <gex-button id="buttonNone" ></gex-button>
+              <gex-button id="buttonEnabled" ></gex-button>
+              <gex-button id="buttonDisabled" ></gex-button>
+              <div id="desc"  style="position: absolute;">{{model.desc}}</div>
+              <div id="label" style="font-size: small; position: absolute;"  ></div>
+            </div>
+         </div>
+  </template>
+  <script type="application/dart" src="ternary_options.dart"></script>
+</polymer-element>
+

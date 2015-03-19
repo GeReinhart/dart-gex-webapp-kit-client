@@ -376,3 +376,41 @@ class PageModel extends Object with ApplicationEventCallBackHolder {
     return new PageModel(name: _name, margin: _margin, layoutModel: layoutModel);
   }
 }
+
+enum TernaryOption {
+  NONE,
+  ENABLED,
+  DISABLED
+}
+
+class TernaryOptionsModel {
+  TernaryOption option;
+  String desc;
+  String labelNone;
+  String labelEnabled;
+  String labelDisabled;
+  Color color;
+  num buttonSize;
+
+  TernaryOptionsModel(String this.desc, {String this.labelDisabled, String this.labelNone, String this.labelEnabled,
+      Color this.color, TernaryOption this.option, num this.buttonSize}) {
+    if (this.option == null) {
+      option = TernaryOption.NONE;
+    }
+    if (this.labelNone == null) {
+      labelNone = "Whatever";
+    }
+    if (this.labelEnabled == null) {
+      labelEnabled = "I take those";
+    }
+    if (this.labelDisabled == null) {
+      labelDisabled = "No thanks";
+    }
+    if (this.color == null) {
+      color = Color.BLUE_0082C8;
+    }
+    if (this.buttonSize == null) {
+      buttonSize = 35;
+    }
+  }
+}

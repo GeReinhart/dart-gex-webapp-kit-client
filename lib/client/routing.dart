@@ -3,7 +3,6 @@
 part of gex_webapp_kit_client;
 
 class PageKeyUrlConverter {
-
   PageKey convertToPageKey(String url) {
     if (url.indexOf("#") > 0 && url.indexOf("#") != url.length - 1) {
       String path = url.substring(url.indexOf("#") + 1, url.length);
@@ -13,7 +12,7 @@ class PageKeyUrlConverter {
   }
 
   PageKey _convertToPageKey(String path) {
-    String pageName = "" ;
+    String pageName = "";
     Parameters resources = new Parameters.empty();
     Parameters params = new Parameters.empty();
 
@@ -21,34 +20,34 @@ class PageKeyUrlConverter {
       return new PageKey(name: path);
     }
 
-    if (path.contains("?")){
-      params = _params(  path.substring(path.indexOf("?")+1,path.length ) ) ;
-      path = path.substring(0, path.indexOf("?") ) ;
+    if (path.contains("?")) {
+      params = _params(path.substring(path.indexOf("?") + 1, path.length));
+      path = path.substring(0, path.indexOf("?"));
     }
-    
-    if (! path.contains("/")){
+
+    if (!path.contains("/")) {
       return new PageKey(name: path, params: params);
     }
-    
-    resources = _resources( path.substring(path.indexOf("/")+1,path.length )  ) ;
-    pageName = path.substring(0, path.indexOf("/")) ;
+
+    resources = _resources(path.substring(path.indexOf("/") + 1, path.length));
+    pageName = path.substring(0, path.indexOf("/"));
     return new PageKey(name: pageName, params: params, resources: resources);
   }
-  
-  Parameters _params (String paramsInPath){
+
+  Parameters _params(String paramsInPath) {
     Parameters params = new Parameters.empty();
     var paramsPart = paramsInPath.split("&");
-    paramsPart.forEach((currentParams){
-      List<String> keyValue = currentParams.split("=") ;
-      if (keyValue.length == 2){
-        params.add( keyValue[0],keyValue[1] ) ;
+    paramsPart.forEach((currentParams) {
+      List<String> keyValue = currentParams.split("=");
+      if (keyValue.length == 2) {
+        params.add(keyValue[0], keyValue[1]);
       }
-    }) ;
+    });
     return params;
   }
-  
-  Parameters _resources (String resourcesInPath){
-    Parameters resources = new Parameters.empty();    
+
+  Parameters _resources(String resourcesInPath) {
+    Parameters resources = new Parameters.empty();
     var resourcesParts = resourcesInPath.split("/");
     int i = 0;
     while (i + 1 < resourcesParts.length) {
@@ -59,7 +58,6 @@ class PageKeyUrlConverter {
     }
     return resources;
   }
-  
 }
 
 class Router extends Object with ApplicationEventPassenger {
