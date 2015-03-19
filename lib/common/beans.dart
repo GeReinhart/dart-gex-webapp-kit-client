@@ -120,14 +120,14 @@ class Parameters {
       _parameters = parameters;
     }
   }
-  
-  Parameters.empty(){
+
+  Parameters.empty() {
     _parameters = new List<Parameter>();
   }
-  
-  Parameters.withOneParam(  String key,  String value) {
-      _parameters = new List<Parameter>();
-      _parameters.add( new Parameter(key, value)) ;
+
+  Parameters.withOneParam(String key, String value) {
+    _parameters = new List<Parameter>();
+    _parameters.add(new Parameter(key, value));
   }
 
   List<Parameter> get parameters {
@@ -209,7 +209,7 @@ class PageKey {
   }
 
   bool get isEmpty => _name == null || _name.length == 0;
-  
+
   String get name => _name;
   Parameters get params => _params.clone();
   Parameters get resources => _resources.clone();
