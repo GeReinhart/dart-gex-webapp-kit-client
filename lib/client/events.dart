@@ -207,7 +207,7 @@ class ApplicationEventPassenger {
   ApplicationEventBus get applicationEventBus => _applicationEventBus;
 
   void setApplicationEventBus(ApplicationEventBus value) {
-    if (_applicationEventBus == null) {
+    if (_applicationEventBus == null && value != null) {
       _applicationEventBus = value;
       _applicationEventBus.subscribeApplicationChanges(recieveApplicationEvent);
     }
