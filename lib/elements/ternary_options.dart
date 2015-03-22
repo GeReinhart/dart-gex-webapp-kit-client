@@ -88,6 +88,18 @@ class TernaryOptions extends Positionable with Showable {
     }
     return null;
   }
+
+  set optionAsBool(bool value) {
+    if (value == null){
+      this.option = TernaryOption.NONE;
+    }
+    if (value ){
+      this.option = TernaryOption.ENABLED;
+    }else{
+      this.option = TernaryOption.DISABLED;
+    }
+  }
+  
   
   HtmlElement get label => $["label"];
   HtmlElement get desc => $["desc"];
