@@ -22,6 +22,7 @@ enum EventType {
   USER_DETAILS,
   REGISTER,
   SAVE_USER,
+  SERVICE,
   CUSTOM
 }
 
@@ -203,9 +204,13 @@ class ApplicationEventBus {
 class ApplicationEventPassenger {
   ApplicationEventBus _applicationEventBus;
 
+  ApplicationEventBus get applicationEventBus => _applicationEventBus;
+
   void setApplicationEventBus(ApplicationEventBus value) {
-    _applicationEventBus = value;
-    _applicationEventBus.subscribeApplicationChanges(recieveApplicationEvent);
+    if (_applicationEventBus == null) {
+      _applicationEventBus = value;
+      _applicationEventBus.subscribeApplicationChanges(recieveApplicationEvent);
+    }
   }
 
   void fireApplicationEvent(ApplicationEvent event) {
