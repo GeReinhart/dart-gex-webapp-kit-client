@@ -77,6 +77,18 @@ class TernaryOptions extends Positionable with Showable {
 
   TernaryOption get option => model.option;
 
+  bool get optionAsBool {
+    switch (model.option.toString()) {
+      case "TernaryOption.NONE":
+        return null ;
+      case "TernaryOption.ENABLED":
+        return true ;
+      case "TernaryOption.DISABLED":
+        return false;
+    }
+    return null;
+  }
+  
   HtmlElement get label => $["label"];
   HtmlElement get desc => $["desc"];
   HtmlElement get buttonsContainer => $["buttonsContainer"];
