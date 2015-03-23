@@ -214,7 +214,7 @@ class ApplicationEventPassenger {
   }
 
   void fireApplicationEvent(ApplicationEvent event) {
-    if(_applicationEventBus != null){
+    if (_applicationEventBus != null) {
       _applicationEventBus.fireApplicationEvent(event);
     }
   }

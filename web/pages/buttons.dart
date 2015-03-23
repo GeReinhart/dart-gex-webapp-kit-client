@@ -104,13 +104,19 @@ class PageButtons extends Page with Showable {
 
   action1(Parameters params) {
     layout.color = Color.GREY_858585.lightColorAsColor;
+    toastMessage("You just hit the Button 1", color: Color.GREY_858585);
   }
+
   action2(Parameters params) {
     layout.color = Color.GREEN_07CC00.lightColorAsColor;
+    toastMessage("You just hit the Button 2", color: Color.GREEN_07CC00);
   }
+
   action3(Parameters params) {
     layout.color = Color.GREEN_07CC00.inverse().lightColorAsColor;
+    toastMessage("You just hit the Button 3", color: GREEN_07CC00.inverse());
   }
+
   action4(Parameters params) {
     layout.color = Color.BLUE_0082C8.lightColorAsColor;
 

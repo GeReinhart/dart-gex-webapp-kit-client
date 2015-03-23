@@ -80,9 +80,9 @@ class TernaryOptions extends Positionable with Showable {
   bool get optionAsBool {
     switch (model.option.toString()) {
       case "TernaryOption.NONE":
-        return null ;
+        return null;
       case "TernaryOption.ENABLED":
-        return true ;
+        return true;
       case "TernaryOption.DISABLED":
         return false;
     }
@@ -90,17 +90,16 @@ class TernaryOptions extends Positionable with Showable {
   }
 
   set optionAsBool(bool value) {
-    if (value == null){
+    if (value == null) {
       this.option = TernaryOption.NONE;
     }
-    if (value ){
+    if (value) {
       this.option = TernaryOption.ENABLED;
-    }else{
+    } else {
       this.option = TernaryOption.DISABLED;
     }
   }
-  
-  
+
   HtmlElement get label => $["label"];
   HtmlElement get desc => $["desc"];
   HtmlElement get buttonsContainer => $["buttonsContainer"];
