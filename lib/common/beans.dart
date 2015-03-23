@@ -17,6 +17,8 @@ class User implements Bean {
   @Field() num locationLat;
   @Field() num locationLng;
   @Field() String locationAddress;
+  @Field() num creationDateInMilliseconds ;
+  @Field() num lastUpdateDateInMilliseconds ;  
 
   User([String this.id, String this.openId, String this.email, String this.displayName, String this.avatarUrl,
       num this.locationLat, num this.locationLng, String this.locationAddress]);
@@ -46,6 +48,27 @@ class User implements Bean {
 
   bool get hasLocation => locationLat != null;
 
+  DateTime get creationDate => (_buildDate(this.creationDateInMilliseconds));
+  
+  DateTime get lastUpdateDate  => (_buildDate(this.lastUpdateDateInMilliseconds));
+  
+  DateTime _buildDate(int millisecondsSinceEpoch){
+    if (millisecondsSinceEpoch== null){
+      return new DateTime.now();
+    }else{
+      return new DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
+    }
+  }
+  
+  void creation(){
+    this.creationDateInMilliseconds = new DateTime.now().millisecondsSinceEpoch;
+    this.lastUpdateDateInMilliseconds = this.creationDateInMilliseconds;
+  }
+  
+  void update(){
+    this.lastUpdateDateInMilliseconds = new DateTime.now().millisecondsSinceEpoch;
+  }
+  
   @override
   Map toJson() {
     return {
@@ -71,6 +94,8 @@ class User implements Bean {
     locationLng = json["locationLng"];
     locationAddress = json["locationAddress"];
   }
+  
+  
 }
 
 enum ScreenOrientation {

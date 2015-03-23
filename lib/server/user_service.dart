@@ -42,8 +42,10 @@ class UserService extends MongoDbService<User> {
   Future<User> addOrUpdate(@Decode() User inputUser) {
     return findOne({"openId": inputUser.openId}).then((existingUser) {
       if (existingUser == null) {
+        inputUser.creation();
         return insert(inputUser).then((_) => inputUser);
       } else {
+        existingUser.update();
         return update({"openId": existingUser.openId}, inputUser).then((_) => inputUser);
       }
     });
