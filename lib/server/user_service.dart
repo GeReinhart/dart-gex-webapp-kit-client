@@ -45,7 +45,7 @@ class UserService extends MongoDbService<User> {
         inputUser.creation();
         return insert(inputUser).then((_) => inputUser);
       } else {
-        existingUser.update();
+        inputUser.update();
         return update({"openId": existingUser.openId}, inputUser).then((_) => inputUser);
       }
     });
