@@ -26,18 +26,38 @@ class MapGeoLocation extends Object with Showable {
   Marker _marker;
   DivElement mapPosition;
   DivElement mapAddress;
-  bool editionMode;
+  CheckboxInputElement lock ;
+  bool _editionMode;
 
-  MapGeoLocation(this.map, this.mapSize, this.markerUrl, this.markerSize, {this.editionMode}) {
+  MapGeoLocation(this.map, this.mapSize, this.markerUrl, this.markerSize, {bool editionMode}) {
     this.map.style
       ..position = "relative"
       ..visibility = null;
-    if (editionMode == null) {
-      editionMode = true;
-    }
+    this.editionMode = editionMode ;
     init();
   }
 
+  set editionMode(bool value){
+    if (value == null) {
+      _editionMode = true;
+    }else{
+      _editionMode = value;
+    }
+    if (_googleMap!= null){
+      LatLngBounds bounds = _googleMap.bounds ;
+      
+      _googleMap.options = new MapOptions()
+      ..draggable = _editionMode
+      ..zoomControl = _editionMode
+      ..disableDefaultUI = !_editionMode
+      ..mapTypeControl = _editionMode
+      ..mapTypeId = MapTypeId.ROADMAP
+      ..streetViewControl = false;
+    }
+  }
+  
+  
+  
   set user(User value) {
     _user = value;
     if (_user.hasLocation) {
@@ -56,14 +76,22 @@ class MapGeoLocation extends Object with Showable {
 
     mapPosition = new DivElement();
     mapAddress = new DivElement();
-
+    lock = new CheckboxInputElement();
+    lock.checked = ! _editionMode ;
+    lock.title = "lock" ;
     map.append(mapAddress);
     map.append(mapCanvas);
+    map.append(lock);
+    map.append(new SpanElement()..text = "lock");
     map.append(mapPosition);
 
     final mapOptions = new MapOptions()
       ..center = defaultPosition
       ..zoom = 6
+      ..draggable = _editionMode
+      ..zoomControl = _editionMode
+      ..disableDefaultUI = !_editionMode
+      ..mapTypeControl = _editionMode      
       ..mapTypeId = MapTypeId.ROADMAP
       ..streetViewControl = false;
 
@@ -72,6 +100,11 @@ class MapGeoLocation extends Object with Showable {
     _googleMap.onCenterChanged.listen((_) {
       _keepMarkerInCenter();
     });
+    
+    lock.onClick.listen((_){
+      editionMode = !lock.checked ;
+    });
+    
     _googleMap.onMouseover.listen((_) {
       _canKeepMarkerInCenter = true;
     });
@@ -96,7 +129,7 @@ class MapGeoLocation extends Object with Showable {
 
   bool _canKeepMarkerInCenter = false;
   void _keepMarkerInCenter() {
-    if (_canKeepMarkerInCenter && editionMode) {
+    if (_canKeepMarkerInCenter && _editionMode) {
       if (_marker != null) {
         _marker.position = _googleMap.center;
         mapPosition.innerHtml = "${_googleMap.center.lat}, ${_googleMap.center.lng}";
