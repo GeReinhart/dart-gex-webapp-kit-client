@@ -32,7 +32,7 @@ class PageProfile extends Page with Showable {
   void _setAttributes() {
     layout = $["layout"] as Layout;
     userEdit = $["userEdit"] as UserEdit;
-
+    
     List<ButtonModel> buttonModels = new List<ButtonModel>();
     buttonModels
         .add(new ButtonModel(label: "Save", action: save, image: new Image(mainImageUrl: "/images/button/save29.png")));
