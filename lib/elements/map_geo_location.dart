@@ -49,7 +49,7 @@ class MapGeoLocation extends Object with Showable {
       _googleMap.options = new MapOptions()
       ..draggable = _editionMode
       ..disableDoubleClickZoom= !_editionMode
-      ..scrollwheel= !_editionMode      
+      ..scrollwheel= _editionMode      
       ..zoomControl = _editionMode
       ..disableDefaultUI = !_editionMode
       ..mapTypeControl = _editionMode
@@ -91,7 +91,7 @@ class MapGeoLocation extends Object with Showable {
       ..center = defaultPosition
       ..zoom = 6
       ..disableDoubleClickZoom= !_editionMode
-      ..scrollwheel= !_editionMode
+      ..scrollwheel= _editionMode
       ..draggable = _editionMode
       ..zoomControl = _editionMode
       ..disableDefaultUI = !_editionMode
