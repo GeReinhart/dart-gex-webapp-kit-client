@@ -42,11 +42,27 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
     openId = user.openId;
     email = user.email;
     displayName = user.displayName;
+    
+    // we keep data from fresh authentication
+    if (avatarUrl == null){
+      avatarUrl = user.avatarUrl;
+    }
+    if (googlePlusUrl == null){
+      googlePlusUrl = user.googlePlusUrl;
+    }
+    
+    map.user = user;
+  }
+
+  set userFromAuthentication(User user) {
+    openId = user.openId;
+    email = user.email;
+    displayName = user.displayName;
     avatarUrl = user.avatarUrl;
     googlePlusUrl = user.googlePlusUrl;
     map.user = user;
   }
-
+  
   User get user => new User.fromFields(
       openId: openId,
       email: email,
