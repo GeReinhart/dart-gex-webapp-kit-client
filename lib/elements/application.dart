@@ -13,7 +13,8 @@ import 'package:gex_webapp_kit_client/elements/toolbar.dart';
 import 'package:gex_webapp_kit_client/elements/view_port.dart';
 import 'package:gex_webapp_kit_client/elements/page.dart';
 import 'package:gex_webapp_kit_client/elements/loading_space.dart';
-import 'package:paper_elements/paper_action_dialog.dart';
+import 'package:gex_webapp_kit_client/elements/dialog_message.dart';
+
 
 /**
  * Listen to the screen/window changes and broadcast ViewPort change events.
@@ -29,9 +30,9 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   List<Page> _pages = new List<Page>();
   Margin _margin = new Margin();
   Page _currentPage;
-
-  @observable String message;
-
+  DialogMessage _warningAuthentication ;
+  DialogMessage _dialogMessage ;
+  
   LoadingSpace _loadingSpace;
 
   bool _fitWithWindow = true;
@@ -56,6 +57,8 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     _viewPort = $["viewPort"] as ViewPort;
     _toolbarsContainer = $["toolBars"];
     _pagesContainer = $["pages"];
+    _warningAuthentication =  $["warningAuthentication"];
+    _dialogMessage =  $["message"];
   }
 
   ViewPortModel get viewPortModel => _viewPort.model;
@@ -77,14 +80,6 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
 
   void hideLoadingMessage() {
     _loadingSpace.hide();
-  }
-
-  void showMessage(String message) {
-    this.message = message;
-    PaperActionDialog dialog = $["dialog"] as PaperActionDialog;
-    if (!dialog.opened) {
-      dialog.toggle();
-    }
   }
 
   @override
@@ -142,13 +137,16 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
       moveTo(new Position(0, 0, event.viewPort.windowWidth, event.viewPort.windowHeight, 100));
     }
     if (event.isCallDialog) {
-      showMessage(event.message);
+      _dialogMessage.show(message:event.message);
     }
     if (event.isCallUserAuth) {
       showLoadingMessage("Login process on going...");
     }
     if (event.isUserAuthFail || event.isLoginSuccess || event.isCallRegisterPage) {
       hideLoadingMessage();
+    }
+    if(event.isUserAuthFail){
+      _warningAuthentication.show();
     }
     if (event.isCallRegisterPage) {
       // TODO Find a way to define the register page
