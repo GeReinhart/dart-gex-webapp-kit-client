@@ -13,6 +13,8 @@
 <link rel="import" href="../../../packages/gex_webapp_kit_client/elements/layout.html">
 <link rel="import" href="../../../packages/gex_webapp_kit_client/elements/loading_space.html">
 <link rel="import" href="../../../packages/paper_elements/paper_toast.html">
+<link rel="import" href="../../../packages/paper_elements/paper_dialog.html">
+<link rel="import" href="../../../packages/paper_elements/paper_action_dialog.html">
 
 <polymer-element name="gex-application">
   <template>
@@ -21,6 +23,11 @@
       <div id="pages" ></div>
       <gex-loading-space id="loadingSpace"  ></gex-loading-space>
       <content></content>
+      
+      <paper-action-dialog id="dialog" backdrop autoCloseDisabled>
+          <p>{{message}}</p>
+          <paper-button affirmative autofocus>Close</paper-button>
+      </paper-action-dialog>
     </gex-view-port>
   </template>
   <script type="application/dart" src="application.dart"></script>

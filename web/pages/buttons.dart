@@ -114,7 +114,7 @@ class PageButtons extends Page with Showable {
 
   action3(Parameters params) {
     layout.color = Color.GREEN_07CC00.inverse().lightColorAsColor;
-    toastMessage("You just hit the Button 3", color: GREEN_07CC00.inverse());
+    fireApplicationEvent(new ApplicationEvent.callDialog(this, "You just hit the Button 3"));
   }
 
   action4(Parameters params) {

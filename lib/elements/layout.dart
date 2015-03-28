@@ -68,6 +68,12 @@ class Layout extends Positionable with Showable, ApplicationEventPassenger {
     _moveToolbar(position);
   }
 
+  @override
+  void setApplicationEventBus(ApplicationEventBus value) {
+    super.setApplicationEventBus(value);
+    _toolbar.setApplicationEventBus(value);
+  }
+
   void _adaptElement(Position position) {
     _space.style.marginLeft = "${_model.leftMarginInPx(position)}px";
     _space.style.marginRight = "${_model.rightMarginInPx(position)}px";

@@ -13,6 +13,7 @@ import 'package:gex_webapp_kit_client/elements/toolbar.dart';
 import 'package:gex_webapp_kit_client/elements/view_port.dart';
 import 'package:gex_webapp_kit_client/elements/page.dart';
 import 'package:gex_webapp_kit_client/elements/loading_space.dart';
+import 'package:paper_elements/paper_action_dialog.dart';
 
 /**
  * Listen to the screen/window changes and broadcast ViewPort change events.
@@ -28,6 +29,8 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
   List<Page> _pages = new List<Page>();
   Margin _margin = new Margin();
   Page _currentPage;
+
+  @observable String message;
 
   LoadingSpace _loadingSpace;
 
@@ -74,6 +77,14 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
 
   void hideLoadingMessage() {
     _loadingSpace.hide();
+  }
+
+  void showMessage(String message) {
+    this.message = message;
+    PaperActionDialog dialog = $["dialog"] as PaperActionDialog;
+    if (!dialog.opened) {
+      dialog.toggle();
+    }
   }
 
   @override
@@ -130,7 +141,9 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     if (event.isViewPortChange && _fitWithWindow) {
       moveTo(new Position(0, 0, event.viewPort.windowWidth, event.viewPort.windowHeight, 100));
     }
-
+    if (event.isCallDialog) {
+      showMessage(event.message);
+    }
     if (event.isCallUserAuth) {
       showLoadingMessage("Login process on going...");
     }

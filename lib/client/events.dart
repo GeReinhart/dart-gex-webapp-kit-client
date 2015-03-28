@@ -23,6 +23,7 @@ enum EventType {
   REGISTER,
   SAVE_USER,
   SERVICE,
+  DIALOG,
   CUSTOM
 }
 
@@ -47,11 +48,12 @@ class ApplicationEvent {
   String _errorDetails;
   User _user;
   PageKey _pageKey;
+  String _message;
   ViewPortModel _viewPortModel;
   EventPageType _pageType;
 
   ApplicationEvent(Object sender, {EventStatus status, EventType type, EventError error, User user, String errorDetails,
-      EventPageType pageType, PageKey pageKey, ViewPortModel viewPortModel}) {
+      EventPageType pageType, PageKey pageKey, ViewPortModel viewPortModel, String message}) {
     assert(sender != null);
     _sender = sender;
     if (status == null) {
@@ -70,6 +72,7 @@ class ApplicationEvent {
     _pageKey = pageKey;
     _pageType = pageType;
     _viewPortModel = viewPortModel;
+    _message = message;
   }
 
   bool statusIs(EventStatus param) => (status != null && status == param);
@@ -167,6 +170,11 @@ class ApplicationEvent {
   }
   bool get isCallSaveUser => statusIs(EventStatus.CALL) && eventTypeIs(EventType.SAVE_USER) && hasUser;
 
+  factory ApplicationEvent.callDialog(Object sender, String message) {
+    return new ApplicationEvent(sender, status: EventStatus.CALL, type: EventType.DIALOG, message: message);
+  }
+  bool get isCallDialog => statusIs(EventStatus.CALL) && eventTypeIs(EventType.DIALOG) && message != null;
+
   Object get sender => _sender;
   EventStatus get status => _status;
   EventType get type => _type;
@@ -176,6 +184,7 @@ class ApplicationEvent {
   PageKey get pageKey => _pageKey;
   EventPageType get pageType => _pageType;
   ViewPortModel get viewPort => _viewPortModel;
+  String get message => _message;
 
   @override
   String toString() {

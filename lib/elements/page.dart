@@ -61,6 +61,12 @@ abstract class Page extends Positionable with Showable, ApplicationEventPassenge
   }
 
   @override
+  void setApplicationEventBus(ApplicationEventBus value) {
+    super.setApplicationEventBus(value);
+    _layout.setApplicationEventBus(value);
+  }
+
+  @override
   void moveTo(Position position) {
     super.moveTo(position);
     _layout.moveTo(position);
