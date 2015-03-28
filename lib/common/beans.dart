@@ -14,17 +14,18 @@ class User implements Bean {
   @Field() String email;
   @Field() String displayName;
   @Field() String avatarUrl;
+  @Field() String googlePlusUrl;
   @Field() num locationLat;
   @Field() num locationLng;
   @Field() String locationAddress;
   @Field() num creationDateInMilliseconds;
   @Field() num lastUpdateDateInMilliseconds;
 
-  User([String this.id, String this.openId, String this.email, String this.displayName, String this.avatarUrl,
+  User([String this.id, String this.openId, String this.email, String this.displayName, String this.avatarUrl, String this.googlePlusUrl,
       num this.locationLat, num this.locationLng, String this.locationAddress]);
 
   User.fromFields({String this.id, String this.openId, String this.email, String this.displayName,
-      String this.avatarUrl, num this.locationLat, num this.locationLng, String this.locationAddress}) {}
+      String this.avatarUrl, String this.googlePlusUrl, num this.locationLat, num this.locationLng, String this.locationAddress}) {}
 
   User.loadJSON(Map json) {
     fromJson(json);
@@ -41,6 +42,7 @@ class User implements Bean {
         email: email,
         displayName: displayName,
         avatarUrl: avatarUrl,
+        googlePlusUrl: googlePlusUrl,
         locationLat: locationLat,
         locationLng: locationLng,
         locationAddress: locationAddress);
@@ -77,6 +79,7 @@ class User implements Bean {
       "email": email,
       "displayName": displayName,
       "avatarUrl": avatarUrl,
+      "googlePlusUrl":googlePlusUrl,
       "locationLat": locationLat,
       "locationLng": locationLng,
       "locationAddress": locationAddress
@@ -90,6 +93,7 @@ class User implements Bean {
     email = json["email"];
     displayName = json["displayName"];
     avatarUrl = json["avatarUrl"];
+    googlePlusUrl = json["googlePlusUrl"];
     locationLat = json["locationLat"];
     locationLng = json["locationLng"];
     locationAddress = json["locationAddress"];

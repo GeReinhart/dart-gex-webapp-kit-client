@@ -155,14 +155,15 @@ class GoogleAuthenticator extends Authenticator {
         String displayName = data["displayName"];
         String familyName = data["name"] == null ? null : data["name"]["familyName"];
         String givenName = data["name"] == null ? null : data["name"]["givenName"];
-        String imageUrl = data["image"] == null ? null : data["image"]["url"].toString().replaceAll("sz=50", "sz=150");
-
+        String avatarUrl = data["image"] == null ? null : data["image"]["url"].toString().replaceAll("sz=50", "sz=150");
+        String googlePlusUrl = data["url"] ;
+        
         if (displayName == null || displayName.isEmpty) {
           displayName = givenName + " " + familyName;
         }
 
         User user = new User.fromFields(
-            openId: token.userId, email: token.email, displayName: displayName, avatarUrl: imageUrl);
+            openId: token.userId, email: token.email, displayName: displayName, avatarUrl: avatarUrl, googlePlusUrl: googlePlusUrl);
 
         fireApplicationEvent(new ApplicationEvent.userAuthSuccess(this, user));
       } else {

@@ -16,7 +16,8 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
   @observable String email;
   @observable String displayName;
   @observable String avatarUrl;
-
+  @observable String googlePlusUrl;
+  
   UserEdit.created() : super.created();
   MapGeoLocation map;
 
@@ -42,6 +43,7 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
     email = user.email;
     displayName = user.displayName;
     avatarUrl = user.avatarUrl;
+    googlePlusUrl = user.googlePlusUrl;
     map.user = user;
   }
 
@@ -50,6 +52,7 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
       email: email,
       displayName: displayName,
       avatarUrl: avatarUrl,
+      googlePlusUrl:googlePlusUrl,
       locationLat: map.location.lat,
       locationLng: map.location.lng,
       locationAddress: map.address);
