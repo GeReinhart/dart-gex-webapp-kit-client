@@ -167,6 +167,10 @@ class Parameters {
     _parameters.add(new Parameter(key, value));
   }
 
+  String valueFor(String key){
+    return _parameters.firstWhere((p)=> p.key == "id",orElse:  ()=> new Parameter(key, null) ).value;
+  }
+  
   Parameters clone() {
     return new Parameters(parameters);
   }
