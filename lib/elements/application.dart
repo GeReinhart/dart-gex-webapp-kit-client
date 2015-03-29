@@ -129,7 +129,7 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
       return;
     }
     if (event.isCallPage) {
-      showPage(pageName: event.pageKey.name, params: event.pageKey.params);
+      showPage(pageName: event.pageKey.name, resources: event.pageKey.resources, params: event.pageKey.params);
       fireApplicationEvent(new ApplicationEvent.pageDisplayed(this, event.pageKey.name, params: event.pageKey.params));
       return;
     }
@@ -158,12 +158,12 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     }
   }
 
-  void showPage({String pageName, Parameters params}) {
+  void showPage({String pageName, Parameters resources, Parameters params}) {
     _pages.forEach((p) => p.hide());
     if (pageName != null) {
       _pages.forEach((p) {
         if (p.name == pageName) {
-          p.show();
+          p.showPage(resources:resources, params:params);
           _currentPage = p;
         }
       });

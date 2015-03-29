@@ -24,6 +24,10 @@ abstract class Page extends Positionable with Showable, ApplicationEventPassenge
     super.ready();
     _setAttributes();
   }
+  
+  void showPage({Parameters resources, Parameters params}){
+    show();
+  }
 
   PageModel get model => _model.clone();
   String get name => _model.name;
