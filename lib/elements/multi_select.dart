@@ -27,7 +27,8 @@ class MultiSelect extends Positionable with Showable {
   MultiSelectModel model;
   @observable String desc;
   List<Button>  _buttons = new List<Button>(); 
-
+  bool _horizontal = true;
+  
   MultiSelect.created() : super.created();
 
   void init(MultiSelectModel model) {
@@ -66,7 +67,10 @@ class MultiSelect extends Positionable with Showable {
 
   }
   
+  bool get isHorizontal => _horizontal;
+  
   void horizontal(){
+    _horizontal= true;
     Iterator<Button> i = _buttons.iterator ;  
     num index = 0;
     while(i.moveNext()){
@@ -74,6 +78,14 @@ class MultiSelect extends Positionable with Showable {
       currentButton.moveTo(new Position(index * model.buttonSize * 5 , 0, model.buttonSize * 5, model.buttonSize, 100));
       index++;
     }
+    buttonsContainerRelative.style
+      ..height = "${model.buttonSize*2}px"
+      ..width = "${model.buttonSize*13}px";
+
+    buttonsContainer.style
+      ..height = "${model.buttonSize}px"
+      ..width = "${model.buttonSize*3}px";
+    
     descElement.style
           ..left = "${model.buttonSize*3 + 10}px"
           ..top = "${model.buttonSize +10}px"
@@ -81,6 +93,7 @@ class MultiSelect extends Positionable with Showable {
   }
   
   void vertical(){
+    _horizontal = false;
     Iterator<Button> i = _buttons.iterator ;  
     num index = 0;
     while(i.moveNext()){
@@ -88,6 +101,14 @@ class MultiSelect extends Positionable with Showable {
       currentButton.moveTo(new Position(0, index * model.buttonSize  ,  model.buttonSize * 5, model.buttonSize, 100));
       index++;
     }
+    buttonsContainerRelative.style
+      ..height = "${model.buttonSize*index +30}px"
+      ..width = "${model.buttonSize*6}px";
+
+    buttonsContainer.style
+      ..height = "${model.buttonSize}px"
+      ..width = "${model.buttonSize*6}px";
+    
     descElement.style
           ..left = "${model.buttonSize*3 + 10}px"
           ..top = "${model.buttonSize * index +10}px"
