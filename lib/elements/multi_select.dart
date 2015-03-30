@@ -66,6 +66,34 @@ class MultiSelect extends Positionable with Showable {
 
   }
   
+  void horizontal(){
+    Iterator<Button> i = _buttons.iterator ;  
+    num index = 0;
+    while(i.moveNext()){
+      Button currentButton = i.current;
+      currentButton.moveTo(new Position(index * model.buttonSize * 5 , 0, model.buttonSize * 5, model.buttonSize, 100));
+      index++;
+    }
+    descElement.style
+          ..left = "${model.buttonSize*3 + 10}px"
+          ..top = "${model.buttonSize +10}px"
+          ..width = "${model.buttonSize*20}px";
+  }
+  
+  void vertical(){
+    Iterator<Button> i = _buttons.iterator ;  
+    num index = 0;
+    while(i.moveNext()){
+      Button currentButton = i.current;
+      currentButton.moveTo(new Position(0, index * model.buttonSize  ,  model.buttonSize * 5, model.buttonSize, 100));
+      index++;
+    }
+    descElement.style
+          ..left = "${model.buttonSize*3 + 10}px"
+          ..top = "${model.buttonSize * index +10}px"
+          ..width = "${model.buttonSize*20}px";
+  }  
+  
   void _buttonSelectEvent(Parameters params){
     num buttonIndex = num.parse( params.valueFor("id")) ;
     
