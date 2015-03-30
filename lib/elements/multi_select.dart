@@ -110,9 +110,10 @@ class MultiSelect extends Positionable with Showable {
       ..width = "${model.buttonSize*6}px";
     
     descElement.style
-          ..left = "${model.buttonSize*3 + 10}px"
-          ..top = "${model.buttonSize * index +10}px"
-          ..width = "${model.buttonSize*20}px";
+          ..left = "${ 0}px"
+          ..top = "${0}px"
+          ..height = "${0}px"
+          ..width = "${0}px";
   }  
   
   void _buttonSelectEvent(Parameters params){
