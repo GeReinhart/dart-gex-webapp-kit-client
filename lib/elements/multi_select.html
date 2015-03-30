@@ -1,0 +1,20 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../packages/gex_webapp_kit_client/elements/button.html">
+<link rel="import" href="../../../packages/core_elements/core_label.html">
+
+<polymer-element name="gex-multi-select" >
+  <template>
+    <style>
+      :host {
+          text-align:left;
+       }
+    </style>
+         <div id="buttonsContainerRelative" style="position: relative;">
+            <div  id="buttonsContainer" style="position: absolute; top:0px ; left:0px">
+            </div>
+              <div id="desc"  style="font-size: small; position: absolute;">{{desc}}</div>
+         </div>
+  </template>
+  <script type="application/dart" src="multi_select.dart"></script>
+</polymer-element>
+
