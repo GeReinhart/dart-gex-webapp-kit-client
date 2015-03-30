@@ -64,7 +64,7 @@ class MultiSelect extends Positionable with Showable {
       currentButton.moveTo(new Position(index * model.buttonSize * 5 , 0, model.buttonSize * 5, model.buttonSize, 100));
       index++;
     }
-
+    _buttons[0].status = ButtonStatus.HIGHLIGHTED;
   }
   
   bool get isHorizontal => _horizontal;
