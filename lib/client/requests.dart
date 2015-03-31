@@ -9,11 +9,16 @@ class PostJsonRequest {
   String _path;
   SuccessRequestCallback _success;
   FailureRequestCallback _failure;
+  Map<String,String> _headers;
 
-  PostJsonRequest(this._path, this._success, this._failure);
+  PostJsonRequest(this._path, this._success, this._failure, {Map<String,String> headers}){
+    _headers = headers;
+  }
 
   void send(Bean input) {
     HttpRequest request = new HttpRequest();
+    
+    
     request.onReadyStateChange.listen((_) {
       if (request.readyState == HttpRequest.DONE) {
         if (request.status == 200) {
@@ -30,6 +35,9 @@ class PostJsonRequest {
     });
     request.open("POST", _path, async: true);
     request.setRequestHeader("content-type", "application/json");
+    if (_headers != null){
+      _headers.forEach((k,v)=> request.setRequestHeader(k, v));
+    }
     request.send(JSON.encode(input.toJson()));
   }
 }

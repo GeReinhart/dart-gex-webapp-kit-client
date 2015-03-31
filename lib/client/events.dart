@@ -29,7 +29,8 @@ enum EventType {
 
 enum EventError {
   UNKNOWN,
-  NOT_FOUND
+  NOT_FOUND,
+  UNAUTHORIZED
 }
 
 enum EventPageType {
@@ -47,13 +48,14 @@ class ApplicationEvent {
   EventError _error;
   String _errorDetails;
   User _user;
+  String _authHash;
   PageKey _pageKey;
   String _message;
   ViewPortModel _viewPortModel;
   EventPageType _pageType;
 
   ApplicationEvent(Object sender, {EventStatus status, EventType type, EventError error, User user, String errorDetails,
-      EventPageType pageType, PageKey pageKey, ViewPortModel viewPortModel, String message}) {
+      EventPageType pageType, PageKey pageKey, ViewPortModel viewPortModel, String message, String authHash}) {
     assert(sender != null);
     _sender = sender;
     if (status == null) {
@@ -73,6 +75,7 @@ class ApplicationEvent {
     _pageType = pageType;
     _viewPortModel = viewPortModel;
     _message = message;
+    _authHash=authHash;
   }
 
   bool statusIs(EventStatus param) => (status != null && status == param);
@@ -128,8 +131,8 @@ class ApplicationEvent {
   }
   bool get isUserAuthFail => statusIs(EventStatus.FAILURE) && eventTypeIs(EventType.AUTH);
 
-  factory ApplicationEvent.userAuthSuccess(Object sender, User user) {
-    return new ApplicationEvent(sender, status: EventStatus.SUCCESS, type: EventType.AUTH, user: user);
+  factory ApplicationEvent.userAuthSuccess(Object sender, User user, String authHash) {
+    return new ApplicationEvent(sender, status: EventStatus.SUCCESS, type: EventType.AUTH, user: user, authHash:authHash);
   }
   bool get isUserAuthSuccess => statusIs(EventStatus.SUCCESS) && eventTypeIs(EventType.AUTH) && hasUser;
 
@@ -143,6 +146,11 @@ class ApplicationEvent {
   }
   bool get isLoginSuccess => statusIs(EventStatus.SUCCESS) && eventTypeIs(EventType.LOGIN) && hasUser;
 
+  factory ApplicationEvent.loginFailure(Object sender, String errorDetails) {
+    return new ApplicationEvent(sender, status: EventStatus.FAILURE, type: EventType.LOGIN, errorDetails: errorDetails);
+  }
+  bool get isloginFailure => statusIs(EventStatus.FAILURE) && eventTypeIs(EventType.LOGIN) ;
+  
   factory ApplicationEvent.userDetailsSuccess(Object sender, User user) {
     return new ApplicationEvent(sender, status: EventStatus.SUCCESS, type: EventType.USER_DETAILS, user: user);
   }
@@ -181,6 +189,7 @@ class ApplicationEvent {
   EventError get error => _error;
   String get errorDetails => _errorDetails;
   User get user => _user;
+  String get authHash => _authHash;
   PageKey get pageKey => _pageKey;
   EventPageType get pageType => _pageType;
   ViewPortModel get viewPort => _viewPortModel;

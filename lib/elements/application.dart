@@ -5,7 +5,7 @@ library gex_webapp_kit_client.application;
 import "dart:html" hide ScreenOrientation;
 import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
-
+import 'dart:async';
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
 
@@ -14,7 +14,6 @@ import 'package:gex_webapp_kit_client/elements/view_port.dart';
 import 'package:gex_webapp_kit_client/elements/page.dart';
 import 'package:gex_webapp_kit_client/elements/loading_space.dart';
 import 'package:gex_webapp_kit_client/elements/dialog_message.dart';
-
 
 /**
  * Listen to the screen/window changes and broadcast ViewPort change events.
@@ -142,11 +141,14 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
     if (event.isCallUserAuth) {
       showLoadingMessage("Login process on going...");
     }
-    if (event.isUserAuthFail || event.isLoginSuccess || event.isCallRegisterPage) {
+    if (event.isUserAuthFail || event.isloginFailure|| event.isLoginSuccess || event.isCallRegisterPage) {
       hideLoadingMessage();
     }
     if(event.isUserAuthFail){
       _warningAuthentication.show();
+    }    
+    if(event.isloginFailure){
+      toastMessage(event.errorDetails);
     }
     if (event.isCallRegisterPage) {
       // TODO Find a way to define the register page
@@ -256,5 +258,9 @@ class Application extends Positionable with Showable, ApplicationEventPassenger 
       page.margin = _margin;
       page.moveTo(position);
     }
+  }
+  
+  void toastMessage(String message, {Color color}) {
+    _currentPage.toastMessage(message, color: color) ;
   }
 }

@@ -29,6 +29,8 @@ class GoogleLoginFlow extends Object with ApplicationEventPassenger {
       return;
     }
     if (event.isUserAuthSuccess) {
+      Map<String,String> headers = new Map<String,String>();
+      headers["authHash"] = event.authHash;
       PostJsonRequest request = new PostJsonRequest("/services/login/${event.user.openId}",
           (Map output) => callLoginSuccess(event.user, output, 200), (status) {
         if (status == 404) {
@@ -36,7 +38,7 @@ class GoogleLoginFlow extends Object with ApplicationEventPassenger {
         } else {
           loginFailure(status);
         }
-      });
+      },headers: headers);
       request.send(event.user);
     }
     if (event.isCallRegister) {
@@ -54,6 +56,7 @@ class GoogleLoginFlow extends Object with ApplicationEventPassenger {
           (Map output) => saveUserSuccess(new User.loadJSON(output)), (status) => saveUserFailure(status));
       request.send(event.user);
     }
+    
   }
 
   void callLoginSuccess(User user, Map output, num status) {
@@ -65,7 +68,13 @@ class GoogleLoginFlow extends Object with ApplicationEventPassenger {
   }
 
   void loginFailure(num status) {
-    //TODO Send RegisterFailEvent
+    if (status == 403) {
+      fireApplicationEvent(new ApplicationEvent.loginFailure(this, "Credentials are currupted"));
+    } else if (status == 410) {
+      fireApplicationEvent(new ApplicationEvent.loginFailure(this, "Credentials are expired"));
+    }else{
+      fireApplicationEvent(new ApplicationEvent.loginFailure(this, "Login failed"));
+    }
   }
 
   void callUserDetailsSuccess(User user, Map output) {
@@ -165,7 +174,7 @@ class GoogleAuthenticator extends Authenticator {
         User user = new User.fromFields(
             openId: token.userId, email: token.email, displayName: displayName, avatarUrl: avatarUrl, googlePlusUrl: googlePlusUrl);
 
-        fireApplicationEvent(new ApplicationEvent.userAuthSuccess(this, user));
+        fireApplicationEvent(new ApplicationEvent.userAuthSuccess(this, user, token.data));
       } else {
         fireApplicationEvent(new ApplicationEvent.userAuthFail(this, request.toString()));
       }
