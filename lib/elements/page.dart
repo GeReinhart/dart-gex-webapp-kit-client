@@ -53,11 +53,15 @@ abstract class Page extends Positionable with Showable, ApplicationEventPassenge
     _layout.margin = margin;
   }
 
-  void toastMessage(String message, {Color color}) {
+  void toastMessage(String message, {Color color, num zIndex} ) {
     PaperToast toast = new PaperToast();
     if (color != null) {
       toast.style.backgroundColor = color.veryStrongColor;
     }
+    if (zIndex == null){
+      zIndex = 10000;
+    }
+    toast.style.zIndex = "${zIndex}";
     toast.text = message;
     _layout.append(toast);
     toast.show();
