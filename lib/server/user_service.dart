@@ -13,8 +13,8 @@ class UserService extends MongoDbService<User> {
 
   @app.Route("/login/:openId", methods: const [app.POST])
   Future<User> login(@Decode() User user) {
-    return findOne({"openId": user.openId}).then((user) {
-      if (user == null) {
+    return findOne({"openId": user.openId}).then((existingUser) {
+      if (existingUser == null) {
         throw new app.ErrorResponse(404, {"error": "no user with openId ${user.openId}"});
       } else {
         String authHash = app.request.headers["authHash"];
@@ -36,8 +36,8 @@ class UserService extends MongoDbService<User> {
               throw new app.ErrorResponse(410, {"error": "Credentials expired"});
             }
             
-            if ( email != user.email ||
-                user_id != user.openId ||
+            if ( email != existingUser.email ||
+                user_id != existingUser.openId ||
                 audience !=  UserService_googleOAuthClientId
                  ){
               throw new app.ErrorResponse(403, {"error": "Credentials corrupted"});
@@ -45,8 +45,8 @@ class UserService extends MongoDbService<User> {
             
             
             var session = app.request.session;
-            session["openid"] = user.openId;
-            return user;
+            session["openid"] = existingUser.openId;
+            return existingUser;
             
           });
         });
