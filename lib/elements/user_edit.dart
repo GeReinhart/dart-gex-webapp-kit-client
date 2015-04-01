@@ -2,6 +2,7 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 library gex_webapp_kit_client.user.edit;
 
+import "dart:html";
 import 'package:logging/logging.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
 import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
@@ -20,10 +21,12 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
   
   UserEdit.created() : super.created();
   MapGeoLocation map;
-
+  CheckboxInputElement emailVisibleElement;
+  
   @override
   void ready() {
     map = new MapGeoLocation($["map"], 400, "images/button/location76.png", 50);
+    emailVisibleElement = $["emailVisible"];
   }
 
   @override
@@ -41,6 +44,7 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
   set user(User user) {
     openId = user.openId;
     email = user.email;
+    emailVisibleElement.checked = user.emailVisible;
     displayName = user.displayName;
     
     // we keep data from fresh authentication
@@ -57,6 +61,7 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
   set userFromAuthentication(User user) {
     openId = user.openId;
     email = user.email;
+    emailVisibleElement.checked = user.emailVisible;
     displayName = user.displayName;
     avatarUrl = user.avatarUrl;
     googlePlusUrl = user.googlePlusUrl;
@@ -66,6 +71,7 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
   User get user => new User.fromFields(
       openId: openId,
       email: email,
+      emailVisible: emailVisibleElement.checked,
       displayName: displayName,
       avatarUrl: avatarUrl,
       googlePlusUrl:googlePlusUrl,

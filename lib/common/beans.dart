@@ -12,6 +12,7 @@ class User implements Bean {
   @Id() String id;
   @Field() String openId;
   @Field() String email;
+  @Field() bool emailVisible;
   @Field() String displayName;
   @Field() String avatarUrl;
   @Field() String googlePlusUrl;
@@ -21,10 +22,10 @@ class User implements Bean {
   @Field() num creationDateInMilliseconds;
   @Field() num lastUpdateDateInMilliseconds;
 
-  User([String this.id, String this.openId, String this.email, String this.displayName, String this.avatarUrl, String this.googlePlusUrl,
+  User([String this.id, String this.openId, String this.email, bool this.emailVisible , String this.displayName, String this.avatarUrl, String this.googlePlusUrl,
       num this.locationLat, num this.locationLng, String this.locationAddress]);
 
-  User.fromFields({String this.id, String this.openId, String this.email, String this.displayName,
+  User.fromFields({String this.id, String this.openId, String this.email, bool this.emailVisible, String this.displayName,
       String this.avatarUrl, String this.googlePlusUrl, num this.locationLat, num this.locationLng, String this.locationAddress}) {}
 
   User.loadJSON(Map json) {
@@ -40,6 +41,7 @@ class User implements Bean {
         id: id,
         openId: openId,
         email: email,
+        emailVisible:emailVisible,
         displayName: displayName,
         avatarUrl: avatarUrl,
         googlePlusUrl: googlePlusUrl,
@@ -48,6 +50,8 @@ class User implements Bean {
         locationAddress: locationAddress);
   }
 
+  bool get isEmailVisible => emailVisible != null && emailVisible;
+  
   bool get hasLocation => locationLat != null;
 
   DateTime get creationDate => (_buildDate(this.creationDateInMilliseconds));
@@ -77,6 +81,7 @@ class User implements Bean {
       "id": id,
       "openId": openId,
       "email": email,
+      "emailVisible" :emailVisible,
       "displayName": displayName,
       "avatarUrl": avatarUrl,
       "googlePlusUrl":googlePlusUrl,
@@ -91,6 +96,7 @@ class User implements Bean {
     id = json["id"];
     openId = json["openId"];
     email = json["email"];
+    emailVisible = json["emailVisible"];
     displayName = json["displayName"];
     avatarUrl = json["avatarUrl"];
     googlePlusUrl = json["googlePlusUrl"];

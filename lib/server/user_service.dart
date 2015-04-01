@@ -92,7 +92,16 @@ class UserService extends MongoDbService<User> {
 
   
   @app.Route("/users", methods: const [app.GET])
-  Future<List<User>> load() => find();
+  Future<List<User>> load() { 
+    return find().then((users){
+      users.forEach((u){
+        if (!u.isEmailVisible){
+          u.email = null;
+        }
+      });
+      return users;
+    });
+  }
 
   @app.Route("/user/:openId", methods: const [app.POST])
   Future<User> addOrUpdate(@Decode() User inputUser) {
