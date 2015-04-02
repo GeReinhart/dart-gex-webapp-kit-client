@@ -7,11 +7,11 @@
 <link rel="import" href="../../../packages/gex_webapp_kit_client/elements/formated_text.html">
 <link rel="import" href="../../../packages/gex_webapp_kit_client/elements/button.html">
 
-<polymer-element name="gex-formated-textarea" attributes="label text rows" >
+<polymer-element name="gex-formated-textarea" attributes="label text rows maxLength" >
   <template>
        <div id="main" >
                <paper-input-decorator   label="{{label}}" floatingLabel>
-                   <textarea id="textArea"  rows="{{rows}}">{{text}}</textarea>
+                   <textarea id="textArea" maxlength="{{maxLength}}"  rows="{{rows}}">{{text}}</textarea>
                </paper-input-decorator>
        </div>
         <div style="position: relative;">

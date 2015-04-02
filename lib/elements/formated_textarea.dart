@@ -19,6 +19,7 @@ class FormatedTextArea extends Positionable with Showable, ApplicationEventPasse
   @published String label ;
   @published String text ;
   @published num rows;
+  @published num maxLength = 5000;
   
   FormatedTextArea.created() : super.created();
   
