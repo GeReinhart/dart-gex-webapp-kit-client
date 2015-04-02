@@ -9,17 +9,17 @@
 
 <polymer-element name="gex-formated-textarea" attributes="label text rows maxLength" >
   <template>
-       <div id="main" style="margin-bottom: 30px">
+       <div id="main" style="margin-bottom: 35px">
                <paper-input-decorator   label="{{label}}" floatingLabel>
                    <textarea id="textArea" maxlength="{{maxLength}}"  rows="{{rows}}">{{text}}</textarea>
                </paper-input-decorator>
+              <div style="position: relative;">
+                  <div   style="position: absolute; top:0px ; left:0px; width: 100px ; height: 25px">
+                    <gex-button id="buttonPreview" ></gex-button>
+                    <gex-button id="buttonDoc" ></gex-button>
+                  </div>
+               </div>       
        </div>
-        <div style="position: relative;">
-            <div   style="position: absolute; top:0px ; left:0px; width: 100px ; height: 25px">
-              <gex-button id="buttonPreview" ></gex-button>
-              <gex-button id="buttonDoc" ></gex-button>
-            </div>
-         </div>       
        
         <paper-action-dialog id="dialogPreview" backdrop autoCloseDisabled>
             <h2>Preview</h2>        
