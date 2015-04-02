@@ -1,0 +1,64 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../packages/paper_elements/paper_input_decorator.html">
+<link rel="import" href="../../../packages/paper_elements/paper_button.html">
+<link rel="import" href="../../../packages/paper_elements/paper_dialog.html">
+<link rel="import" href="../../../packages/paper_elements/paper_action_dialog.html">
+<link rel="import" href="../../../packages/gex_webapp_kit_client/elements/formated_text.html">
+<link rel="import" href="../../../packages/gex_webapp_kit_client/elements/button.html">
+
+<polymer-element name="gex-formated-textarea" attributes="label text rows" >
+  <template>
+       <div id="main" >
+               <paper-input-decorator   label="{{label}}" floatingLabel>
+                   <textarea id="textArea"  rows="{{rows}}">{{text}}</textarea>
+               </paper-input-decorator>
+       </div>
+        <div style="position: relative;">
+            <div   style="position: absolute; top:0px ; left:0px; width: 100px ; height: 25px">
+              <gex-button id="buttonPreview" ></gex-button>
+              <gex-button id="buttonDoc" ></gex-button>
+            </div>
+         </div>       
+       
+        <paper-action-dialog id="dialogPreview" backdrop autoCloseDisabled>
+            <h2>Preview</h2>        
+            <p>
+            <gex-formated-text id="formatedText" ></gex-formated-text> 
+            </p>
+            <paper-button  affirmative autofocus>Close</paper-button>
+        </paper-action-dialog>
+
+        <paper-action-dialog id="dialogDoc" backdrop autoCloseDisabled>
+            <h2>Markdown syntax to format the text</h2> 
+               <paper-input-decorator   label="Samples" floatingLabel>
+                   <textarea id="docTextArea" readonly="readonly" rows="10">
+This is a strong __word__ and an *italic word*. We can also make some links to <https://www.dartlang.org/> and some links with [label] (https://www.dartlang.org/).                
+       
+***************
+            
+Here is a list :
+
+- Red
+- Green
+- Blue
+
+Here is a list with numbers :
+
+1. Bird
+2. McHale
+3. Parish
+
+
+</textarea>
+               </paper-input-decorator>   
+            <div style="background-color: #F0EFEB">            
+              <gex-formated-text id="docFormatedText" ></gex-formated-text> 
+            </div>
+            <paper-button  affirmative autofocus>Close</paper-button>
+        </paper-action-dialog>
+
+
+  </template>
+  <script type="application/dart" src="formated_textarea.dart"></script>
+</polymer-element>

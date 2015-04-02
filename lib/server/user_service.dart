@@ -30,14 +30,12 @@ class UserService extends MongoDbService<User> {
             String audience = json["audience"];
             String user_id = json["user_id"];
             num expires_in = json["expires_in"];
-            String email = json["email"];
 
             if ( expires_in == 0) {
               throw new app.ErrorResponse(410, {"error": "Credentials expired"});
             }
             
-            if ( email != existingUser.email ||
-                user_id != existingUser.openId ||
+            if ( user_id != existingUser.openId ||
                 audience !=  UserService_googleOAuthClientId
                  ){
               throw new app.ErrorResponse(403, {"error": "Credentials corrupted"});

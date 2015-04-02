@@ -2,10 +2,15 @@
 <link rel="import" href="../../../packages/polymer/polymer.html">
 <link rel="import" href="../../../packages/gex_webapp_kit_client/elements/layout.html">
 
+<link rel="import" href="../../../packages/gex_webapp_kit_client/elements/formated_textarea.html">
+
+
 <polymer-element name="page-home"  >
   <template>
     <gex-layout id="layout">
          <h1>Gex WebApp Kit - Show room</h1>
+         <gex-formated-textarea id="textArea" rows="10" label="Welcome !" text="Show room for all the elements of the __Gex WebApp Kit__.">
+         </gex-formated-textarea>
     </gex-layout>
   </template>
   <script type="application/dart" src="home.dart"></script>

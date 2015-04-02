@@ -24,6 +24,7 @@ class FormatedText extends Positionable with Showable, ApplicationEventPassenger
                          ..allowCustomElement("ol" )
                          ..allowCustomElement("ul" )
                          ..allowCustomElement("li" )
+                         ..allowCustomElement("hr" )
                          ..allowCustomElement("strong" )
                          ..allowCustomElement("em" )                         
                          ;
