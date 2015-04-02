@@ -56,6 +56,8 @@ class FormatedTextArea extends Positionable with Showable, ApplicationEventPasse
     }    
   }  
   
+  String get value => textArea.value;
+  set value(String v) => textArea.value = v;
   
   PaperActionDialog get dialogPreview => $["dialogPreview"] as PaperActionDialog;
   PaperActionDialog get dialogDoc => $["dialogDoc"] as PaperActionDialog;
