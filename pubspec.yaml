@@ -1,4 +1,6 @@
 name: gex_webapp_kit
+author : Gérald Reinhart <gerald.reinhart@gmail.com>
+homepage : https://github.com/GeReinhart/dart-gex-webapp-kit-client
 version: 0.1.0
 description: Provide a set of common WebComponent and classes to be able to build responsive web applications.
 environment:
