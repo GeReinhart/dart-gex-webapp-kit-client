@@ -4,10 +4,10 @@ library gex_webapp_kit_client.page;
 
 import 'package:logging/logging.dart';
 import 'dart:async';
-import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
-import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
-import 'package:gex_webapp_kit_client/elements/layout.dart';
-import 'package:gex_webapp_kit_client/elements/application.dart';
+import 'package:gex_webapp_kit/webapp_kit_client.dart';
+import 'package:gex_webapp_kit/webapp_kit_common.dart';
+import 'package:gex_webapp_kit/client/elements/layout.dart';
+import 'package:gex_webapp_kit/client/elements/application.dart';
 import 'package:paper_elements/paper_toast.dart';
 
 abstract class Page extends Positionable with Showable, ApplicationEventPassenger {

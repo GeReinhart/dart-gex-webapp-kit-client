@@ -4,11 +4,11 @@ library gex_webapp_kit_client.formated_textarea;
 
 import "dart:html";
 import 'package:logging/logging.dart';
-import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
-import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
+import 'package:gex_webapp_kit/webapp_kit_client.dart';
+import 'package:gex_webapp_kit/webapp_kit_common.dart';
 import 'package:polymer/polymer.dart';
-import 'package:gex_webapp_kit_client/elements/button.dart';
-import 'package:gex_webapp_kit_client/elements/formated_text.dart';
+import 'package:gex_webapp_kit/client/elements/button.dart';
+import 'package:gex_webapp_kit/client/elements/formated_text.dart';
 import 'package:paper_elements/paper_action_dialog.dart';
 
 @CustomTag('gex-formated-textarea')

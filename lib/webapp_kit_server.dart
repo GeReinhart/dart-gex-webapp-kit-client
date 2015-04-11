@@ -13,6 +13,6 @@ import "package:redstone_mapper/plugin.dart";
 import "package:redstone_mapper_mongo/service.dart";
 import "package:oauth2/oauth2.dart";
 
-import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
+import 'package:gex_webapp_kit/webapp_kit_common.dart';
 
 part 'server/user_service.dart';

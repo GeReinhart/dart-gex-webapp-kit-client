@@ -6,8 +6,7 @@ import 'package:unittest/unittest.dart';
 import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
-import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
-import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
+import 'package:gex_webapp_kit/webapp_kit_client.dart';
 import 'app/application.dart';
 
 main() {

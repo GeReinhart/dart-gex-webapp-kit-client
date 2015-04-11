@@ -5,8 +5,8 @@ library gex_webapp_kit_client.ternary_options;
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 
-import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
-import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
+import 'package:gex_webapp_kit/webapp_kit_client.dart';
+import 'package:gex_webapp_kit/webapp_kit_common.dart';
 import 'button.dart';
 
 @CustomTag('gex-ternary-options')

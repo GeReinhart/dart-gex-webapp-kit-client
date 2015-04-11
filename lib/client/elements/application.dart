@@ -5,15 +5,14 @@ library gex_webapp_kit_client.application;
 import "dart:html" hide ScreenOrientation;
 import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
-import 'dart:async';
-import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
-import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
+import 'package:gex_webapp_kit/webapp_kit_client.dart';
+import 'package:gex_webapp_kit/webapp_kit_common.dart';
 
-import 'package:gex_webapp_kit_client/elements/toolbar.dart';
-import 'package:gex_webapp_kit_client/elements/view_port.dart';
-import 'package:gex_webapp_kit_client/elements/page.dart';
-import 'package:gex_webapp_kit_client/elements/loading_space.dart';
-import 'package:gex_webapp_kit_client/elements/dialog_message.dart';
+import 'package:gex_webapp_kit/client/elements/toolbar.dart';
+import 'package:gex_webapp_kit/client/elements/view_port.dart';
+import 'package:gex_webapp_kit/client/elements/page.dart';
+import 'package:gex_webapp_kit/client/elements/loading_space.dart';
+import 'package:gex_webapp_kit/client/elements/dialog_message.dart';
 
 /**
  * Listen to the screen/window changes and broadcast ViewPort change events.

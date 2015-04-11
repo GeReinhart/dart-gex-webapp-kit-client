@@ -4,7 +4,7 @@ library gex_webapp_kit_client.absolute_space;
 
 import 'package:polymer/polymer.dart';
 
-import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
+import 'package:gex_webapp_kit/webapp_kit_client.dart';
 
 /**
  * Create an absolute positioning space.

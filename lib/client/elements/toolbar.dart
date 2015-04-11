@@ -6,9 +6,8 @@ import "dart:html" hide ScreenOrientation;
 import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 
-import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
-import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
-import 'package:gex_webapp_kit_client/elements/button.dart';
+import 'package:gex_webapp_kit/webapp_kit_client.dart';
+import 'package:gex_webapp_kit/client/elements/button.dart';
 
 /**
  * Display buttons to create a toolbar.

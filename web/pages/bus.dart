@@ -5,9 +5,9 @@ library gex_webapp_kit_client.show_room.bus;
 import "dart:html";
 import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
-import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
-import 'package:gex_webapp_kit_client/elements/layout.dart';
-import 'package:gex_webapp_kit_client/elements/page.dart';
+import 'package:gex_webapp_kit/webapp_kit_client.dart';
+import 'package:gex_webapp_kit/client/elements/layout.dart';
+import 'package:gex_webapp_kit/client/elements/page.dart';
 
 @CustomTag('page-bus')
 class PageBus extends Page with Showable {

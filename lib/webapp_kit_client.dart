@@ -10,7 +10,7 @@ import 'package:polymer/polymer.dart';
 import 'package:logging/logging.dart';
 import "package:google_oauth2_client/google_oauth2_browser.dart";
 
-import 'package:gex_webapp_kit_client/webapp_kit_common.dart';
+import 'package:gex_webapp_kit/webapp_kit_common.dart';
 
 part 'client/abilities.dart';
 part 'client/events.dart';
@@ -19,4 +19,4 @@ part 'client/requests.dart';
 part 'client/routing.dart';
 part 'client/user.dart';
 
-part 'elements/models.dart';
+part 'client/elements/models.dart';

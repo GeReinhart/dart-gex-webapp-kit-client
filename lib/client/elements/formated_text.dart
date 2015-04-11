@@ -4,7 +4,7 @@ library gex_webapp_kit_client.formated_text;
 
 import "dart:html";
 import 'package:logging/logging.dart';
-import 'package:gex_webapp_kit_client/webapp_kit_client.dart';
+import 'package:gex_webapp_kit/webapp_kit_client.dart';
 import 'package:polymer/polymer.dart';
 import 'package:markdown/markdown.dart';
 
