@@ -25,7 +25,7 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
   
   @override
   void ready() {
-    map = new MapGeoLocation($["map"], window.innerWidth * 0.6 , "images/button/location76.png", 50);
+    map = new MapGeoLocation($["map"], computemapSize() , "images/button/location76.png", 50);
     emailVisibleElement = $["emailVisible"];
   }
 
@@ -44,8 +44,14 @@ class UserEdit extends Positionable with Showable, ApplicationEventPassenger {
   @override
   void recieveApplicationEvent(ApplicationEvent event) {
     if (event.isViewPortChange){
-      map.size = event.viewPort.windowWidth *0.6;
+      map.size = computemapSize();
     }
+  }
+  
+  
+  num computemapSize() {
+    num mapSize = window.innerWidth * 0.6;
+    return mapSize > 500 ?  500 :mapSize ;
   }
   
   set user(User user) {
