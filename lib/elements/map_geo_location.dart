@@ -16,6 +16,7 @@ class MapGeoLocation extends Object with Showable {
   final LatLng defaultPosition = new LatLng(45.148609248398735, 5.729827880859428);
 
   DivElement map;
+  DivElement mapCanvas;
   num mapSize;
   String markerUrl;
   User _user;
@@ -44,8 +45,6 @@ class MapGeoLocation extends Object with Showable {
       _editionMode = value;
     }
     if (_googleMap != null) {
-      LatLngBounds bounds = _googleMap.bounds;
-
       _googleMap.options = new MapOptions()
         ..draggable = _editionMode
         ..disableDoubleClickZoom = !_editionMode
@@ -68,7 +67,7 @@ class MapGeoLocation extends Object with Showable {
   }
 
   void init() {
-    DivElement mapCanvas = new DivElement();
+    mapCanvas = new DivElement();
     mapCanvas.style
       ..height = "${mapSize}px"
       ..width = "${mapSize}px"
@@ -129,6 +128,14 @@ class MapGeoLocation extends Object with Showable {
     }
   }
 
+  set size( num value){
+    mapSize = value ;
+    mapCanvas.style
+      ..height = "${mapSize}px"
+      ..width = "${mapSize}px";
+    event.trigger(_googleMap, 'resize', []);
+  }
+  
   bool _canKeepMarkerInCenter = false;
   void _keepMarkerInCenter() {
     if (_canKeepMarkerInCenter && _editionMode) {
