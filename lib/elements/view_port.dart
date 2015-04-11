@@ -37,7 +37,7 @@ class ViewPort extends Positionable with Showable, ApplicationEventPassenger {
 
   void _updateViewPort() {
     ViewPortModel newScreen = new ViewPortModel.fromWindow(window, hasTouchSupport);
-    if (newScreen != _model) {
+    if (newScreen.windowWidth != _model.windowWidth) {
       _model = newScreen;
       log.info("ViewPort ${id} changed to ${_model}");
       fireApplicationEvent(new ApplicationEvent.viewPortChange(this, _model));
