@@ -391,9 +391,10 @@ class TernaryOptionsModel {
   String labelDisabled;
   Color color;
   num buttonSize;
+  num width ;
 
   TernaryOptionsModel(String this.desc, {String this.labelDisabled, String this.labelNone, String this.labelEnabled,
-      Color this.color, TernaryOption this.option, num this.buttonSize}) {
+      Color this.color, TernaryOption this.option, num this.buttonSize, num this.width}) {
     if (this.option == null) {
       option = TernaryOption.NONE;
     }
@@ -411,6 +412,9 @@ class TernaryOptionsModel {
     }
     if (this.buttonSize == null) {
       buttonSize = 35;
+    }
+    if (this.width == null){
+      width = buttonSize * 13 ;
     }
   }
 }

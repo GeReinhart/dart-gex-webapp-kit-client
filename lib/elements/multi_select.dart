@@ -37,9 +37,6 @@ class MultiSelect extends Positionable with Showable {
       model.selectedElements = new Set<num>();
     }
 
-    buttonsContainerRelative.style
-      ..height = "${model.buttonSize*2}px"
-      ..width = "${model.buttonSize*13}px";
 
     buttonsContainer.style
       ..height = "${model.buttonSize}px"
@@ -78,9 +75,6 @@ class MultiSelect extends Positionable with Showable {
       currentButton.moveTo(new Position(index * model.buttonSize * 5 , 0, model.buttonSize * 5, model.buttonSize, 100));
       index++;
     }
-    buttonsContainerRelative.style
-      ..height = "${model.buttonSize*2}px"
-      ..width = "${model.buttonSize*13}px";
 
     buttonsContainer.style
       ..height = "${model.buttonSize}px"

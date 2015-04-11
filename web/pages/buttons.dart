@@ -27,7 +27,8 @@ class PageButtons extends Page with Showable {
   Button button3;
   Button button4;
   TernaryOptions options;
-
+  TernaryOptions options2;
+  
   num buttonBasicSize = 300;
 
   PageButtons.created() : super.created();
@@ -53,13 +54,17 @@ class PageButtons extends Page with Showable {
           ? event.viewPort.windowHeight / 3
           : event.viewPort.windowWidth / 3;
       _moveButtons();
+      
+      options.width = event.viewPort.windowWidth * 0.7;
+      options2.width = event.viewPort.windowWidth * 0.7;
+      
     }
   }
 
   void _setAttributesButtons() {
     options = $["options"] as TernaryOptions;
     options.init(new TernaryOptionsModel("Do you want more ?"));
-    TernaryOptions options2 = $["options2"] as TernaryOptions;
+    options2 = $["options2"] as TernaryOptions;
     options2.init(new TernaryOptionsModel("Do you want more and more ?"));
 
     button1 = $["button1"] as Button;

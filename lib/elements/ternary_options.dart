@@ -19,22 +19,20 @@ class TernaryOptions extends Positionable with Showable {
     this.model = model;
 
     buttonsContainerRelative.style
-      ..height = "${model.buttonSize*2}px"
-      ..width = "${model.buttonSize*13}px";
+      ..height = "${model.buttonSize*2}px";
 
     buttonsContainer.style
-      ..height = "${model.buttonSize}px"
-      ..width = "${model.buttonSize*3}px";
+      ..height = "${model.buttonSize}px";
     desc.style
       ..left = "${model.buttonSize*3 + 10}px"
-      ..top = "${model.buttonSize/2}px"
-      ..width = "${model.buttonSize*10}px";
+      ..top = "${model.buttonSize/2}px";
 
     label.style
       ..left = "${10}px"
-      ..top = "${model.buttonSize +10}px"
-      ..width = "${model.buttonSize*10}px";
+      ..top = "${model.buttonSize +10}px";
 
+    this.width = model.width;
+      
     buttonNone.init(new ButtonModel(color: model.color, action: (p) => this.option = TernaryOption.NONE));
     buttonNone.moveTo(new Position(0, 0, model.buttonSize, model.buttonSize, 100));
     buttonEnabled.init(new ButtonModel(
@@ -51,6 +49,15 @@ class TernaryOptions extends Positionable with Showable {
     option = model.option;
   }
 
+  set width(num value){
+    model.width = value;
+
+    buttonsContainerRelative.style.width = "${model.width}px";
+    buttonsContainer.style.width = "${model.buttonSize*3}px";
+    desc.style.width  = "${model.width - model.buttonSize*4}px";
+    label.style.width = "${model.width - model.buttonSize*4}px";
+  }
+  
   set option(TernaryOption value) {
     switch (value.toString()) {
       case "TernaryOption.NONE":
