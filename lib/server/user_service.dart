@@ -74,6 +74,9 @@ class UserService extends MongoDbService<User> {
   
   @app.Route("/register/:openId", methods: const [app.POST])
   Future<User> register(@Decode() User user) {
+    if (user.openId == null){
+      throw new app.ErrorResponse(403, {"error": "no openId"});
+    }
     return insert(user).then((_) => user);
   }
 
